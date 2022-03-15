@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/laurapost/Desktop/Web API Test/WebAPITest/WebAPITest/WebAPITest.csproj": {}
+    "C:\\Users\\ricar\\OneDrive - University of St. Thomas\\Senior\\CISC 480\\Local github\\DatabaseTeam\\Web API Test\\WebAPITest\\WebAPITest\\WebAPITest.csproj": {}
   },
   "projects": {
-    "/Users/laurapost/Desktop/Web API Test/WebAPITest/WebAPITest/WebAPITest.csproj": {
+    "C:\\Users\\ricar\\OneDrive - University of St. Thomas\\Senior\\CISC 480\\Local github\\DatabaseTeam\\Web API Test\\WebAPITest\\WebAPITest\\WebAPITest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/laurapost/Desktop/Web API Test/WebAPITest/WebAPITest/WebAPITest.csproj",
+        "projectUniqueName": "C:\\Users\\ricar\\OneDrive - University of St. Thomas\\Senior\\CISC 480\\Local github\\DatabaseTeam\\Web API Test\\WebAPITest\\WebAPITest\\WebAPITest.csproj",
         "projectName": "WebAPITest",
-        "projectPath": "/Users/laurapost/Desktop/Web API Test/WebAPITest/WebAPITest/WebAPITest.csproj",
-        "packagesPath": "/Users/laurapost/.nuget/packages/",
-        "outputPath": "/Users/laurapost/Desktop/Web API Test/WebAPITest/WebAPITest/obj/",
+        "projectPath": "C:\\Users\\ricar\\OneDrive - University of St. Thomas\\Senior\\CISC 480\\Local github\\DatabaseTeam\\Web API Test\\WebAPITest\\WebAPITest\\WebAPITest.csproj",
+        "packagesPath": "C:\\Users\\ricar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ricar\\OneDrive - University of St. Thomas\\Senior\\CISC 480\\Local github\\DatabaseTeam\\Web API Test\\WebAPITest\\WebAPITest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/laurapost/.config/NuGet/NuGet.Config"
+          "C:\\Users\\ricar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,6 +39,16 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.123, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.3.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -55,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.406/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

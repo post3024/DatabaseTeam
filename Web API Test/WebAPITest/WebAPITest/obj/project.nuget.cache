@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "7vNmz13zbAZ83NNdZQOTUG2ed7U8x06YGTrRj8cdruIOcFcfE15UypXiDZky0U+NjflfsrGPpozw+5QrmBBR+g==",
+  "dgSpecHash": "PRrRQUnTpxrFYz/BnaSI5MEWeemRtuqWkLEp2hYVCXqhH0Dw2qCna+IiozkJz7/1mAuGQfL5gbIVdZXH8xxcpg==",
   "success": true,
-  "projectFilePath": "/Users/laurapost/Desktop/Web API Test/WebAPITest/WebAPITest/WebAPITest.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\ricar\\OneDrive - University of St. Thomas\\Senior\\CISC 480\\Local github\\DatabaseTeam\\Web API Test\\WebAPITest\\WebAPITest\\WebAPITest.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ricar\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\ricar\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\ricar\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\ricar\\.nuget\\packages\\swashbuckle.aspnetcore\\6.3.0\\swashbuckle.aspnetcore.6.3.0.nupkg.sha512",
+    "C:\\Users\\ricar\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.3.0\\swashbuckle.aspnetcore.swagger.6.3.0.nupkg.sha512",
+    "C:\\Users\\ricar\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.3.0\\swashbuckle.aspnetcore.swaggergen.6.3.0.nupkg.sha512",
+    "C:\\Users\\ricar\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.3.0\\swashbuckle.aspnetcore.swaggerui.6.3.0.nupkg.sha512"
+  ],
   "logs": []
 }
