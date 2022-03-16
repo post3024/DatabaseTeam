@@ -29,7 +29,7 @@ namespace WebAPITest
             services.AddControllers();
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title ="My API", Version = "v1" });
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title ="Classy Schedule API", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace WebAPITest
             //specify swagger endpoint
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Classy Schedule API V1");
             });
             if (env.IsDevelopment())
             {
