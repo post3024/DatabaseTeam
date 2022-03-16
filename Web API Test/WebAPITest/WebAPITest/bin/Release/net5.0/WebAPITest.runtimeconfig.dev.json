@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/Users/laurapost/.dotnet/store/|arch|/|tfm|",
+      "/Users/laurapost/.nuget/packages"
+    ]
+  }
+}
