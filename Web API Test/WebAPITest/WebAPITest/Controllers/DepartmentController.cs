@@ -27,8 +27,8 @@ namespace WebAPITest.Controllers
             _logger = logger;
             var host = _configuration["DBHOST"] ?? "capstonedb01.mysql.database.azure.com";
             var port = _configuration["DBPORT"] ?? "3306";
-            var password = _configuration["MYSQL_PASSWORD"] ?? "webdevpass";
-            var userid = _configuration["MYSQL_USER"] ??"webdevteam";
+            var password = _configuration["MYSQL_PASSWORD"] ?? "DBadmin01!";
+            var userid = _configuration["MYSQL_USER"] ?? "capstoneadmin";
             var usersDataBase = _configuration["MYSQL_DATABASE"] ?? "classyschedule";
 
             connString = $"server={host}; userid={userid};pwd={password};port={port};database={usersDataBase}";
@@ -45,6 +45,34 @@ namespace WebAPITest.Controllers
                 {
                     
                     var result = await connection.QueryAsync<DepartmentDTO>(query, CommandType.Text);    
+                    depts = result.ToList();
+                }
+                if (depts.Count > 0)
+                {
+                    return Ok(depts);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Unable To Process Request");
+            }
+        }
+
+        [HttpPost("departments")]
+        public async Task<ActionResult<List<DepartmentDTO>>> GetDepartmentByName(String dept_name) {
+            var depts = new List<DepartmentDTO>();
+            try
+            {
+                string query = @"SELECT dept_name FROM department WHERE dept_name = '" + dept_name + "'";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+
+                    var result = await connection.QueryAsync<DepartmentDTO>(query, CommandType.Text);
                     depts = result.ToList();
                 }
                 if (depts.Count > 0)
