@@ -1,6 +1,6 @@
 name: Deploy ASP.NET MVC App deploy to Azure Web App
 
-on: [push]
+on: [push, workflow_dispatch]
 
 env:
   AZURE_WEBAPP_NAME: capstonedbapi    # set this to your application's name
