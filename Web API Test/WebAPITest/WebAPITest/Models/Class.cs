@@ -3,7 +3,6 @@ namespace WebAPITest.Models
 {
     public class ClassDTO
     {
-        //test
         public string class_num { get; set; }
 
         public string dept_id { get; set; }
