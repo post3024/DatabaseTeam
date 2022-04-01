@@ -1,0 +1,6 @@
+﻿// Some code taken from https://github.com/cornflourblue/dotnet-5-jwt-authentication-api
+{
+  "msbuild": {
+    "useBundledOnly": true
+  }
+}

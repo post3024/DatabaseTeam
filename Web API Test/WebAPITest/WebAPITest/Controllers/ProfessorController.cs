@@ -12,6 +12,7 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("professor-management")]
     public class ProfessorController : ControllerBase

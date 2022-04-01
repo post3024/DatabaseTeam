@@ -12,6 +12,7 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("schedule-management")]
     public class ScheduleController : ControllerBase

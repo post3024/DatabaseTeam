@@ -1,12 +1,7 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{F3CAD161-51E7-4CC1-9725-0AB2815A95F5}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebAPITest/Startup.cs">
     <Files>
-      <File FileName="WebAPITest/Controllers/WeatherForecastController.cs" Line="26" Column="5" />
-      <File FileName="WebAPITest/appsettings.json" Line="1" Column="1" />
-      <File FileName="WebAPITest/Startup.cs" Line="44" Column="83" />
-      <File FileName="WebAPITest/Properties/launchSettings.json" Line="15" Column="23" />
-      <File FileName="WebAPITest/Program.cs" Line="1" Column="1" />
-      <File FileName="WebAPITest/Models/EmptyClass.cs" Line="6" Column="1" />
+      <File FileName="WebAPITest/Startup.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,9 +9,10 @@
           <Node name="WebAPITest" expanded="True">
             <Node name="WebAPITest" expanded="True">
               <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="Department.cs" selected="True" />
-              </Node>
+              <Node name="Helpers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Services" expanded="True" />
+              <Node name="Startup.cs" selected="True" />
             </Node>
           </Node>
         </State>
