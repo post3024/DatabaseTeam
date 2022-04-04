@@ -3,7 +3,7 @@ name: Deploy .NET App to Azure Web App
 on: [push, workflow_dispatch]
 env:
   AZURE_WEBAPP_NAME: capstonedbapi     # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: './Web API Test/WebAPITest'      # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '5.0.x'           # set this to the dot net version to use
 
 jobs:
@@ -12,7 +12,7 @@ jobs:
 
     steps:
       # Checkout the repo
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v2
       
       # Setup .NET Core SDK
       - name: Setup .NET Core
@@ -25,7 +25,7 @@ jobs:
         run: |
           dotnet restore
           dotnet build --configuration Release
-          dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/WebAPITest' 
+          dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}' 
           
       # Deploy to Azure Web apps
       - name: 'Run Azure webapp deploy action using publish profile credentials'
@@ -33,4 +33,4 @@ jobs:
         with: 
           app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/WebAPITest'
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
