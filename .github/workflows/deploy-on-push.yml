@@ -4,9 +4,8 @@ on: [push, workflow_dispatch]
 
 env:
   AZURE_WEBAPP_NAME: capstonedbapi    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  NUGET_VERSION: '3.0.0'           # set this to the dot net version to use
-
+  AZURE_WEBAPP_PACKAGE_PATH: '.Web API Test/WebAPITest/WebAPITest.sln'      # set this to the path to your web app project, defaults to the repository root
+  
 jobs:
   build-and-deploy:
     runs-on: windows-latest
@@ -14,8 +13,6 @@ jobs:
 
     - uses: actions/checkout@main  
     
-    - name: Install Nuget
-      # new step
     - name: Add nuget.org as nuget package source
       run: dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget.org
   
@@ -30,4 +27,4 @@ jobs:
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
-        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/SampleWebApplication/'
+        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
