@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@main  
     
     - name: Install Nuget
-      uses: nuget/setup-nuget@v1
+      uses: nuget/setup-nuget@v3
       with:
         nuget-version: ${{ env.NUGET_VERSION}}
     - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
