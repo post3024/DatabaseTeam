@@ -22,6 +22,7 @@ jobs:
       
       # Run dotnet build and publish
       - name: dotnet build and publish
+        working-directory: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
         run: |
           dotnet restore
           dotnet build --configuration Release
