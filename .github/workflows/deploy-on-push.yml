@@ -15,11 +15,9 @@ jobs:
     - uses: actions/checkout@main  
     
     - name: Install Nuget
-      uses: nuget/setup-nuget@v3
-      with:
-        nuget-version: ${{ env.NUGET_VERSION}}
-    - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
-      run: nuget restore
+      # new step
+    - name: Add nuget.org as nuget package source
+      run: dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget.org
   
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
