@@ -1,0 +1,32 @@
+﻿<Properties GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebAPITest/Controllers/ClassController.cs">
+    <Files>
+      <File FileName="WebAPITest/Startup.cs" Line="90" Column="44" />
+      <File FileName="WebAPITest/Controllers/UserController.cs" Line="13" Column="1" />
+      <File FileName="WebAPITest/Controllers/ClassController.cs" Line="82" Column="45" />
+      <File FileName="WebAPITest/Helpers/JwtMiddleware.cs" Line="3" Column="7" />
+      <File FileName="WebAPITest/Helpers/AuthorizeAttribute.cs" />
+      <File FileName="WebAPITest/Helpers/AppSettings.cs" />
+      <File FileName="WebAPITest/Services/UserService.cs" />
+      <File FileName="WebAPITest/Models/AuthenticateRequest.cs" />
+      <File FileName="WebAPITest/Models/User.cs" />
+      <File FileName="WebAPITest/appsettings.json" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WebAPITest" expanded="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>WebAPITest/WebAPITest.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

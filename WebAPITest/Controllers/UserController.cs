@@ -6,7 +6,7 @@ using WebAPITest.Services;
 namespace WebAPITest.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("user-management")]
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
@@ -16,8 +16,10 @@ namespace WebAPITest.Controllers
             _userService = userService;
         }
 
+        /// <summary>Authenticate a user</summary>
+        /// <remarks>POST request that authenticates a user with inputted information. If valid, returns a token to be used to authenticate future requests.</remarks>
         [HttpPost("authenticate")]
-        public IActionResult Authenticate(AuthenticateRequest model)
+        public ActionResult<AuthenticateResponse> Authenticate(AuthenticateRequest model)
         {
             var response = _userService.Authenticate(model);
 

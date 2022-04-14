@@ -17,7 +17,6 @@ namespace WebAPITest.Controllers
     [Route("class-management")]
     public class ClassController : ControllerBase
     {
-        //code here
         private readonly IConfiguration _configuration;
         private readonly string connString;
 
@@ -34,9 +33,8 @@ namespace WebAPITest.Controllers
         }
 
 
-        /**
-         * This get method will return all class records in the database
-         */
+        /// <summary>Get all classes</summary>
+        /// <remarks>GET request that retrieves all classes.</remarks>
         [HttpGet("classes")]
         public async Task<ActionResult<List<ClassDTO>>> GetAllClasses()
         {
@@ -62,17 +60,16 @@ namespace WebAPITest.Controllers
                 }
             }
             //catch exception
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
             }
         }
 
-        /**
-         * This post method will get a class based on the inputed class_name and class_num
-         */
-        [HttpPost("class/NameAndNumber")]
-        public async Task<ActionResult<List<ClassDTO>>> GetClassByNameAndNumber (string class_name, string class_num)
+        /// <summary>Get class by class number</summary>
+        /// <remarks>GET request that retrieves the class with specified class number.</remarks>
+        [HttpGet("classes/{class_num}")]
+        public async Task<ActionResult<List<ClassDTO>>> GetClassByNameAndNumber (int class_num)
         {
             var classes = new List<ClassDTO>();
             try
@@ -80,8 +77,7 @@ namespace WebAPITest.Controllers
                 //Create query string
                 string query = @"SELECT * 
                                  FROM class 
-                                 WHERE class_name = '" + class_name + "' " +
-                                  "AND class_num = " + class_num;
+                                 WHERE class_num = " + class_num;
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -100,62 +96,86 @@ namespace WebAPITest.Controllers
                 }
             }
             //catch exception
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
             }
         }
 
-        /**
-         * This method will delete a class record based on the inputed class_name and class_num
-         */
-        [HttpPost("class/delete")]
-        public async Task<ActionResult<List<ClassDTO>>> DeleteClassByNameAndNumber(string class_name, string class_num)
+        /// <summary>Delete class by class number</summary>
+        /// <remarks>DELETE request that deletes the class with specified class number.</remarks>
+        [HttpDelete("classes/delete/{class_num}")]
+        public async Task<ActionResult> DeleteClassByNameAndNumber(int class_num)
         {
             try
             {
                 //create query string
                 string deleteQuery = @"DELETE FROM class " +
-                                      "WHERE class_name = '" + class_name + "' " +
-                                        "AND class_num = " + class_num;
+                                      "WHERE class_num = " + class_num;
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     //execute query string
-                    var result = await connection.QueryAsync<DepartmentDTO>(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
                 }
-                return StatusCode(200, "Successfully deleted " + class_num + ' ' + class_name);
+                return StatusCode(200, "Successfully deleted class " + class_num);
             }
             //catch exceptions
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
             }
         }
 
-        /**
-         * This post method will create a new class based on the inputed class_num, dept_id, class_name, capacity, and credits
-         */
-        [HttpPost("class/create")]
-        public async Task<ActionResult<List<ClassDTO>>> InsertClass(string class_num, string dept_id, string class_name, string capacity, string credits)
+        /// <summary>Create a new class</summary>
+        /// <remarks>POST request that creates a new class with the inputted information.</remarks>
+        [HttpPost("classes/create")]
+        public async Task<ActionResult> InsertClass(ClassDTO model)
         {
             try
             {
                 //create the query string
                 string query = @"INSERT INTO class (class_num, dept_id, class_name, capacity, credits) " +
-                                "VALUES (" + class_num + "," + dept_id + ",'" + class_name + "'," + capacity + "," + credits + ");";
+                                "VALUES (" + model.class_num + "," + model.dept_id + ",'" + model.class_name + "'," + model.capacity + "," + model.credits + ");";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     //Execute the query
                     var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
                 }
-                return StatusCode(200, "Successfully created class ");
+                return StatusCode(200, "Successfully created class " + model.class_num);
             }
             //catch the exceptions
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>Update class by class number</summary>
+        /// <remarks>PUT request that updates the class with specified class number to be set to the new inputted values.</remarks>
+        [HttpPut("classes/update/{class_num}")]
+        public async Task<ActionResult> UpdateClass(ClassDTO model, int class_num)
+        {
+            try
+            {
+                //create the query string
+                string query = @"UPDATE class
+                                 SET class_num = " + model.class_num + ", dept_id = " + model.dept_id + ", class_name = '" + model.class_name +
+                                 "', capacity = " + model.capacity + ", credits = " + model.credits +
+                                 " WHERE class_num = " + class_num + ";";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    //Execute the query
+                    var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
+                }
+                return StatusCode(200, "Successfully updated class");
+            }
+            //catch the exceptions
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
             }
         }
     }

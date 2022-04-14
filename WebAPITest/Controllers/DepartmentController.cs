@@ -31,10 +31,9 @@ namespace WebAPITest.Controllers
 
             connString = $"server={host}; userid={userid};pwd={password};port={port};database={usersDataBase}";
         }
-        
-        /**
-         * Get all of the department records
-         */
+
+        /// <summary>Get all departments</summary>
+        /// <remarks>GET request that retrieves all departments.</remarks>
         [HttpGet("departments")]
         public async Task<ActionResult<List<DepartmentDTO>>> GetAllDepartments()
         {
@@ -60,22 +59,21 @@ namespace WebAPITest.Controllers
                 }
             }
             //catch exception
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
             }
         }
 
-        /**
-         * This post request will gather a department record based on the inputed dept_name
-         */ 
-        [HttpPost("departments/name")]
-        public async Task<ActionResult<List<DepartmentDTO>>> GetDepartmentByName(String dept_name) {
+        /// <summary>Get department by department id</summary>
+        /// <remarks>GET request that retrieves the department with specified department id.</remarks>
+        [HttpGet("departments/{dept_id}")]
+        public async Task<ActionResult<List<DepartmentDTO>>> GetDepartmentByName(int dept_id) {
             var depts = new List<DepartmentDTO>();
             try
             {
                 //create query string
-                string query = @"SELECT * FROM department WHERE dept_name = '" + dept_name + "'";
+                string query = @"SELECT * FROM department WHERE dept_id = " + dept_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -94,61 +92,88 @@ namespace WebAPITest.Controllers
                 }
             }
             //catch exception
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
             }
         }
 
-        /**
-         * This post method will delete a department record based on the inputed dept_name
-         */
-        [HttpPost("departments/delete")]
-        public async Task<ActionResult<List<DepartmentDTO>>> DeleteDepartmentByName(string dept_name)
+        /// <summary>Delete department by department id</summary>
+        /// <remarks>DELETE request that deletes the department with specified department id.</remarks>
+        [HttpDelete("departments/delete/{dept_id}")]
+        public async Task<ActionResult> DeleteDepartmentByName(int dept_id)
         {
             try
             {
                 //create query string
                 string deleteQuery = @"DELETE FROM department
-                                 WHERE dept_name = '" + dept_name + "'";
+                                 WHERE dept_id = " + dept_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     //execute query string
-                    var result = await connection.QueryAsync<DepartmentDTO>(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
                 }
-                return StatusCode(200, "Successfully deleted " + dept_name);
+                return StatusCode(200, "Successfully deleted department " + dept_id);
             }
             //catch exception
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
             }
         }
-        
-        /**
-         * This post method will create a new department record based on the inputed dept_name
-         */
+
+        /// <summary>Create a new department</summary>
+        /// <remarks>POST request that creates a new department with the inputted information. Returns the auto-generated department id for the newly added department.</remarks>
         [HttpPost("departments/create")]
-        public async Task<ActionResult<List<DepartmentDTO>>> InsertDepartment(string dept_name)
+        public async Task<ActionResult> InsertDepartment(String dept_name)
         {
             try
             {
                 //Create query string
                 string query = @"INSERT INTO department (dept_name) " +
                                 "VALUES ('" + dept_name + "');";
+                string queryId = @"SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     //execute query string
-                    var result = await connection.QueryAsync<DepartmentDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync(query, CommandType.Text);
+                    var id = await connection.QueryAsync<String>(queryId, CommandType.Text);
+                    String dept_id = id.ToList()[0];
+                    return StatusCode(200, "Successfully created department " + dept_name + " with dept_id = " + dept_id);
                 }
-                return StatusCode(200, "Successfully created department ");
             }
             //catch exceptions
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>Update department by department id</summary>
+        /// <remarks>PUT request that updates the department with specified department id to be set to the new inputted values.</remarks>
+        [HttpPut("departments/update/{dept_id}")]
+        public async Task<ActionResult> UpdateDepartment(int dept_id, DepartmentDTO model)
+        {
+            try
+            {
+                //create the query string
+                string query = @"UPDATE department
+                                 SET dept_id = " + model.dept_id + ", dept_name = '" + model.dept_name +
+                                 "' WHERE dept_id = " + dept_id + ";";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    //Execute the query
+                    var result = await connection.QueryAsync(query, CommandType.Text);
+                }
+                return StatusCode(200, "Successfully updated department");
+            }
+            //catch the exceptions
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
             }
         }
     }

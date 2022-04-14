@@ -33,7 +33,8 @@ namespace WebAPITest.Controllers
         }
 
 
-        //Get all of the room records in the table
+        /// <summary>Get all rooms</summary>
+        /// <remarks>GET request that retrieves all rooms.</remarks>
         [HttpGet("rooms")]
         public async Task<ActionResult<List<RoomDTO>>> GetAllRooms()
         {
@@ -60,14 +61,15 @@ namespace WebAPITest.Controllers
                 }
             }
             //Catch an excpetion and return an error status code
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
             }
         }
 
-        //Get a room by room id
-        [HttpPost("room/id")]
+        /// <summary>Get room by room id</summary>
+        /// <remarks>GET request that retrieves the room with specified room id.</remarks>
+        [HttpGet("rooms/{room_id}")]
         public async Task<ActionResult<List<RoomDTO>>> GetProfessorById(string room_id)
         {
             var rooms = new List<RoomDTO>();
@@ -97,19 +99,16 @@ namespace WebAPITest.Controllers
                 }
             }
             //Catch exceptions
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
             }
         }
 
-        /**
-         * This post request will delete a room record based on the inputed room_id
-         * 
-         * @param room_id - id of a room record in the database
-         */
-        [HttpPost("room/delete")]
-        public async Task<ActionResult<List<RoomDTO>>> DeleteRoomById(string room_id)
+        /// <summary>Delete room by room id</summary>
+        /// <remarks>DELETE request that deletes the room with specified room id.</remarks>
+        [HttpDelete("rooms/delete/{room_id}")]
+        public async Task<ActionResult> DeleteRoomById(string room_id)
         {
             try
             {
@@ -122,40 +121,66 @@ namespace WebAPITest.Controllers
                     //Execute the query string
                     var result = await connection.QueryAsync<ProfessorDTO>(deleteQuery, CommandType.Text);
                 }
-                return StatusCode(200, "Successfully deleted " + room_id);
+                return StatusCode(200, "Successfully deleted room " + room_id);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
             }
         }
 
-        /**
-         * This post request will create a new room record based on the inputted room_num and capacity
-         */  
-        [HttpPost("room/create")]
-        public async Task<ActionResult<List<RoomDTO>>> InsertRoom(string room_num, string capacity)
+        /// <summary>Create a new room</summary>
+        /// <remarks>POST request that creates a new room with inputted values. Returns the auto-generated room id for the newly added room.</remarks>
+        [HttpPost("rooms/create")]
+        public async Task<ActionResult> InsertRoom(RoomInsertDTO model)
         {
             try
             {
                 //Create the query string
                 string query = @"INSERT INTO room (capacity, room_num) " +
-                                "VALUES (" + capacity + "," + room_num + ");";
+                                "VALUES (" + model.capacity + "," + model.room_num + ");";
+                string queryId = @"SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     //Execute the query string
                     var result = await connection.QueryAsync<RoomDTO>(query, CommandType.Text);
+                    var id = await connection.QueryAsync<String>(queryId, CommandType.Text);
+                    String room_id = id.ToList()[0];
+                    return StatusCode(200, "Successfully created room " + model.room_num + " with room_id = " + room_id);
                 }
-                //Return successful status code
-                return StatusCode(200, "Successfully created " + room_num + " with capacity " + capacity);
             }
             //Catch exception
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>Update room by room id</summary>
+        /// <remarks>PUT request that updates the room with specified room id to be set to the new inputted values.</remarks>
+        [HttpPut("rooms/update/{room_id}")]
+        public async Task<ActionResult> UpdateRoom(RoomDTO model, int room_id)
+        {
+            try
+            {
+                //create the query string
+                string query = @"UPDATE room
+                                 SET room_id = " + model.room_id + ", capacity = " + model.capacity + ", room_num = " + model.room_num +
+                                 " WHERE room_id = " + room_id + ";";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    //Execute the query
+                    var result = await connection.QueryAsync(query, CommandType.Text);
+                }
+                return StatusCode(200, "Successfully updated room");
+            }
+            //catch the exceptions
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
             }
         }
     }
-
 }

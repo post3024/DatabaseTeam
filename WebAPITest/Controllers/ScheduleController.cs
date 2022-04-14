@@ -35,8 +35,10 @@ namespace WebAPITest.Controllers
             connString = $"server={host}; userid={userid};pwd={password};port={port};database={usersDataBase}";
         }
 
+        /// <summary>Get all schedules</summary>
+        /// <remarks>GET request that retrieves all schedules.</remarks>
         [HttpGet("schedules")]
-        public async Task<ActionResult<List<ScheduleDTO>>> GetAllRooms()
+        public async Task<ActionResult<List<ScheduleDTO>>> GetAllSchedules()
         {
             var schedules = new List<ScheduleDTO>();
             try
@@ -57,9 +59,9 @@ namespace WebAPITest.Controllers
                     return NotFound();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Unable To Process Request");
+                return StatusCode(500, e.Message);
             }
         }
     }

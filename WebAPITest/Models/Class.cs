@@ -3,15 +3,15 @@ namespace WebAPITest.Models
 {
     public class ClassDTO
     {
-        public string class_num { get; set; }
+        public int class_num { get; set; }
 
-        public string dept_id { get; set; }
+        public int dept_id { get; set; }
 
         public string class_name { get; set; }
 
-        public string capacity { get; set; }
+        public int capacity { get; set; }
 
-        public string credits { get; set; }
+        public int credits { get; set; }
     }
 }
 

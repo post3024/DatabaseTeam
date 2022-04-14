@@ -1,10 +1,8 @@
-using System;
+﻿using System;
 namespace WebAPITest.Models
 {
-    public class RoomDTO
+    public class RoomInsertDTO
     {
-        public int room_id { get; set; }
-
         public int room_num { get; set; }
 
         public int capacity { get; set; }

@@ -3,14 +3,14 @@ namespace WebAPITest.Models
 {
     public class ScheduleDTO
     {
-        public string section_number { get; set; }
+        public int section_number { get; set; }
 
-        public string class_num { get; set; }
+        public int class_num { get; set; }
 
-        public string dept_id { get; set; }
+        public int dept_id { get; set; }
 
-        public string room_id { get; set; }
+        public int room_id { get; set; }
 
-        public string professor_id { get; set; }
+        public int professor_id { get; set; }
     }
 }
