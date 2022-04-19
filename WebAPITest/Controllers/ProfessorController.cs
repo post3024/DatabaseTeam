@@ -17,7 +17,6 @@ namespace WebAPITest.Controllers
     [Route("professor-management")]
     public class ProfessorController : ControllerBase
     {
-        //code here
         private readonly IConfiguration _configuration;
         private readonly string connString;
 
@@ -41,26 +40,26 @@ namespace WebAPITest.Controllers
             var profs = new List<ProfessorDTO>();
             try
             {
-                //create the query string
+                // create the query string
                 string query = @"SELECT professor_id, first_name, last_name, teach_load FROM professor";
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query
+                    // Execute the query
                     var result = await connection.QueryAsync<ProfessorDTO>(query, CommandType.Text);
                     profs = result.ToList();
                 }
-                //If there are professors, return them
+                // If there are professors, return them
                 if (profs.Count > 0)
                 {
                     return Ok(profs);
                 }
-                //Else, respond with 404 error
+                // Else, respond with 404 error
                 else
                 {
                     return NotFound();
                 }
             }
-            //Catch any exceptions
+            // Catch any exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -75,29 +74,29 @@ namespace WebAPITest.Controllers
             var profs = new List<ProfessorDTO>();
             try
             {
-                //Create the query string
+                // Create the query string
                 string query = @"SELECT * 
                                  FROM professor 
                                  WHERE professor_id = '" + prof_id + "'";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query string
+                    // Execute the query string
                     var result = await connection.QueryAsync<ProfessorDTO>(query, CommandType.Text);
                     profs = result.ToList();
                 }
-                //If the prof exists, return the record
+                // If the prof exists, return the record
                 if (profs.Count > 0)
                 {
                     return Ok(profs);
                 }
-                //else, send error
+                // else, send error
                 else
                 {
                     return NotFound();
                 }
             }
-            //Catch any exceptions
+            // Catch any exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -111,18 +110,18 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //Create the query string
+                // Create the query string
                 string deleteQuery = @"DELETE FROM professor " +
                                       "WHERE professor_id = '" + prof_id + "'";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query string
+                    // Execute the query string
                     var result = await connection.QueryAsync<ProfessorDTO>(deleteQuery, CommandType.Text);
                 }
                 return StatusCode(200, "Successfully deleted " + prof_id);
             }
-            //Catch exception
+            // Catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -136,14 +135,14 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //create query string
+                // create query string
                 string query = @"INSERT INTO professor (first_name, last_name, teach_load) " +
                                 "VALUES ('" + model.first_name + "','" + model.last_name + "'," + model.teach_load + ");";
                 string queryId = @"SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //execute the query string
+                    // execute the query string
                     var result = await connection.QueryAsync<ProfessorDTO>(query, CommandType.Text);
                     var id = await connection.QueryAsync<String>(queryId, CommandType.Text);
                     String prof_id = id.ToList()[0];
@@ -164,19 +163,19 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //create the query string
+                // create the query string
                 string query = @"UPDATE professor
                                  SET first_name = '" + model.first_name + "', last_name = '" + model.last_name + "', teach_load = " + model.teach_load +
                                  " WHERE prof_id = " + prof_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query
+                    // Execute the query
                     var result = await connection.QueryAsync(query, CommandType.Text);
                 }
                 return StatusCode(200, "Successfully updated professor");
             }
-            //catch the exceptions
+            // catch the exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);

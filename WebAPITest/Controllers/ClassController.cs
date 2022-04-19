@@ -41,15 +41,15 @@ namespace WebAPITest.Controllers
             var classes = new List<ClassDTO>();
             try
             {
-                //create query string
+                // create query string
                 string query = @"SELECT * FROM class";
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //execute query string
+                    // execute query string
                     var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
                     classes = result.ToList();
                 }
-                //if the classes exist, return the records
+                // if the classes exist, return the records
                 if (classes.Count > 0)
                 {
                     return Ok(classes);
@@ -59,7 +59,7 @@ namespace WebAPITest.Controllers
                     return NotFound();
                 }
             }
-            //catch exception
+            // catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -74,18 +74,18 @@ namespace WebAPITest.Controllers
             var classes = new List<ClassDTO>();
             try
             {
-                //Create query string
+                // Create query string
                 string query = @"SELECT * 
                                  FROM class 
                                  WHERE class_num = " + class_num;
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //execute query
+                    // execute query
                     var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
                     classes = result.ToList();
                 }
-                //If classes were returned from database, return them
+                // If classes were returned from database, return them
                 if (classes.Count > 0)
                 {
                     return Ok(classes);
@@ -109,18 +109,18 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //create query string
+                // create query string
                 string deleteQuery = @"DELETE FROM class " +
                                       "WHERE class_num = " + class_num;
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //execute query string
+                    // execute query string
                     var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
                 }
                 return StatusCode(200, "Successfully deleted class " + class_num);
             }
-            //catch exceptions
+            // catch exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -134,18 +134,18 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //create the query string
+                // create the query string
                 string query = @"INSERT INTO class (class_num, dept_id, class_name, capacity, credits) " +
                                 "VALUES (" + model.class_num + "," + model.dept_id + ",'" + model.class_name + "'," + model.capacity + "," + model.credits + ");";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query
+                    // Execute the query
                     var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
                 }
                 return StatusCode(200, "Successfully created class " + model.class_num);
             }
-            //catch the exceptions
+            // catch the exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -159,7 +159,7 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //create the query string
+                // create the query string
                 string query = @"UPDATE class
                                  SET class_num = " + model.class_num + ", dept_id = " + model.dept_id + ", class_name = '" + model.class_name +
                                  "', capacity = " + model.capacity + ", credits = " + model.credits +
@@ -167,12 +167,12 @@ namespace WebAPITest.Controllers
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query
+                    // Execute the query
                     var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
                 }
                 return StatusCode(200, "Successfully updated class");
             }
-            //catch the exceptions
+            // catch the exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);

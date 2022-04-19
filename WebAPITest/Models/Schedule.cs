@@ -3,7 +3,7 @@ namespace WebAPITest.Models
 {
     public class ScheduleDTO
     {
-        public int section_number { get; set; }
+        public int section_num { get; set; }
 
         public int class_num { get; set; }
 

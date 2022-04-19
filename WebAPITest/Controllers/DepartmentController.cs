@@ -40,15 +40,15 @@ namespace WebAPITest.Controllers
             var depts = new List<DepartmentDTO>();
             try
             {
-                //create query string
+                // create query string
                 string query = @"SELECT * FROM department";
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //execute query string
+                    // execute query string
                     var result = await connection.QueryAsync<DepartmentDTO>(query, CommandType.Text);    
                     depts = result.ToList();
                 }
-                //if departments exist, return them
+                // if departments exist, return them
                 if (depts.Count > 0)
                 {
                     return Ok(depts);
@@ -58,7 +58,7 @@ namespace WebAPITest.Controllers
                     return NotFound();
                 }
             }
-            //catch exception
+            // catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -72,16 +72,16 @@ namespace WebAPITest.Controllers
             var depts = new List<DepartmentDTO>();
             try
             {
-                //create query string
+                // create query string
                 string query = @"SELECT * FROM department WHERE dept_id = " + dept_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //execute query string
+                    // execute query string
                     var result = await connection.QueryAsync<DepartmentDTO>(query, CommandType.Text);
                     depts = result.ToList();
                 }
-                //if departments exist, return them
+                // if departments exist, return them
                 if (depts.Count > 0)
                 {
                     return Ok(depts);
@@ -91,7 +91,7 @@ namespace WebAPITest.Controllers
                     return NotFound();
                 }
             }
-            //catch exception
+            // catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -105,18 +105,18 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //create query string
+                // create query string
                 string deleteQuery = @"DELETE FROM department
                                  WHERE dept_id = " + dept_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //execute query string
+                    // execute query string
                     var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
                 }
                 return StatusCode(200, "Successfully deleted department " + dept_id);
             }
-            //catch exception
+            // catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -130,21 +130,21 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //Create query string
+                // Create query string
                 string query = @"INSERT INTO department (dept_name) " +
                                 "VALUES ('" + dept_name + "');";
                 string queryId = @"SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //execute query string
+                    // execute query string
                     var result = await connection.QueryAsync(query, CommandType.Text);
                     var id = await connection.QueryAsync<String>(queryId, CommandType.Text);
                     String dept_id = id.ToList()[0];
                     return StatusCode(200, "Successfully created department " + dept_name + " with dept_id = " + dept_id);
                 }
             }
-            //catch exceptions
+            // catch exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -158,19 +158,19 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //create the query string
+                // create the query string
                 string query = @"UPDATE department
                                  SET dept_id = " + model.dept_id + ", dept_name = '" + model.dept_name +
                                  "' WHERE dept_id = " + dept_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query
+                    // Execute the query
                     var result = await connection.QueryAsync(query, CommandType.Text);
                 }
                 return StatusCode(200, "Successfully updated department");
             }
-            //catch the exceptions
+            // catch the exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);

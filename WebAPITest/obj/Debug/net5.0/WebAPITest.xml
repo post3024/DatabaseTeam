@@ -44,6 +44,50 @@
             <summary>Update department by department id</summary>
             <remarks>PUT request that updates the department with specified department id to be set to the new inputted values.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.PlanController.GetAllPlans">
+            <summary>Get all plans</summary>
+            <remarks>GET request that retrieves all plans.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PlanController.GetPlanByPlanId(System.Int32)">
+            <summary>Get plan by plan id</summary>
+            <remarks>GET request that retrieves the plan with specified plan id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PlanController.DeletePlanById(System.Int32)">
+            <summary>Delete plan by plan id</summary>
+            <remarks>DELETE request that deletes the plan with specified plan id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PlanController.InsertPlan(WebAPITest.Models.PlanInsertDTO)">
+            <summary>Create a new plan</summary>
+            <remarks>POST request that creates a new plan with the inputted information.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PlanController.UpdatePlan(WebAPITest.Models.PlanDTO,System.Int32)">
+            <summary>Update plan by plan id</summary>
+            <remarks>PUT request that updates the plan with specified plan number to be set to the new inputted values.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetAllPreferences">
+            <summary>Get all preferences for all professors</summary>
+            <remarks>GET request that retrieves all preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetPreferencesByProfessorId(System.Int32)">
+            <summary>Get preferences by professor id</summary>
+            <remarks>GET request that retrieves the preferences with specified professor id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.DeletePreferenceById(System.Int32)">
+            <summary>Delete preference by preference id</summary>
+            <remarks>DELETE request that deletes the preference with specified preference id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.DeletePreferencesByProfessorId(System.Int32)">
+            <summary>Delete preferences by professor id</summary>
+            <remarks>DELETE request that deletes the preferences with specified professor id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.InsertPreference(WebAPITest.Models.PreferenceInsertDTO)">
+            <summary>Create a new preference</summary>
+            <remarks>POST request that creates a new preference with the inputted information.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.UpdatePreference(WebAPITest.Models.PreferenceDTO,System.Int32)">
+            <summary>Update preference by preference id</summary>
+            <remarks>PUT request that updates the preference with specified preference id to be set to the new inputted values.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.ProfessorController.GetAllProfessors">
             <summary>Get all professsors</summary>
             <remarks>GET request that retrieves all professors.</remarks>
@@ -87,6 +131,42 @@
         <member name="M:WebAPITest.Controllers.ScheduleController.GetAllSchedules">
             <summary>Get all schedules</summary>
             <remarks>GET request that retrieves all schedules.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.ScheduleController.GetScheduleBySectionId(System.String)">
+            <summary>Get schedules by section id</summary>
+            <remarks>GET request that retrieves the schedules with specified section id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.ScheduleController.GetSchedulesByPlanId(System.String)">
+            <summary>Get schedules by plan id</summary>
+            <remarks>GET request that retrieves the schedules with specified plan id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.ScheduleController.DeleteSectionById(System.String)">
+            <summary>Delete sections by section id</summary>
+            <remarks>DELETE request that deletes the section with specified section id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.ScheduleController.DeleteSectionByPlanId(System.String)">
+            <summary>Delete sections by section id</summary>
+            <remarks>DELETE request that deletes the section with specified section id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.ScheduleController.InsertSection(WebAPITest.Models.ScheduleDTO)">
+            <summary>Create a new professor</summary>
+            <remarks>POST request that creates a new professor with inputted information. Returns the auto-generated professor id for the newly added professor.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.TimeSlotController.GetAllTimeSlots">
+            <summary>Get all time slots</summary>
+            <remarks>GET request that retrieves all time slots.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.TimeSlotController.GetTimeSlotById(System.Int32)">
+            <summary>Get time slot by time_slot_id</summary>
+            <remarks>GET request that retrieves the time slot with specified time slot id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.TimeSlotController.DeleteTimeSlotById(System.Int32)">
+            <summary>Delete time slot by time slot id</summary>
+            <remarks>DELETE request that deletes the time slot with specified time slot id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.TimeSlotController.InsertTimeSlot(WebAPITest.Models.TimeSlotInsertDTO)">
+            <summary>Create a new time slot</summary>
+            <remarks>POST request that creates a new time slot with the inputted information.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.UsersController.Authenticate(WebAPITest.Models.AuthenticateRequest)">
             <summary>Authenticate a user</summary>
