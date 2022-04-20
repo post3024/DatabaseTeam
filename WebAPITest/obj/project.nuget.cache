@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RoTYVik3Y6c7PFaUXBLXnjvQWKSdSnSgKYkjiu0ISFrNWYg0yEQn7tGuuxoselM/G3C+9YNeWNHWm+1xwpsxLg==",
+  "dgSpecHash": "6BSjIZ/T1S9lrU4v5XacNFDGSRNgrpWJMZglUQK7T5y0ZRWD8tDyx8nNHqvq32lql6WLWMlss7GAp5BbXRcb8g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
+  "projectFilePath": "C:\\Users\\btbor\\source\\repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\btbor\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\btbor\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",

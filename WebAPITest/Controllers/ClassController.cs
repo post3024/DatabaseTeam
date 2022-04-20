@@ -41,7 +41,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"SELECT * FROM class";
+                string query = @"SELECT * 
+                                 FROM class";
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
@@ -102,10 +103,10 @@ namespace WebAPITest.Controllers
             }
         }
 
-        /// <summary>Get class by department name</summary>
+        /// <summary>Get classes joined with department</summary>
         /// <remarks>GET request that retrieves the class with department name.</remarks>
-        [HttpGet("classes/department/{dept_name}")]
-        public async Task<ActionResult<List<DepartmentClassDTO>>> GetClassesByDepartmentName(string dept_name)
+        [HttpGet("classes/department")]
+        public async Task<ActionResult<List<DepartmentClassDTO>>> GetClassAndDepartmentTables()
         {
             var classes = new List<DepartmentClassDTO>();
             try
@@ -113,8 +114,7 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT * 
                                  FROM department INNER JOIN class
-                                    ON department.dept_id = class.dept_id
-                                 WHERE department.dept_name = '" + dept_name + "';";
+                                    ON department.dept_id = class.dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {

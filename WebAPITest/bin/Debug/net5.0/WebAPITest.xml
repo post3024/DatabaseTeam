@@ -12,8 +12,8 @@
             <summary>Get class by class number and department id</summary>
             <remarks>GET request that retrieves the class with specified class number and department id.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ClassController.GetClassesByDepartmentName(System.String)">
-            <summary>Get class by department name</summary>
+        <member name="M:WebAPITest.Controllers.ClassController.GetClassAndDepartmentTables">
+            <summary>Get classes joined with department</summary>
             <remarks>GET request that retrieves the class with department name.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.ClassController.DeleteClassByNameAndNumber(System.Int32,System.Int32)">
