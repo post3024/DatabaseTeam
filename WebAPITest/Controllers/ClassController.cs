@@ -11,7 +11,7 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("class-management")]
     public class ClassController : ControllerBase
