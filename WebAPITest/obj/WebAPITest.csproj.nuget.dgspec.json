@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\btbor\\source\\repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj": {}
+    "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\btbor\\source\\repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj": {
+    "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\btbor\\source\\repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
+        "projectUniqueName": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
         "projectName": "WebAPITest",
-        "projectPath": "C:\\Users\\btbor\\source\\repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
+        "projectPath": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
         "packagesPath": "C:\\Users\\btbor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\btbor\\source\\repos\\DatabaseTeam\\WebAPITest\\obj\\",
+        "outputPath": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\btbor\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -71,12 +71,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.15, 5.0.15]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"

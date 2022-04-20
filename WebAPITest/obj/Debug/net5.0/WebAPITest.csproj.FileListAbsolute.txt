@@ -236,7 +236,6 @@ C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Debug\net5.0\WebAPITest.
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Debug\net5.0\WebAPITest.runtimeconfig.json
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Debug\net5.0\WebAPITest.runtimeconfig.dev.json
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Debug\net5.0\WebAPITest.dll
-C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Debug\net5.0\ref\WebAPITest.dll
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Debug\net5.0\WebAPITest.pdb
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Debug\net5.0\WebAPITest.xml
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Debug\net5.0\BouncyCastle.Crypto.dll
@@ -264,3 +263,4 @@ C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Debug\net5.0\staticwebas
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Debug\net5.0\WebAPITest.RazorTargetAssemblyInfo.cache
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Debug\net5.0\WebAPITest.csproj.CopyComplete
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Debug\net5.0\WebAPITest.genruntimeconfig.cache
+C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Debug\net5.0\refint\WebAPITest.dll

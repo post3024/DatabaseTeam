@@ -102,6 +102,45 @@ namespace WebAPITest.Controllers
             }
         }
 
+        /// <summary>Get class by department name</summary>
+        /// <remarks>GET request that retrieves the class with department name.</remarks>
+        [HttpGet("classes/department/{dept_name}")]
+        public async Task<ActionResult<List<DepartmentClassDTO>>> GetClassesByDepartmentName(string dept_name)
+        {
+            var classes = new List<DepartmentClassDTO>();
+            try
+            {
+                // Create query string
+                string query = @"SELECT * 
+                                 FROM department INNER JOIN class
+                                    ON department.dept_id = class.dept_id
+                                 WHERE department.dept_name = '" + dept_name + "';";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query
+                    var result = await connection.QueryAsync<DepartmentClassDTO>(query, CommandType.Text);
+                    classes = result.ToList();
+                }
+                // If classes were returned from database, return them
+                if (classes.Count > 0)
+                {
+                    return Ok(classes);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            //catch exception
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
+
         /// <summary>Delete class by class number</summary>
         /// <remarks>DELETE request that deletes the class with specified class number.</remarks>
         [HttpDelete("classes/delete/{class_num}/{dept_id}")]
