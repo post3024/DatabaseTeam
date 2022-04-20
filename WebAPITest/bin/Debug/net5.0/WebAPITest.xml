@@ -8,11 +8,11 @@
             <summary>Get all classes</summary>
             <remarks>GET request that retrieves all classes.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ClassController.GetClassByNameAndNumber(System.Int32)">
-            <summary>Get class by class number</summary>
-            <remarks>GET request that retrieves the class with specified class number.</remarks>
+        <member name="M:WebAPITest.Controllers.ClassController.GetClassByDeptAndNumber(System.Int32,System.Int32)">
+            <summary>Get class by class number and department id</summary>
+            <remarks>GET request that retrieves the class with specified class number and department id.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ClassController.DeleteClassByNameAndNumber(System.Int32)">
+        <member name="M:WebAPITest.Controllers.ClassController.DeleteClassByNameAndNumber(System.Int32,System.Int32)">
             <summary>Delete class by class number</summary>
             <remarks>DELETE request that deletes the class with specified class number.</remarks>
         </member>
@@ -20,9 +20,9 @@
             <summary>Create a new class</summary>
             <remarks>POST request that creates a new class with the inputted information.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ClassController.UpdateClass(WebAPITest.Models.ClassDTO,System.Int32)">
-            <summary>Update class by class number</summary>
-            <remarks>PUT request that updates the class with specified class number to be set to the new inputted values.</remarks>
+        <member name="M:WebAPITest.Controllers.ClassController.UpdateClass(WebAPITest.Models.ClassDTO,System.Int32,System.Int32)">
+            <summary>Update class by class number and department id</summary>
+            <remarks>PUT request that updates the class with specified class number and department id to be set to the new inputted values.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.DepartmentController.GetAllDepartments">
             <summary>Get all departments</summary>
@@ -128,29 +128,33 @@
             <summary>Update room by room id</summary>
             <remarks>PUT request that updates the room with specified room id to be set to the new inputted values.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ScheduleController.GetAllSchedules">
-            <summary>Get all schedules</summary>
-            <remarks>GET request that retrieves all schedules.</remarks>
+        <member name="M:WebAPITest.Controllers.SectionController.GetAllSections">
+            <summary>Get all sections</summary>
+            <remarks>GET request that retrieves all sections.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ScheduleController.GetScheduleBySectionId(System.String)">
-            <summary>Get schedules by section id</summary>
-            <remarks>GET request that retrieves the schedules with specified section id.</remarks>
+        <member name="M:WebAPITest.Controllers.SectionController.GetSectionById(System.String)">
+            <summary>Get sections by section id</summary>
+            <remarks>GET request that retrieves the sections with specified section id.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ScheduleController.GetSchedulesByPlanId(System.String)">
-            <summary>Get schedules by plan id</summary>
-            <remarks>GET request that retrieves the schedules with specified plan id.</remarks>
+        <member name="M:WebAPITest.Controllers.SectionController.GetSectionsByPlanId(System.String)">
+            <summary>Get sections by plan id</summary>
+            <remarks>GET request that retrieves the sections with specified plan id.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ScheduleController.DeleteSectionById(System.String)">
+        <member name="M:WebAPITest.Controllers.SectionController.DeleteSectionById(System.String)">
             <summary>Delete sections by section id</summary>
             <remarks>DELETE request that deletes the section with specified section id.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ScheduleController.DeleteSectionByPlanId(System.String)">
+        <member name="M:WebAPITest.Controllers.SectionController.DeleteSectionByPlanId(System.String)">
             <summary>Delete sections by section id</summary>
             <remarks>DELETE request that deletes the section with specified section id.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ScheduleController.InsertSection(WebAPITest.Models.ScheduleDTO)">
-            <summary>Create a new professor</summary>
-            <remarks>POST request that creates a new professor with inputted information. Returns the auto-generated professor id for the newly added professor.</remarks>
+        <member name="M:WebAPITest.Controllers.SectionController.InsertSection(WebAPITest.Models.SectionInsertDTO)">
+            <summary>Create a new section</summary>
+            <remarks>POST request that creates a new section with inputted information.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.SectionController.UpdateSection(WebAPITest.Models.SectionInsertDTO,System.Int32)">
+            <summary>Update sections by section id</summary>
+            <remarks>PUT request that updates the section with specified section id to be set to the new inputted values.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.TimeSlotController.GetAllTimeSlots">
             <summary>Get all time slots</summary>

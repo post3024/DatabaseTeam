@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Dapper;
@@ -14,14 +13,14 @@ namespace WebAPITest.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("schedule-management")]
-    public class ScheduleController : ControllerBase
+    [Route("sections-management")]
+    public class SectionController : ControllerBase
     {
         //code here
         private readonly IConfiguration _configuration;
         private readonly string connString;
 
-        public ScheduleController(IConfiguration configuration)
+        public SectionController(IConfiguration configuration)
         {
             _configuration = configuration;
             var host = _configuration["DBHOST"] ?? "capstonedb01.mysql.database.azure.com";
@@ -33,24 +32,24 @@ namespace WebAPITest.Controllers
             connString = $"server={host}; userid={userid};pwd={password};port={port};database={usersDataBase}";
         }
 
-        /// <summary>Get all schedules</summary>
-        /// <remarks>GET request that retrieves all schedules.</remarks>
-        [HttpGet("schedules")]
-        public async Task<ActionResult<List<ScheduleDTO>>> GetAllSchedules()
+        /// <summary>Get all sections</summary>
+        /// <remarks>GET request that retrieves all sections.</remarks>
+        [HttpGet("sections")]
+        public async Task<ActionResult<List<SectionDTO>>> GetAllSections()
         {
-            var schedules = new List<ScheduleDTO>();
+            var sections = new List<SectionDTO>();
             try
             {
-                string query = @"SELECT * FROM schedule";
+                string query = @"SELECT * FROM section";
                 using (var connection = new MySqlConnection(connString))
                 {
 
-                    var result = await connection.QueryAsync<ScheduleDTO>(query, CommandType.Text);
-                    schedules = result.ToList();
+                    var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                    sections = result.ToList();
                 }
-                if (schedules.Count > 0)
+                if (sections.Count > 0)
                 {
-                    return Ok(schedules);
+                    return Ok(sections);
                 }
                 else
                 {
@@ -63,12 +62,12 @@ namespace WebAPITest.Controllers
             }
         }
 
-        /// <summary>Get schedules by section id</summary>
-        /// <remarks>GET request that retrieves the schedules with specified section id.</remarks>
-        [HttpGet("schedules/{section_id}")]
-        public async Task<ActionResult<List<ScheduleDTO>>> GetScheduleBySectionId(string section_id)
+        /// <summary>Get sections by section id</summary>
+        /// <remarks>GET request that retrieves the sections with specified section id.</remarks>
+        [HttpGet("sections/id/{section_id}")]
+        public async Task<ActionResult<List<SectionDTO>>> GetSectionById(string section_id)
         {
-            var sects = new List<ScheduleDTO>();
+            var sections = new List<SectionDTO>();
             try
             {
                 // Create the query string
@@ -79,13 +78,13 @@ namespace WebAPITest.Controllers
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<ScheduleDTO>(query, CommandType.Text);
-                    sects = result.ToList();
+                    var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                    sections = result.ToList();
                 }
                 // If the prof exists, return the record
-                if (sects.Count > 0)
+                if (sections.Count > 0)
                 {
-                    return Ok(sects);
+                    return Ok(sections);
                 }
                 // else, send error
                 else
@@ -100,29 +99,29 @@ namespace WebAPITest.Controllers
             }
         }
 
-        /// <summary>Get schedules by plan id</summary>
-        /// <remarks>GET request that retrieves the schedules with specified plan id.</remarks>
-        [HttpGet("schedules/{plan_id}")]
-        public async Task<ActionResult<List<ScheduleDTO>>> GetSchedulesByPlanId(string plan_id)
+        /// <summary>Get sections by plan id</summary>
+        /// <remarks>GET request that retrieves the sections with specified plan id.</remarks>
+        [HttpGet("sections/planid/{plan_id}")]
+        public async Task<ActionResult<List<SectionDTO>>> GetSectionsByPlanId(string plan_id)
         {
-            var sects = new List<ScheduleDTO>();
+            var sections = new List<SectionDTO>();
             try
             {
                 // Create the query string
                 string query = @"SELECT * 
-                                 FROM sections 
-                                 WHERE plan_id = '" + plan_id + "'";
+                                 FROM section 
+                                 WHERE plan_id = " + plan_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<ScheduleDTO>(query, CommandType.Text);
-                    sects = result.ToList();
+                    var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                    sections = result.ToList();
                 }
                 // If the prof exists, return the record
-                if (sects.Count > 0)
+                if (sections.Count > 0)
                 {
-                    return Ok(sects);
+                    return Ok(sections);
                 }
                 // else, send error
                 else
@@ -139,7 +138,7 @@ namespace WebAPITest.Controllers
 
         /// <summary>Delete sections by section id</summary>
         /// <remarks>DELETE request that deletes the section with specified section id.</remarks>
-        [HttpDelete("schedules/delete/{section_id}")]
+        [HttpDelete("sections/delete/id/{section_id}")]
         public async Task<ActionResult> DeleteSectionById(string section_id)
         {
             try
@@ -151,7 +150,7 @@ namespace WebAPITest.Controllers
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<ProfessorDTO>(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionDTO>(deleteQuery, CommandType.Text);
                 }
                 return StatusCode(200, "Successfully deleted schedule with id: " + section_id);
             }
@@ -164,7 +163,7 @@ namespace WebAPITest.Controllers
 
         /// <summary>Delete sections by section id</summary>
         /// <remarks>DELETE request that deletes the section with specified section id.</remarks>
-        [HttpDelete("schedules/delete/{plan_id}")]
+        [HttpDelete("sections/delete/planid/{plan_id}")]
         public async Task<ActionResult> DeleteSectionByPlanId(string plan_id)
         {
             try
@@ -176,7 +175,7 @@ namespace WebAPITest.Controllers
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<ScheduleDTO>(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionDTO>(deleteQuery, CommandType.Text);
                 }
                 return StatusCode(200, "Successfully deleted schedule with plan id: " + plan_id);
             }
@@ -187,25 +186,52 @@ namespace WebAPITest.Controllers
             }
         }
 
-        /// <summary>Create a new professor</summary>
-        /// <remarks>POST request that creates a new professor with inputted information. Returns the auto-generated professor id for the newly added professor.</remarks>
-        [HttpPost("schedules/create")]
-        public async Task<ActionResult> InsertSection(ScheduleDTO model)
+        /// <summary>Create a new section</summary>
+        /// <remarks>POST request that creates a new section with inputted information.</remarks>
+        [HttpPost("sections/create")]
+        public async Task<ActionResult> InsertSection(SectionInsertDTO model)
         {
             try
             {
                 // create query string
-                string query = @"INSERT INTO section (section_num, dept_id, room_id, professor_id, class_num) " +
-                                "VALUES (" + model.section_num + "," + model.dept_id + "," + model.room_id + "," + model.professor_id + "," + model.class_num + ");";
+                string query = @"INSERT INTO section (section_num, dept_id, room_id, professor_id, class_num, plan_id) " +
+                                "VALUES (" + model.section_num + "," + model.dept_id + "," + model.room_id + "," + model.professor_id + "," + model.class_num + "," + model.plan_id + ");";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute the query string
-                    var result = await connection.QueryAsync<ScheduleDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
                     return StatusCode(200, "Successfully created section number: " + model.section_num);
                 }
             }
             //catch exception
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>Update sections by section id</summary>
+        /// <remarks>PUT request that updates the section with specified section id to be set to the new inputted values.</remarks>
+        [HttpPut("sections/update/{section_id}")]
+        public async Task<ActionResult> UpdateSection(SectionInsertDTO model, int section_id)
+        {
+            try
+            {
+                // create the query string
+                string query = @"UPDATE section
+                                 SET section_num = " + model.section_num + ", dept_id = " + model.dept_id + ", room_id = " + model.room_id +
+                                 ", professor_id = " + model.professor_id + ", class_num = " + model.class_num + ", plan_id = " + model.plan_id + 
+                                 " WHERE section_id = " + section_id + ";";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // Execute the query
+                    var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                }
+                return StatusCode(200, "Successfully updated section");
+            }
+            // catch the exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);

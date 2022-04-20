@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Dapper;
@@ -166,7 +165,7 @@ namespace WebAPITest.Controllers
                 // create the query string
                 string query = @"UPDATE professor
                                  SET first_name = '" + model.first_name + "', last_name = '" + model.last_name + "', teach_load = " + model.teach_load +
-                                 " WHERE prof_id = " + prof_id + ";";
+                                 " WHERE professor_id = " + prof_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {

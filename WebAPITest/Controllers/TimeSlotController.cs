@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Dapper;
@@ -42,7 +41,7 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"SELECT * FROM time_slots";
+                string query = @"SELECT * FROM time_slot";
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
@@ -76,7 +75,7 @@ namespace WebAPITest.Controllers
             {
                 // Create query string
                 string query = @"SELECT * 
-                                 FROM time_slots 
+                                 FROM time_slot 
                                  WHERE time_slot_id = " + time_slot_id;
 
                 using (var connection = new MySqlConnection(connString))
@@ -110,7 +109,7 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string deleteQuery = @"DELETE FROM time_slots " +
+                string deleteQuery = @"DELETE FROM time_slot " +
                                       "WHERE time_slot_id = " + time_slot_id;
 
                 using (var connection = new MySqlConnection(connString))
@@ -135,8 +134,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"INSERT INTO time_slots (start_time, end_time, day_of_week) " +
-                                "VALUES (" + model.start_time + "'," + model.end_time + "," + model.day_of_week + ");";
+                string query = @"INSERT INTO time_slot (start_time, end_time, day_of_week) " +
+                                "VALUES ('" + model.start_time + "','" + model.end_time + "','" + model.day_of_week + "');";
 
                 using (var connection = new MySqlConnection(connString))
                 {

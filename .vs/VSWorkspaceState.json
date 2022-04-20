@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WebAPITest"
   ],
-  "SelectedNode": "\\Web API Test",
+  "SelectedNode": "\\WebAPITest\\WebAPITest.sln",
   "PreviewInSolutionExplorer": false
 }

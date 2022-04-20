@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Dapper;
@@ -12,7 +11,7 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("class-management")]
     public class ClassController : ControllerBase
@@ -66,10 +65,10 @@ namespace WebAPITest.Controllers
             }
         }
 
-        /// <summary>Get class by class number</summary>
-        /// <remarks>GET request that retrieves the class with specified class number.</remarks>
-        [HttpGet("classes/{class_num}")]
-        public async Task<ActionResult<List<ClassDTO>>> GetClassByNameAndNumber (int class_num)
+        /// <summary>Get class by class number and department id</summary>
+        /// <remarks>GET request that retrieves the class with specified class number and department id.</remarks>
+        [HttpGet("classes/{class_num}/{dept_id}")]
+        public async Task<ActionResult<List<ClassDTO>>> GetClassByDeptAndNumber (int class_num, int dept_id)
         {
             var classes = new List<ClassDTO>();
             try
@@ -77,7 +76,8 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT * 
                                  FROM class 
-                                 WHERE class_num = " + class_num;
+                                 WHERE class_num = " + class_num + " " +
+                                    "AND dept_id = " + dept_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -104,14 +104,15 @@ namespace WebAPITest.Controllers
 
         /// <summary>Delete class by class number</summary>
         /// <remarks>DELETE request that deletes the class with specified class number.</remarks>
-        [HttpDelete("classes/delete/{class_num}")]
-        public async Task<ActionResult> DeleteClassByNameAndNumber(int class_num)
+        [HttpDelete("classes/delete/{class_num}/{dept_id}")]
+        public async Task<ActionResult> DeleteClassByNameAndNumber(int class_num, int dept_id)
         {
             try
             {
                 // create query string
                 string deleteQuery = @"DELETE FROM class " +
-                                      "WHERE class_num = " + class_num;
+                                      "WHERE class_num = " + class_num + " " +
+                                        "AND dept_id = " + dept_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -152,10 +153,10 @@ namespace WebAPITest.Controllers
             }
         }
 
-        /// <summary>Update class by class number</summary>
-        /// <remarks>PUT request that updates the class with specified class number to be set to the new inputted values.</remarks>
-        [HttpPut("classes/update/{class_num}")]
-        public async Task<ActionResult> UpdateClass(ClassDTO model, int class_num)
+        /// <summary>Update class by class number and department id</summary>
+        /// <remarks>PUT request that updates the class with specified class number and department id to be set to the new inputted values.</remarks>
+        [HttpPut("classes/update/{class_num}/{dept_id}")]
+        public async Task<ActionResult> UpdateClass(ClassDTO model, int class_num, int dept_id)
         {
             try
             {
@@ -163,7 +164,7 @@ namespace WebAPITest.Controllers
                 string query = @"UPDATE class
                                  SET class_num = " + model.class_num + ", dept_id = " + model.dept_id + ", class_name = '" + model.class_name +
                                  "', capacity = " + model.capacity + ", credits = " + model.credits +
-                                 " WHERE class_num = " + class_num + ";";
+                                 " WHERE class_num = " + class_num + " AND dept_id = " + dept_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {

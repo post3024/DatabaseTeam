@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Dapper;
@@ -12,7 +11,7 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("preference-management")]
     public class PreferenceController : ControllerBase
@@ -185,9 +184,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"UPDATE plan
-                                 SET preference_id = " + model.preference_id + ", professor_id = " + model.professor_id + ", preference = " + model.preference +
-                                 " WHERE plan_id = " + preference_id + ";";
+                string query = @"UPDATE preference
+                                 SET professor_id = " + model.professor_id + ", preference = " + model.preference +
+                                 " WHERE preference_id = " + preference_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
