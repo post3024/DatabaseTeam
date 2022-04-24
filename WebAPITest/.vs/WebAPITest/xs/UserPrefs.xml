@@ -1,23 +1,14 @@
 ﻿<Properties StartupConfiguration="{F3CAD161-51E7-4CC1-9725-0AB2815A95F5}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Services/UserService.cs">
     <Files>
-      <File FileName="Controllers/ClassController.cs" Line="163" Column="39" />
-      <File FileName="Controllers/DepartmentController.cs" Line="140" Column="17" />
-      <File FileName="Controllers/ProfessorController.cs" Line="154" Column="143" />
-      <File FileName="Controllers/RoomController.cs" Line="152" Column="122" />
-      <File FileName="Controllers/ScheduleController.cs" Line="62" Column="49" />
-      <File FileName="Controllers/UserController.cs" Line="23" Column="1" />
-      <File FileName="Models/Class.cs" Line="6" Column="29" />
-      <File FileName="Models/Department.cs" Line="1" Column="1" />
-      <File FileName="Models/Professor.cs" Line="6" Column="9" />
-      <File FileName="Models/Room.cs" Line="8" Column="42" />
-      <File FileName="Models/RoomInsertDTO.cs" Line="7" Column="1" />
-      <File FileName="Models/Schedule.cs" Line="1" Column="1" />
-      <File FileName="Services/UserService.cs" Line="1" Column="1" />
-      <File FileName="Models/ProfessorInsertDTO.cs" Line="6" Column="47" />
-      <File FileName="WebAPITest.csproj" Line="34" Column="36" />
-      <File FileName="Startup.cs" Line="61" Column="61" />
-      <File FileName="Program.cs" Line="1" Column="1" />
+      <File FileName="Controllers/UserController.cs" Line="22" Column="26" />
+      <File FileName="Services/UserService.cs" Line="119" Column="62" />
+      <File FileName="Models/User.cs" Line="13" Column="50" />
+      <File FileName="Controllers/DepartmentController.cs" Line="135" Column="17" />
+      <File FileName="Models/AuthenticateResponse.cs" Line="6" Column="9" />
+      <File FileName="Helpers/AuthorizeAttribute.cs" Line="13" Column="1" />
+      <File FileName="Helpers/JwtMiddleware.cs" Line="55" Column="80" />
+      <File FileName="Models/CreateUserResponse.cs" Line="4" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -25,9 +16,11 @@
           <Node name="WebAPITest" expanded="True">
             <Node name="WebAPITest" expanded="True">
               <Node name="Controllers" expanded="True" />
+              <Node name="Helpers" expanded="True" />
               <Node name="Models" expanded="True" />
-              <Node name="Services" expanded="True" />
-              <Node name="Program.cs" selected="True" />
+              <Node name="Services" expanded="True">
+                <Node name="UserService.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>
@@ -39,7 +32,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/Controllers/DepartmentController.cs" relfile="Controllers/DepartmentController.cs" line="146" column="21" />
+      <Breakpoint file="/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/Controllers/DepartmentController.cs" relfile="Controllers/DepartmentController.cs" line="142" column="21" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

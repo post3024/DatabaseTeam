@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using WebAPITest.Models;
 using MySql.Data.MySqlClient;
 using Dapper;
-using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
@@ -64,7 +64,7 @@ namespace WebAPITest.Controllers
 
         /// <summary>Get sections by section id</summary>
         /// <remarks>GET request that retrieves the sections with specified section id.</remarks>
-        [HttpGet("sections/id/{section_id}")]
+        [HttpGet("sections/{section_id}")]
         public async Task<ActionResult<List<SectionDTO>>> GetSectionById(string section_id)
         {
             var sections = new List<SectionDTO>();
@@ -101,7 +101,7 @@ namespace WebAPITest.Controllers
 
         /// <summary>Get sections by plan id</summary>
         /// <remarks>GET request that retrieves the sections with specified plan id.</remarks>
-        [HttpGet("sections/planid/{plan_id}")]
+        [HttpGet("sections/{plan_id}")]
         public async Task<ActionResult<List<SectionDTO>>> GetSectionsByPlanId(string plan_id)
         {
             var sections = new List<SectionDTO>();
@@ -138,7 +138,7 @@ namespace WebAPITest.Controllers
 
         /// <summary>Delete sections by section id</summary>
         /// <remarks>DELETE request that deletes the section with specified section id.</remarks>
-        [HttpDelete("sections/delete/id/{section_id}")]
+        [HttpDelete("sections/delete/{section_id}")]
         public async Task<ActionResult> DeleteSectionById(string section_id)
         {
             try
@@ -161,9 +161,9 @@ namespace WebAPITest.Controllers
             }
         }
 
-        /// <summary>Delete sections by section id</summary>
-        /// <remarks>DELETE request that deletes the section with specified section id.</remarks>
-        [HttpDelete("sections/delete/planid/{plan_id}")]
+        /// <summary>Delete sections by plan id</summary>
+        /// <remarks>DELETE request that deletes the section with specified plan id.</remarks>
+        [HttpDelete("sections/delete/{plan_id}")]
         public async Task<ActionResult> DeleteSectionByPlanId(string plan_id)
         {
             try

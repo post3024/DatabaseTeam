@@ -6,9 +6,9 @@ namespace WebAPITest.Models
     public class AuthenticateRequest
     {
         [Required]
-        public string Username { get; set; }
+        public string username { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public string password { get; set; }
     }
 }

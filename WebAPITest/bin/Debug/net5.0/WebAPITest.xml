@@ -149,8 +149,8 @@
             <remarks>DELETE request that deletes the section with specified section id.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.SectionController.DeleteSectionByPlanId(System.String)">
-            <summary>Delete sections by section id</summary>
-            <remarks>DELETE request that deletes the section with specified section id.</remarks>
+            <summary>Delete sections by plan id</summary>
+            <remarks>DELETE request that deletes the section with specified plan id.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.SectionController.InsertSection(WebAPITest.Models.SectionInsertDTO)">
             <summary>Create a new section</summary>
@@ -179,6 +179,10 @@
         <member name="M:WebAPITest.Controllers.UsersController.Authenticate(WebAPITest.Models.AuthenticateRequest)">
             <summary>Authenticate a user</summary>
             <remarks>POST request that authenticates a user with inputted information. If valid, returns a token to be used to authenticate future requests.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.UsersController.CreateUser(WebAPITest.Models.AuthenticateRequest)">
+            <summary>Create a new user</summary>
+            <remarks>POST request that creates a new user with inputted information.</remarks>
         </member>
     </members>
 </doc>

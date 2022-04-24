@@ -27,12 +27,12 @@ namespace WebAPITest.Helpers
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                attachUserToContext(context, userService, token);
+                await attachUserToContextAsync(context, userService, token);
 
             await _next(context);
         }
 
-        private void attachUserToContext(HttpContext context, IUserService userService, string token)
+        private async Task attachUserToContextAsync(HttpContext context, IUserService userService, string token)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace WebAPITest.Helpers
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.GetById(userId);
+                context.Items["User"] = await userService.GetByIdAsync(userId);
             }
             catch
             {

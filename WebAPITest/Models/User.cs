@@ -5,11 +5,11 @@ namespace WebAPITest.Models
 {
     public class User
     {
-        public int id { get; set; }
-        public string username { get; set; }
-        public string role { get; set; }
+        public int user_id { get; set; }
+        public string user_email { get; set; }
+        public string salt { get; set; }
 
         [JsonIgnore]
-        public string password { get; set; }
+        public string user_password { get; set; }
     }
 }

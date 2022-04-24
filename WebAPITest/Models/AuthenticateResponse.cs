@@ -3,15 +3,16 @@ namespace WebAPITest.Models
 {
     public class AuthenticateResponse
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Token { get; set; }
+        public int user_id { get; set; }
+        public string username { get; set; }
+        public string token { get; set; }
 
 
         public AuthenticateResponse(User user, string token)
         {
-            Username = user.username;
-            Token = token;
+            username = user.user_email;
+            user_id = user.user_id;
+            this.token = token;
         }
     }
 }
