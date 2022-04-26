@@ -85,4 +85,6 @@ C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\ref\WebAP
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.xml
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.pdb
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.genruntimeconfig.cache
-C:\Users\btbor\source\repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\refint\WebAPITest.dll
+C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Release\net5.0\ref\WebAPITest.dll
+C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Release\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Release\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll

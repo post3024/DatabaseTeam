@@ -136,8 +136,8 @@ namespace WebAPITest.Controllers
             try
             {
                 //Create the query string
-                string query = @"INSERT INTO room (capacity, room_num) " +
-                                "VALUES (" + model.capacity + "," + model.room_num + ");";
+                string query = @"INSERT INTO room (capacity, room_num, building_name) " +
+                                "VALUES (" + model.capacity + "," + model.room_num + ",'" + model.building_name + "');";
                 string queryId = @"SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
@@ -165,7 +165,8 @@ namespace WebAPITest.Controllers
             {
                 //create the query string
                 string query = @"UPDATE room
-                                 SET room_id = " + model.room_id + ", capacity = " + model.capacity + ", room_num = " + model.room_num +
+                                 SET room_id = " + model.room_id + ", " +
+                                 "capacity = " + model.capacity + ", room_num = " + model.room_num + ", building_name = '" + model.building_name + "'" +
                                  " WHERE room_id = " + room_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
