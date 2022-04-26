@@ -132,20 +132,24 @@ namespace WebAPITest.Controllers
         /// <remarks>POST request that creates a new time slot with the inputted information.</remarks>
         [HttpPost("time_slots/create")]
         [Authorize("admin")]
-        public async Task<ActionResult> InsertTimeSlot(TimeSlotInsertDTO model)
+        public async Task<ActionResult<TimeSlotDTO>> InsertTimeSlot(TimeSlotInsertDTO model)
         {
             try
             {
                 // create the query string
                 string query = @"INSERT INTO time_slot (start_time, end_time, day_of_week) " +
-                                "VALUES ('" + model.start_time + "','" + model.end_time + "','" + model.day_of_week + "');";
+                                "VALUES ('" + model.start_time.ToString() + "','" + model.end_time.ToString() + "','" + model.day_of_week + "');";
+                string queryId = @"SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
                     var result = await connection.QueryAsync<TimeSlotDTO>(query, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                    int time_slot_id = id.ToList()[0];
+                    TimeSlotDTO newTimeSlot = new(time_slot_id, TimeSpan.Parse(model.start_time), TimeSpan.Parse(model.end_time), model.day_of_week);
+                    return Ok(newTimeSlot);
                 }
-                return StatusCode(200, "Successfully created time slot");
             }
             // catch the exceptions
             catch (Exception e)

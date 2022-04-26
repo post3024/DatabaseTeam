@@ -18,7 +18,7 @@
         </member>
         <member name="M:WebAPITest.Controllers.ClassController.DeleteClassByNameAndNumber(System.Int32,System.Int32)">
             <summary>Delete class by class number</summary>
-            <remarks>DELETE request that deletes the class with specified class number.</remarks>
+            <remarks>DELETE request that deletes the class with specified class number and department id.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.ClassController.InsertClass(WebAPITest.Models.ClassDTO)">
             <summary>Create a new class</summary>
@@ -76,7 +76,7 @@
             <summary>Get preferences by professor id</summary>
             <remarks>GET request that retrieves the preferences with specified professor id.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.PreferenceController.DeletePreferenceById(System.Int32)">
+        <member name="M:WebAPITest.Controllers.PreferenceController.DeletePreferenceById(System.Int32,System.Int32)">
             <summary>Delete preference by preference id</summary>
             <remarks>DELETE request that deletes the preference with specified preference id.</remarks>
         </member>
@@ -106,7 +106,8 @@
         </member>
         <member name="M:WebAPITest.Controllers.ProfessorController.InsertProfessor(WebAPITest.Models.ProfessorInsertDTO)">
             <summary>Create a new professor</summary>
-            <remarks>POST request that creates a new professor with inputted information. Returns the auto-generated professor id for the newly added professor.</remarks>
+            <remarks>POST request that creates a new professor with inputted information. Returns all fields for the newly created professor
+            including the auto-generated professor id and randomly created password for the new user.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.ProfessorController.UpdateProfessor(WebAPITest.Models.ProfessorDTO,System.Int32)">
             <summary>Update professor by professor id</summary>
@@ -176,13 +177,17 @@
             <summary>Create a new time slot</summary>
             <remarks>POST request that creates a new time slot with the inputted information.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.UsersController.Authenticate(WebAPITest.Models.AuthenticateRequest)">
-            <summary>Authenticate a user</summary>
-            <remarks>POST request that authenticates a user with inputted information. If valid, returns a token to be used to authenticate future requests.</remarks>
+        <member name="M:WebAPITest.Controllers.UsersController.CreateAdmin(WebAPITest.Models.AuthenticateRequest)">
+            <summary>Create a new admin user</summary>
+            <remarks>POST request that creates a new admin user with inputted information.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.UsersController.CreateUser(WebAPITest.Models.AuthenticateRequest)">
-            <summary>Create a new user</summary>
-            <remarks>POST request that creates a new user with inputted information.</remarks>
+        <member name="M:WebAPITest.Controllers.UsersController.AuthenticateAdmin(WebAPITest.Models.AuthenticateRequest)">
+            <summary>Authenticate an admin user</summary>
+            <remarks>POST request that authenticates an admin user with inputted information. If valid, returns a token to be used to authenticate future requests.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.UsersController.AuthenticateUser(WebAPITest.Models.AuthenticateRequest)">
+            <summary>Authenticate a user (professor)</summary>
+            <remarks>POST request that authenticates a user with inputted information. If valid, returns a token to be used to authenticate future requests.</remarks>
         </member>
     </members>
 </doc>

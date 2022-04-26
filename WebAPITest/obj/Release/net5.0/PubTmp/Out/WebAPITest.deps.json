@@ -33,6 +33,7 @@
     ".NETCoreApp,Version=v5.0": {
       "WebAPITest/1.0.0": {
         "dependencies": {
+          "BouncyCastle.NetCore": "1.8.10",
           "Dapper": "2.0.123",
           "Microsoft.AspNetCore.Cryptography.KeyDerivation": "6.0.4",
           "Microsoft.IdentityModel.Tokens": "6.16.0",
@@ -328,11 +329,11 @@
           "WebAPITest.dll": {}
         }
       },
-      "BouncyCastle.NetCore/1.8.5": {
+      "BouncyCastle.NetCore/1.8.10": {
         "runtime": {
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
-            "assemblyVersion": "1.8.5.0",
-            "fileVersion": "1.8.19031.1"
+            "assemblyVersion": "1.8.8.0",
+            "fileVersion": "1.8.20265.1"
           }
         },
         "compile": {
@@ -495,7 +496,7 @@
       },
       "MySql.Data/8.0.28": {
         "dependencies": {
-          "BouncyCastle.NetCore": "1.8.5",
+          "BouncyCastle.NetCore": "1.8.10",
           "Google.Protobuf": "3.14.0",
           "K4os.Compression.LZ4.Streams": "1.2.6",
           "System.Buffers": "4.5.1",
@@ -2343,12 +2344,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "BouncyCastle.NetCore/1.8.5": {
+    "BouncyCastle.NetCore/1.8.10": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6uxsQw2UXrt82VQAWC2td3oBSJjUZ3P4u4DliagB8wf67KsU53V8sW9xwdF+IwZOOZFR0TCZuv/YKZ2BlrfAag==",
-      "path": "bouncycastle.netcore/1.8.5",
-      "hashPath": "bouncycastle.netcore.1.8.5.nupkg.sha512"
+      "sha512": "sha512-Uqd1mSV+ewDNuX4G0lXds4TM2DYyFTnCUZAjZLxmxglKSCbTZe2R+TQV/u369J/bXaNZ6s/1sedCtl/5u+66iQ==",
+      "path": "bouncycastle.netcore/1.8.10",
+      "hashPath": "bouncycastle.netcore.1.8.10.nupkg.sha512"
     },
     "Dapper/2.0.123": {
       "type": "package",

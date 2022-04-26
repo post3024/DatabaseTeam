@@ -12,5 +12,19 @@ namespace WebAPITest.Models
         public int semester_year { get; set; }
 
         public int semester_num { get; set; }
+
+        public PlanDTO(int plan_id, string plan_name, string plan_description, int semester_year, int semester_num)
+        {
+            this.plan_id = plan_id;
+            this.plan_name = plan_name;
+            this.plan_description = plan_description;
+            this.semester_year = semester_year;
+            this.semester_num = semester_num;
+        }
+
+        public PlanDTO()
+        {
+
+        }
     }
 }

@@ -128,7 +128,7 @@ namespace WebAPITest.Controllers
         /// <remarks>POST request that creates a new department with the inputted information. Returns the auto-generated department id for the newly added department.</remarks>
         [HttpPost("departments/create")]
         [Authorize("admin")]
-        public async Task<ActionResult> InsertDepartment(String dept_name)
+        public async Task<ActionResult<DepartmentDTO>> InsertDepartment(String dept_name)
         {
             try
             {
@@ -141,9 +141,10 @@ namespace WebAPITest.Controllers
                 {
                     // execute query string
                     var result = await connection.QueryAsync(query, CommandType.Text);
-                    var id = await connection.QueryAsync<String>(queryId, CommandType.Text);
-                    String dept_id = id.ToList()[0];
-                    return StatusCode(200, "Successfully created department " + dept_name + " with dept_id = " + dept_id);
+                    var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                    int dept_id = id.ToList()[0];
+                    DepartmentDTO newDept = new(dept_id, dept_name);
+                    return Ok(newDept);
                 }
             }
             // catch exceptions

@@ -132,20 +132,24 @@ namespace WebAPITest.Controllers
         /// <remarks>POST request that creates a new plan with the inputted information.</remarks>
         [HttpPost("plans/create")]
         [Authorize("admin")]
-        public async Task<ActionResult> InsertPlan(PlanInsertDTO model)
+        public async Task<ActionResult<PlanDTO>> InsertPlan(PlanInsertDTO model)
         {
             try
             {
                 // create the query string
                 string query = @"INSERT INTO plan (plan_name, plan_description, semester_year, semester_num) " +
                                 "VALUES ('" + model.plan_name + "','" + model.plan_description + "'," + model.semester_year + "," + model.semester_num + ");";
+                string queryId = @"SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
                     var result = await connection.QueryAsync<PlanDTO>(query, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                    int plan_id = id.ToList()[0];
+                    PlanDTO newPlan = new(plan_id, model.plan_name, model.plan_description, model.semester_year, model.semester_num);
+                    return Ok(newPlan);
                 }
-                return StatusCode(200, "Successfully created plan");
             }
             // catch the exceptions
             catch (Exception e)

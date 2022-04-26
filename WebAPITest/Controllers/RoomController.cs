@@ -134,7 +134,7 @@ namespace WebAPITest.Controllers
         /// <remarks>POST request that creates a new room with inputted values. Returns the auto-generated room id for the newly added room.</remarks>
         [HttpPost("rooms/create")]
         [Authorize("admin")]
-        public async Task<ActionResult> InsertRoom(RoomInsertDTO model)
+        public async Task<ActionResult<RoomDTO>> InsertRoom(RoomInsertDTO model)
         {
             try
             {
@@ -147,9 +147,10 @@ namespace WebAPITest.Controllers
                 {
                     //Execute the query string
                     var result = await connection.QueryAsync<RoomDTO>(query, CommandType.Text);
-                    var id = await connection.QueryAsync<String>(queryId, CommandType.Text);
-                    String room_id = id.ToList()[0];
-                    return StatusCode(200, "Successfully created room " + model.room_num + " with room_id = " + room_id);
+                    var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                    int room_id = id.ToList()[0];
+                    RoomDTO newRoom = new(room_id, model.room_num, model.capacity, model.building_name);
+                    return Ok(newRoom);
                 }
             }
             //Catch exception

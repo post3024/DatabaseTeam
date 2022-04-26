@@ -194,19 +194,23 @@ namespace WebAPITest.Controllers
         /// <remarks>POST request that creates a new section with inputted information.</remarks>
         [HttpPost("sections/create")]
         [Authorize("admin")]
-        public async Task<ActionResult> InsertSection(SectionInsertDTO model)
+        public async Task<ActionResult<SectionDTO>> InsertSection(SectionInsertDTO model)
         {
             try
             {
                 // create query string
                 string query = @"INSERT INTO section (section_num, dept_id, room_id, professor_id, class_num, plan_id) " +
                                 "VALUES (" + model.section_num + "," + model.dept_id + "," + model.room_id + "," + model.professor_id + "," + model.class_num + "," + model.plan_id + ");";
+                string queryId = @"SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute the query string
                     var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
-                    return StatusCode(200, "Successfully created section number: " + model.section_num);
+                    var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                    int section_id = id.ToList()[0];
+                    SectionDTO newSection = new(section_id, model.section_num, model.class_num, model.dept_id, model.room_id, model.professor_id, model.plan_id);
+                    return Ok(newSection);
                 }
             }
             //catch exception

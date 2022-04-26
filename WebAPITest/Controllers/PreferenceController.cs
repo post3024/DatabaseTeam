@@ -173,7 +173,7 @@ namespace WebAPITest.Controllers
         /// <remarks>POST request that creates a new preference with the inputted information.</remarks>
         [HttpPost("preferences/create")]
         [Authorize("admin", "user")]
-        public async Task<ActionResult> InsertPreference(PreferenceInsertDTO model)
+        public async Task<ActionResult<PreferenceDTO>> InsertPreference(PreferenceInsertDTO model)
         {
             // user can only access their own records
             var currentUser = (User)HttpContext.Items["User"];
@@ -185,13 +185,17 @@ namespace WebAPITest.Controllers
                 // create the query string
                 string query = @"INSERT INTO preference (professor_id, time_slot_id, preference) " +
                                 "VALUES (" + model.professor_id + "," + model.time_slot_id + "," + model.preference + ");";
+                string queryId = @"SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
                     var result = await connection.QueryAsync<PreferenceDTO>(query, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                    int preference_id = id.ToList()[0];
+                    PreferenceDTO newPreference = new(preference_id, model.professor_id, model.time_slot_id, model.preference);
+                    return Ok(newPreference);
                 }
-                return StatusCode(200, "Successfully created preference");
             }
             // catch the exceptions
             catch (Exception e)
