@@ -8,5 +8,7 @@ namespace WebAPITest.Models
         public string last_name { get; set; }
 
         public int teach_load { get; set; }
+
+        public string user_email { get; set; }
     }
 }

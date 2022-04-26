@@ -6,6 +6,7 @@ namespace WebAPITest.Models
         public int user_id { get; set; }
         public string username { get; set; }
         public string token { get; set; }
+        public string user_role { get; set; }
 
 
         public AuthenticateResponse(User user, string token)
@@ -13,6 +14,15 @@ namespace WebAPITest.Models
             username = user.user_email;
             user_id = user.user_id;
             this.token = token;
+            user_role = user.user_role;
+        }
+
+        public AuthenticateResponse(ProfUser user, string token)
+        {
+            username = user.user_email;
+            user_id = user.professor_id;
+            this.token = token;
+            user_role = user.user_role;
         }
     }
 }

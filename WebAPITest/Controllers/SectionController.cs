@@ -11,7 +11,6 @@ using Dapper;
 
 namespace WebAPITest.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("sections-management")]
     public class SectionController : ControllerBase
@@ -35,6 +34,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all sections</summary>
         /// <remarks>GET request that retrieves all sections.</remarks>
         [HttpGet("sections")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<SectionDTO>>> GetAllSections()
         {
             var sections = new List<SectionDTO>();
@@ -65,6 +65,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get sections by section id</summary>
         /// <remarks>GET request that retrieves the sections with specified section id.</remarks>
         [HttpGet("sections/{section_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<SectionDTO>>> GetSectionById(string section_id)
         {
             var sections = new List<SectionDTO>();
@@ -102,6 +103,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get sections by plan id</summary>
         /// <remarks>GET request that retrieves the sections with specified plan id.</remarks>
         [HttpGet("sections/{plan_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<SectionDTO>>> GetSectionsByPlanId(string plan_id)
         {
             var sections = new List<SectionDTO>();
@@ -139,6 +141,7 @@ namespace WebAPITest.Controllers
         /// <summary>Delete sections by section id</summary>
         /// <remarks>DELETE request that deletes the section with specified section id.</remarks>
         [HttpDelete("sections/delete/{section_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> DeleteSectionById(string section_id)
         {
             try
@@ -164,6 +167,7 @@ namespace WebAPITest.Controllers
         /// <summary>Delete sections by plan id</summary>
         /// <remarks>DELETE request that deletes the section with specified plan id.</remarks>
         [HttpDelete("sections/delete/{plan_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> DeleteSectionByPlanId(string plan_id)
         {
             try
@@ -189,6 +193,7 @@ namespace WebAPITest.Controllers
         /// <summary>Create a new section</summary>
         /// <remarks>POST request that creates a new section with inputted information.</remarks>
         [HttpPost("sections/create")]
+        [Authorize("admin")]
         public async Task<ActionResult> InsertSection(SectionInsertDTO model)
         {
             try
@@ -214,6 +219,7 @@ namespace WebAPITest.Controllers
         /// <summary>Update sections by section id</summary>
         /// <remarks>PUT request that updates the section with specified section id to be set to the new inputted values.</remarks>
         [HttpPut("sections/update/{section_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> UpdateSection(SectionInsertDTO model, int section_id)
         {
             try

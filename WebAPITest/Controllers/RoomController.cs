@@ -11,7 +11,6 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("room-management")]
     public class RoomController : ControllerBase
@@ -35,6 +34,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all rooms</summary>
         /// <remarks>GET request that retrieves all rooms.</remarks>
         [HttpGet("rooms")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<RoomDTO>>> GetAllRooms()
         {
             var rooms = new List<RoomDTO>();
@@ -69,6 +69,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get room by room id</summary>
         /// <remarks>GET request that retrieves the room with specified room id.</remarks>
         [HttpGet("rooms/{room_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<RoomDTO>>> GetProfessorById(string room_id)
         {
             var rooms = new List<RoomDTO>();
@@ -107,6 +108,7 @@ namespace WebAPITest.Controllers
         /// <summary>Delete room by room id</summary>
         /// <remarks>DELETE request that deletes the room with specified room id.</remarks>
         [HttpDelete("rooms/delete/{room_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> DeleteRoomById(string room_id)
         {
             try
@@ -131,6 +133,7 @@ namespace WebAPITest.Controllers
         /// <summary>Create a new room</summary>
         /// <remarks>POST request that creates a new room with inputted values. Returns the auto-generated room id for the newly added room.</remarks>
         [HttpPost("rooms/create")]
+        [Authorize("admin")]
         public async Task<ActionResult> InsertRoom(RoomInsertDTO model)
         {
             try
@@ -159,6 +162,7 @@ namespace WebAPITest.Controllers
         /// <summary>Update room by room id</summary>
         /// <remarks>PUT request that updates the room with specified room id to be set to the new inputted values.</remarks>
         [HttpPut("rooms/update/{room_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> UpdateRoom(RoomDTO model, int room_id)
         {
             try

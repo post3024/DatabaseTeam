@@ -11,7 +11,6 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("time_slot-management")]
     public class TimeSlotController : ControllerBase
@@ -35,6 +34,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all time slots</summary>
         /// <remarks>GET request that retrieves all time slots.</remarks>
         [HttpGet("time_slots")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<TimeSlotDTO>>> GetAllTimeSlots()
         {
             var slots = new List<TimeSlotDTO>();
@@ -68,6 +68,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get time slot by time_slot_id</summary>
         /// <remarks>GET request that retrieves the time slot with specified time slot id.</remarks>
         [HttpGet("time_slots/{time_slot_id}")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<TimeSlotDTO>>> GetTimeSlotById(int time_slot_id)
         {
             var slot = new List<TimeSlotDTO>();
@@ -104,6 +105,7 @@ namespace WebAPITest.Controllers
         /// <summary>Delete time slot by time slot id</summary>
         /// <remarks>DELETE request that deletes the time slot with specified time slot id.</remarks>
         [HttpDelete("time_slots/delete/{time_slot_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> DeleteTimeSlotById(int time_slot_id)
         {
             try
@@ -129,6 +131,7 @@ namespace WebAPITest.Controllers
         /// <summary>Create a new time slot</summary>
         /// <remarks>POST request that creates a new time slot with the inputted information.</remarks>
         [HttpPost("time_slots/create")]
+        [Authorize("admin")]
         public async Task<ActionResult> InsertTimeSlot(TimeSlotInsertDTO model)
         {
             try

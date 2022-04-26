@@ -11,7 +11,6 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("department-management")]
     public class DepartmentController : ControllerBase
@@ -34,6 +33,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all departments</summary>
         /// <remarks>GET request that retrieves all departments.</remarks>
         [HttpGet("departments")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<DepartmentDTO>>> GetAllDepartments()
         {
             var depts = new List<DepartmentDTO>();
@@ -67,6 +67,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get department by department id</summary>
         /// <remarks>GET request that retrieves the department with specified department id.</remarks>
         [HttpGet("departments/{dept_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<DepartmentDTO>>> GetDepartmentByName(int dept_id) {
             var depts = new List<DepartmentDTO>();
             try
@@ -100,6 +101,7 @@ namespace WebAPITest.Controllers
         /// <summary>Delete department by department id</summary>
         /// <remarks>DELETE request that deletes the department with specified department id.</remarks>
         [HttpDelete("departments/delete/{dept_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> DeleteDepartmentByName(int dept_id)
         {
             try
@@ -125,6 +127,7 @@ namespace WebAPITest.Controllers
         /// <summary>Create a new department</summary>
         /// <remarks>POST request that creates a new department with the inputted information. Returns the auto-generated department id for the newly added department.</remarks>
         [HttpPost("departments/create")]
+        [Authorize("admin")]
         public async Task<ActionResult> InsertDepartment(String dept_name)
         {
             try
@@ -153,6 +156,7 @@ namespace WebAPITest.Controllers
         /// <summary>Update department by department id</summary>
         /// <remarks>PUT request that updates the department with specified department id to be set to the new inputted values.</remarks>
         [HttpPut("departments/update/{dept_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> UpdateDepartment(int dept_id, DepartmentDTO model)
         {
             try

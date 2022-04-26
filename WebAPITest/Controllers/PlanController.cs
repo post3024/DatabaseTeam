@@ -11,7 +11,6 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("plan-management")]
     public class PlanController : ControllerBase
@@ -35,6 +34,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all plans</summary>
         /// <remarks>GET request that retrieves all plans.</remarks>
         [HttpGet("plans")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<PlanDTO>>> GetAllPlans()
         {
             var plans = new List<PlanDTO>();
@@ -68,6 +68,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get plan by plan id</summary>
         /// <remarks>GET request that retrieves the plan with specified plan id.</remarks>
         [HttpGet("plans/{plan_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<PlanDTO>>> GetPlanByPlanId(int plan_id)
         {
             var plan = new List<PlanDTO>();
@@ -104,6 +105,7 @@ namespace WebAPITest.Controllers
         /// <summary>Delete plan by plan id</summary>
         /// <remarks>DELETE request that deletes the plan with specified plan id.</remarks>
         [HttpDelete("plans/delete/{plan_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> DeletePlanById(int plan_id)
         {
             try
@@ -129,6 +131,7 @@ namespace WebAPITest.Controllers
         /// <summary>Create a new plan</summary>
         /// <remarks>POST request that creates a new plan with the inputted information.</remarks>
         [HttpPost("plans/create")]
+        [Authorize("admin")]
         public async Task<ActionResult> InsertPlan(PlanInsertDTO model)
         {
             try
@@ -154,6 +157,7 @@ namespace WebAPITest.Controllers
         /// <summary>Update plan by plan id</summary>
         /// <remarks>PUT request that updates the plan with specified plan number to be set to the new inputted values.</remarks>
         [HttpPut("plans/update/{plan_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> UpdatePlan(PlanDTO model, int plan_id)
         {
             try

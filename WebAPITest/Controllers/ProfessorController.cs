@@ -8,20 +8,24 @@ using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using Dapper;
 using WebAPITest.Models;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using WebAPITest.Services;
 
 namespace WebAPITest.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("professor-management")]
     public class ProfessorController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly string connString;
+        private IUserService _userService;
 
-        public ProfessorController(IConfiguration configuration)
+        public ProfessorController(IConfiguration configuration, IUserService userService)
         {
             _configuration = configuration;
+            _userService = userService;
             var host = _configuration["DBHOST"] ?? "capstonedb01.mysql.database.azure.com";
             var port = _configuration["DBPORT"] ?? "3306";
             var password = _configuration["MYSQL_PASSWORD"] ?? "DBadmin01!";
@@ -34,13 +38,14 @@ namespace WebAPITest.Controllers
         /// <summary>Get all professsors</summary>
         /// <remarks>GET request that retrieves all professors.</remarks>
         [HttpGet("professors")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<ProfessorDTO>>> GetAllProfessors()
         {
             var profs = new List<ProfessorDTO>();
             try
             {
                 // create the query string
-                string query = @"SELECT professor_id, first_name, last_name, teach_load FROM professor";
+                string query = @"SELECT * FROM professor";
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
@@ -68,6 +73,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get professor by professor id</summary>
         /// <remarks>GET request that retrieves the professor with specified professor id.</remarks>
         [HttpGet("professors/{prof_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<ProfessorDTO>>> GetProfessorById(string prof_id)
         {
             var profs = new List<ProfessorDTO>();
@@ -105,6 +111,7 @@ namespace WebAPITest.Controllers
         /// <summary>Delete professor by professor id</summary>
         /// <remarks>DELETE request that deletes the professor with specified professor id.</remarks>
         [HttpDelete("professors/delete/{prof_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> DeleteProfessorById(string prof_id)
         {
             try
@@ -128,24 +135,47 @@ namespace WebAPITest.Controllers
         }
 
         /// <summary>Create a new professor</summary>
-        /// <remarks>POST request that creates a new professor with inputted information. Returns the auto-generated professor id for the newly added professor.</remarks>
+        /// <remarks>POST request that creates a new professor with inputted information. Returns all fields for the newly created professor
+        /// including the auto-generated professor id and randomly created password for the new user.</remarks>
         [HttpPost("professors/create")]
-        public async Task<ActionResult> InsertProfessor(ProfessorInsertDTO model)
+        [Authorize("admin")]
+        public async Task<ActionResult<CreateProfessorDTO>> InsertProfessor(ProfessorInsertDTO model)
         {
+            // generate random 32-bit password
+            var passwordStr = _userService.GeneratePassword(16, 1);
+
+            // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
+            byte[] salt = new byte[128 / 8];
+            using (var rngCsp = new RNGCryptoServiceProvider())
+            {
+                rngCsp.GetNonZeroBytes(salt);
+            }
+            string saltStr = Convert.ToBase64String(salt);
+
+            // hash password for storage
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    password: passwordStr,
+                    salt: salt,
+                    prf: KeyDerivationPrf.HMACSHA256,
+                    iterationCount: 100000,
+                    numBytesRequested: 256 / 8));
+            
             try
             {
                 // create query string
-                string query = @"INSERT INTO professor (first_name, last_name, teach_load) " +
-                                "VALUES ('" + model.first_name + "','" + model.last_name + "'," + model.teach_load + ");";
+                string query = @"INSERT INTO professor (first_name, last_name, teach_load, user_email, user_password, salt, user_role) " +
+                                "VALUES ('" + model.first_name + "','" + model.last_name + "'," + model.teach_load + ",'" +
+                                model.user_email + "','" + hashed + "','" + saltStr + "', 'user');";
                 string queryId = @"SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute the query string
-                    var result = await connection.QueryAsync<ProfessorDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync(query, CommandType.Text);
                     var id = await connection.QueryAsync<String>(queryId, CommandType.Text);
-                    String prof_id = id.ToList()[0];
-                    return StatusCode(200, "Successfully created " + model.first_name + " " + model.last_name + " with prof_id = " + prof_id);
+                    int prof_id = Convert.ToInt32(id.ToList()[0]);
+                    CreateProfessorDTO prof = new(prof_id, model.first_name, model.last_name, model.teach_load, model.user_email, passwordStr);
+                    return Ok(prof);
                 }                
             }
             //catch exception
@@ -158,6 +188,7 @@ namespace WebAPITest.Controllers
         /// <summary>Update professor by professor id</summary>
         /// <remarks>PUT request that updates the professor with specified professor id to be set to the new inputted values.</remarks>
         [HttpPut("professors/update/{prof_id}")]
+        [Authorize("admin")]
         public async Task<ActionResult> UpdateProfessor(ProfessorDTO model, int prof_id)
         {
             try
@@ -165,7 +196,7 @@ namespace WebAPITest.Controllers
                 // create the query string
                 string query = @"UPDATE professor
                                  SET first_name = '" + model.first_name + "', last_name = '" + model.last_name + "', teach_load = " + model.teach_load +
-                                 " WHERE professor_id = " + prof_id + ";";
+                                 ", user_email = '" + model.user_email + "', user_role = '" + model.user_role + "' WHERE professor_id = " + prof_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {

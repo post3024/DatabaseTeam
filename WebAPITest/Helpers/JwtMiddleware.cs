@@ -50,9 +50,17 @@ namespace WebAPITest.Helpers
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                string role = jwtToken.Claims.First(x => x.Type == "role").Value;
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = await userService.GetByIdAsync(userId);
+                if (role.Equals("admin"))
+                {
+                    context.Items["User"] = await userService.GetAdminByIdAsync(userId);
+                }
+                else if (role.Equals("user"))
+                {
+                    context.Items["User"] = await userService.GetUserByIdAsync(userId);
+                }
             }
             catch
             {

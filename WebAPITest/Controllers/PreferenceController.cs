@@ -11,7 +11,6 @@ using WebAPITest.Models;
 
 namespace WebAPITest.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("preference-management")]
     public class PreferenceController : ControllerBase
@@ -35,6 +34,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all preferences for all professors</summary>
         /// <remarks>GET request that retrieves all preferences.</remarks>
         [HttpGet("preferences")]
+        [Authorize("admin")]
         public async Task<ActionResult<List<PreferenceDTO>>> GetAllPreferences()
         {
             var preferences = new List<PreferenceDTO>();
@@ -68,8 +68,14 @@ namespace WebAPITest.Controllers
         /// <summary>Get preferences by professor id</summary>
         /// <remarks>GET request that retrieves the preferences with specified professor id.</remarks>
         [HttpGet("preferences/{professor_id}")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<PreferenceDTO>>> GetPreferencesByProfessorId(int professor_id)
         {
+            // user can only access their own records
+            var currentUser = (User)HttpContext.Items["User"];
+            if (professor_id != currentUser.user_id && currentUser.user_role != "admin")
+                return Unauthorized(new { message = "Unauthorized" });
+
             var preferences = new List<PreferenceDTO>();
             try
             {
@@ -103,9 +109,15 @@ namespace WebAPITest.Controllers
 
         /// <summary>Delete preference by preference id</summary>
         /// <remarks>DELETE request that deletes the preference with specified preference id.</remarks>
-        [HttpDelete("preferences/delete/id/{preference_id}")]
-        public async Task<ActionResult> DeletePreferenceById(int preference_id)
+        [HttpDelete("preferences/delete/{preference_id}")]
+        [Authorize("admin", "user")]
+        public async Task<ActionResult> DeletePreferenceById(int preference_id, int professor_id)
         {
+            // user can only access their own records
+            var currentUser = (User)HttpContext.Items["User"];
+            if (professor_id != currentUser.user_id && currentUser.user_role != "admin")
+                return Unauthorized(new { message = "Unauthorized" });
+
             try
             {
                 // create query string
@@ -128,9 +140,15 @@ namespace WebAPITest.Controllers
 
         /// <summary>Delete preferences by professor id</summary>
         /// <remarks>DELETE request that deletes the preferences with specified professor id.</remarks>
-        [HttpDelete("preferences/delete/professor/{professor_id}")]
+        [HttpDelete("preferences/delete/{professor_id}")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult> DeletePreferencesByProfessorId(int professor_id)
         {
+            // user can only access their own records
+            var currentUser = (User)HttpContext.Items["User"];
+            if (professor_id != currentUser.user_id && currentUser.user_role != "admin")
+                return Unauthorized(new { message = "Unauthorized" });
+
             try
             {
                 // create query string
@@ -154,8 +172,14 @@ namespace WebAPITest.Controllers
         /// <summary>Create a new preference</summary>
         /// <remarks>POST request that creates a new preference with the inputted information.</remarks>
         [HttpPost("preferences/create")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult> InsertPreference(PreferenceInsertDTO model)
         {
+            // user can only access their own records
+            var currentUser = (User)HttpContext.Items["User"];
+            if (model.professor_id != currentUser.user_id && currentUser.user_role != "admin")
+                return Unauthorized(new { message = "Unauthorized" });
+
             try
             {
                 // create the query string
@@ -179,8 +203,14 @@ namespace WebAPITest.Controllers
         /// <summary>Update preference by preference id</summary>
         /// <remarks>PUT request that updates the preference with specified preference id to be set to the new inputted values.</remarks>
         [HttpPut("preferences/update/{preference_id}")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult> UpdatePreference(PreferenceDTO model, int preference_id)
         {
+            // user can only access their own records
+            var currentUser = (User)HttpContext.Items["User"];
+            if (model.professor_id != currentUser.user_id && currentUser.user_role != "admin")
+                return Unauthorized(new { message = "Unauthorized" });
+
             try
             {
                 // create the query string
