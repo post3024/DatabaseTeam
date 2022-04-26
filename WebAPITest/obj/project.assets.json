@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net5.0": {
-      "BouncyCastle.NetCore/1.8.5": {
+      "BouncyCastle.NetCore/1.8.10": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
@@ -451,14 +451,14 @@
     }
   },
   "libraries": {
-    "BouncyCastle.NetCore/1.8.5": {
-      "sha512": "6uxsQw2UXrt82VQAWC2td3oBSJjUZ3P4u4DliagB8wf67KsU53V8sW9xwdF+IwZOOZFR0TCZuv/YKZ2BlrfAag==",
+    "BouncyCastle.NetCore/1.8.10": {
+      "sha512": "Uqd1mSV+ewDNuX4G0lXds4TM2DYyFTnCUZAjZLxmxglKSCbTZe2R+TQV/u369J/bXaNZ6s/1sedCtl/5u+66iQ==",
       "type": "package",
-      "path": "bouncycastle.netcore/1.8.5",
+      "path": "bouncycastle.netcore/1.8.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "bouncycastle.netcore.1.8.5.nupkg.sha512",
+        "bouncycastle.netcore.1.8.10.nupkg.sha512",
         "bouncycastle.netcore.nuspec",
         "lib/Mono/BouncyCastle.Crypto.dll",
         "lib/Mono/BouncyCastle.Crypto.xml",
@@ -1410,6 +1410,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "BouncyCastle.NetCore >= 1.8.10",
       "Dapper >= 2.0.123",
       "Microsoft.AspNetCore.Cryptography.KeyDerivation >= 6.0.4",
       "Microsoft.IdentityModel.Tokens >= 6.16.0",
@@ -1419,26 +1420,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\btbor\\.nuget\\packages\\": {}
+    "/Users/laurapost/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
+      "projectUniqueName": "/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/WebAPITest.csproj",
       "projectName": "WebAPITest",
-      "projectPath": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
-      "packagesPath": "C:\\Users\\btbor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\obj\\",
+      "projectPath": "/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/WebAPITest.csproj",
+      "packagesPath": "/Users/laurapost/.nuget/packages/",
+      "outputPath": "/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\btbor\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/laurapost/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1457,6 +1456,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "BouncyCastle.NetCore": {
+            "target": "Package",
+            "version": "[1.8.10, )"
+          },
           "Dapper": {
             "target": "Package",
             "version": "[2.0.123, )"
@@ -1492,12 +1495,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.15, 5.0.15]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -1506,7 +1503,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.407/RuntimeIdentifierGraph.json"
       }
     }
   }
