@@ -179,8 +179,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"INSERT INTO class (class_num, dept_id, class_name, capacity, credits) " +
-                                "VALUES (" + model.class_num + "," + model.dept_id + ",'" + model.class_name + "'," + model.capacity + "," + model.credits + ");";
+                string query = @"INSERT INTO class (class_num, dept_id, class_name, capacity, credits, is_lab) " +
+                                "VALUES (" + model.class_num + "," + model.dept_id + ",'" + model.class_name + "'," + model.capacity + "," + model.credits + "," + model.is_lab + ");";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -207,7 +207,7 @@ namespace WebAPITest.Controllers
                 // create the query string
                 string query = @"UPDATE class
                                  SET class_num = " + model.class_num + ", dept_id = " + model.dept_id + ", class_name = '" + model.class_name +
-                                 "', capacity = " + model.capacity + ", credits = " + model.credits +
+                                 "', capacity = " + model.capacity + ", credits = " + model.credits + ", is_lab = " + model.is_lab +
                                  " WHERE class_num = " + class_num + " AND dept_id = " + dept_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
