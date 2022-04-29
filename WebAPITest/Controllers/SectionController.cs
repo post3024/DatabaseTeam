@@ -220,6 +220,40 @@ namespace WebAPITest.Controllers
             }
         }
 
+        /// <summary>Create new sections</summary>
+        /// <remarks>POST request that creates multiple sections with inputted list of information.</remarks>
+        [HttpPost("sections/create/multiple")]
+        [Authorize("admin")]
+        public async Task<ActionResult<SectionDTO>> InsertSections(List<SectionInsertDTO> model)
+        {
+            try
+            {
+                List<SectionDTO> newSections = new List<SectionDTO>();
+                foreach (var item in model)
+                {
+                    // create query string
+                    string query = @"INSERT INTO section (section_num, dept_id, room_id, professor_id, class_num, plan_id) " +
+                                    "VALUES (" + item.section_num + "," + item.dept_id + "," + item.room_id + "," + item.professor_id + "," + item.class_num + "," + item.plan_id + ");";
+                    string queryId = @"SELECT LAST_INSERT_ID();";
+
+                    using (var connection = new MySqlConnection(connString))
+                    {
+                        // execute the query string
+                        var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                        var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                        int section_id = id.ToList()[0];
+                        newSections.Add(new(section_id, item.section_num, item.class_num, item.dept_id, item.room_id, item.professor_id, item.plan_id));
+                    }
+                }
+                return Ok(newSections);
+            }
+            //catch exception
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
         /// <summary>Update sections by section id</summary>
         /// <remarks>PUT request that updates the section with specified section id to be set to the new inputted values.</remarks>
         [HttpPut("sections/update/{section_id}")]
