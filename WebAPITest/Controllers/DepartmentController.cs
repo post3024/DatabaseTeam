@@ -33,7 +33,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all departments</summary>
         /// <remarks>GET request that retrieves all departments.</remarks>
         [HttpGet("departments")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<DepartmentDTO>>> GetAllDepartments()
         {
             var depts = new List<DepartmentDTO>();
@@ -67,7 +67,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get department by department id</summary>
         /// <remarks>GET request that retrieves the department with specified department id.</remarks>
         [HttpGet("departments/{dept_id}")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<DepartmentDTO>>> GetDepartmentByName(int dept_id) {
             var depts = new List<DepartmentDTO>();
             try

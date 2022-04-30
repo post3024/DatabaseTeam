@@ -18,8 +18,9 @@ namespace WebAPITest.Controllers
         }
 
         /// <summary>Create a new admin user</summary>
-        /// <remarks>POST request that creates a new admin user with inputted information.</remarks>
+        /// <remarks>POST request that creates a new admin user with inputted information. Only an existing admin can add another admin user.</remarks>
         [HttpPost("admin/create")]
+        [Authorize("admin")]
         public async Task<ActionResult> CreateAdmin(AuthenticateRequest model)
         {
             var response = await _userService.CreateAdminUserAsync(model);

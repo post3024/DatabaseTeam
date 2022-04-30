@@ -6,7 +6,5 @@ namespace WebAPITest.Models
         public string start_time { get; set; }
 
         public string end_time { get; set; }
-
-        public string day_of_week { get; set; }
     }
 }

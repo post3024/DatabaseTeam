@@ -34,7 +34,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all classes</summary>
         /// <remarks>GET request that retrieves all classes.</remarks>
         [HttpGet("classes")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<ClassDTO>>> GetAllClasses()
         {
             var classes = new List<ClassDTO>();
@@ -69,7 +69,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get class by class number and department id</summary>
         /// <remarks>GET request that retrieves the class with specified class number and department id.</remarks>
         [HttpGet("classes/{class_num}/{dept_id}")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<ClassDTO>>> GetClassByDeptAndNumber (int class_num, int dept_id)
         {
             var classes = new List<ClassDTO>();
@@ -107,7 +107,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get classes joined with department</summary>
         /// <remarks>GET request that retrieves the class with department name.</remarks>
         [HttpGet("classes/department")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<DepartmentClassDTO>>> GetClassAndDepartmentTables()
         {
             var classes = new List<DepartmentClassDTO>();
