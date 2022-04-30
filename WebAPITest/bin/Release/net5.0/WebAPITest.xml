@@ -157,6 +157,10 @@
             <summary>Create a new section</summary>
             <remarks>POST request that creates a new section with inputted information.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.SectionController.InsertSections(System.Collections.Generic.List{WebAPITest.Models.SectionInsertDTO})">
+            <summary>Create new sections</summary>
+            <remarks>POST request that creates multiple sections with inputted list of information.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.SectionController.UpdateSection(WebAPITest.Models.SectionInsertDTO,System.Int32)">
             <summary>Update sections by section id</summary>
             <remarks>PUT request that updates the section with specified section id to be set to the new inputted values.</remarks>

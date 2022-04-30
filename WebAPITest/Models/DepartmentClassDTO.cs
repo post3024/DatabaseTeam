@@ -13,5 +13,7 @@
         public int capacity { get; set; }
 
         public int credits { get; set; }
+
+        public bool is_lab { get; set; }
     }
 }

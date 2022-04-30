@@ -12,6 +12,8 @@ C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\PubTmp\Ou
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\PubTmp\Out\K4os.Compression.LZ4.dll
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\PubTmp\Out\K4os.Compression.LZ4.Streams.dll
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\PubTmp\Out\K4os.Hash.xxHash.dll
+C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.Logging.dll
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.Tokens.dll
