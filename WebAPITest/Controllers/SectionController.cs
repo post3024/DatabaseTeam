@@ -254,6 +254,42 @@ namespace WebAPITest.Controllers
             }
         }
 
+        /// <summary>Delete previous sections and insert a new list based on plan id </summary>
+        /// <remarks>POST request that deletes sections based on plan id and creates multiple sections with inputted list of information.</remarks>
+        [HttpPost("sections/delete/create/multiple/{plan_id}")]
+        [Authorize("admin")]
+        public async Task<ActionResult<SectionDTO>> DeletePlanSectionsInsertList(List<SectionInsertDTO> models, string plan_id)
+        {
+            try
+            {
+                await DeleteSectionByPlanId(plan_id);
+
+                List<SectionDTO> newSections = new List<SectionDTO>();
+                foreach (var item in models)
+                {
+                    // create query string
+                    string query = @"INSERT INTO section (section_num, dept_id, room_id, professor_id, class_num, plan_id) " +
+                                    "VALUES (" + item.section_num + "," + item.dept_id + "," + item.room_id + "," + item.professor_id + "," + item.class_num + "," + plan_id + ");";
+                    string queryId = @"SELECT LAST_INSERT_ID();";
+
+                    using (var connection = new MySqlConnection(connString))
+                    {
+                        // execute the query string
+                        var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                        var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                        int section_id = id.ToList()[0];
+                        newSections.Add(new(section_id, item.section_num, item.class_num, item.dept_id, item.room_id, item.professor_id, Int32.Parse(plan_id)));
+                    }
+                }
+                return Ok(newSections);
+            }
+            //catch exception
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
         /// <summary>Update sections by section id</summary>
         /// <remarks>PUT request that updates the section with specified section id to be set to the new inputted values.</remarks>
         [HttpPut("sections/update/{section_id}")]
