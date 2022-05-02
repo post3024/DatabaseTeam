@@ -203,8 +203,8 @@
             <remarks>POST request that creates multiple sections with inputted list of information.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.SectionController.DeletePlanSectionsInsertList(System.Collections.Generic.List{WebAPITest.Models.SectionInsertDTO},System.String)">
-            <summary>Delete previous sections </summary>
-            <remarks>POST request that creates multiple sections with inputted list of information.</remarks>
+            <summary>Delete previous sections and insert a new list based on plan id </summary>
+            <remarks>POST request that deletes sections based on plan id and creates multiple sections with inputted list of information.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.SectionController.UpdateSection(WebAPITest.Models.SectionInsertDTO,System.Int32)">
             <summary>Update sections by section id</summary>

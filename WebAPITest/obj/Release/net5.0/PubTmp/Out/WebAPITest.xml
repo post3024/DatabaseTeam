@@ -68,29 +68,70 @@
             <summary>Update plan by plan id</summary>
             <remarks>PUT request that updates the plan with specified plan number to be set to the new inputted values.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.PreferenceController.GetAllPreferences">
-            <summary>Get all preferences for all professors</summary>
-            <remarks>GET request that retrieves all preferences.</remarks>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetClassesCanTeach(System.Int32)">
+            <summary>Get all classes and whether a professor can or cannot teach them</summary>
+            <remarks>GET request that retrieves all classes and whether the indicated professor can or cannot teach them. A user can only access their own preferences.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.PreferenceController.GetPreferencesByProfessorId(System.Int32)">
-            <summary>Get preferences by professor id</summary>
-            <remarks>GET request that retrieves the preferences with specified professor id.</remarks>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetClassesPreferToTeach(System.Int32)">
+            <summary>Get all classes and whether a professor prefers to teach them</summary>
+            <remarks>GET request that retrieves all classes and whether the indicated professor prefers to teach them. A user can only access their own preferences.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.PreferenceController.DeletePreferenceById(System.Int32,System.Int32)">
-            <summary>Delete preference by preference id</summary>
-            <remarks>DELETE request that deletes the preference with specified preference id.</remarks>
+        <member name="M:WebAPITest.Controllers.PreferenceController.SaveCanTeachPreference(System.Collections.Generic.List{WebAPITest.Models.ClassesCanTeachInsertDTO},System.Int32)">
+            <summary>Save professor preferences for what classes they can and cannot teach</summary>
+            <remarks>POST request that saves professor preferences for what classes they can and cannot teach. If the preference already exists,
+            it is updated with the inputted information. If it does not exist, it is added to the table. Request takes in a list of class preference objects.
+            A user can only access their own preferences.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.PreferenceController.DeletePreferencesByProfessorId(System.Int32)">
-            <summary>Delete preferences by professor id</summary>
-            <remarks>DELETE request that deletes the preferences with specified professor id.</remarks>
+        <member name="M:WebAPITest.Controllers.PreferenceController.AddPreferToTeachPreference(System.Collections.Generic.List{WebAPITest.Models.ClassesPreferToTeachInsertDTO},System.Int32)">
+            <summary>Save professor preferences for what classes they prefer to teach</summary>
+            <remarks>POST request that saves professor preferences for what classes they prefer to teach. If the preference already exists,
+            it is updated with the inputted information. If it does not exist, it is added to the table. Request takes in a list of class preference objects.
+            A user can only access their own preferences.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.PreferenceController.InsertPreference(WebAPITest.Models.PreferenceInsertDTO)">
-            <summary>Create a new preference</summary>
-            <remarks>POST request that creates a new preference with the inputted information.</remarks>
+        <member name="M:WebAPITest.Controllers.PreferenceController.DeleteClassPreferences(System.Int32)">
+            <summary>Delete all class preferences for a professor</summary>
+            <remarks>DELETE request that removes all class preferences for a professor with specified id. A user can only access their own preferences.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.PreferenceController.UpdatePreference(WebAPITest.Models.PreferenceDTO,System.Int32)">
-            <summary>Update preference by preference id</summary>
-            <remarks>PUT request that updates the preference with specified preference id to be set to the new inputted values.</remarks>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetDayOfWeekPreferences(System.Int32)">
+            <summary>Get the days of the week a professor prefers to teach</summary>
+            <remarks>GET request that retrieves the days of the week and whether the indicated professor prefers to teach then.
+            A user can only access their own preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.SaveDayOfWeekPreferences(WebAPITest.Models.DayOfWeekPreferenceDTO,System.Int32)">
+            <summary>Saves the days of the week a professor prefers to teach</summary>
+            <remarks>POST request that saves the days of the week the indicated professor prefers to teach. If the preference already exists,
+            it is updated with the inputted information. If it does not exist, it is added to the table. A user can only access their own preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.DeleteDayOfWeekPreferences(System.Int32)">
+            <summary>Delete all day of week preferences for a professor</summary>
+            <remarks>DELETE request that removes all day of week preferences for a professor with specified id. A user can only access their own preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetTimeOfDayPreferences(System.Int32)">
+            <summary>Get the times of the day a professor prefers to teach</summary>
+            <remarks>GET request that retrieves the times of the day and whether the indicated professor prefers to teach then. A user can only access their own preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.SaveTimeOfDayPreferences(WebAPITest.Models.TimeOfDayPreferenceDTO,System.Int32)">
+            <summary>Saves the times of the day a professor prefers to teach</summary>
+            <remarks>POST request that saves the times of the day the indicated professor prefers to teach. If the preference already exists,
+            it is updated with the inputted information. If it does not exist, it is added to the table. A user can only access their own preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.DeleteTimeOfDayPreferences(System.Int32)">
+            <summary>Delete all time of day preferences for a professor</summary>
+            <remarks>DELETE request that removes all time of day preferences for a professor with specified id. A user can only access their own preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetTimeSlotPreferences(System.Int32)">
+            <summary>Get all time slots and whether a professor can or cannot teach then</summary>
+            <remarks>GET request that retrieves all the times slots and whether the indicated professor can or cannot teach then. A user can only access their own preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.SaveTimeSlotPreference(System.Collections.Generic.List{WebAPITest.Models.TimeSlotPreferenceInsert},System.Int32)">
+            <summary>Save professor preferences for what time slots they can and cannot teach</summary>
+            <remarks>POST request that saves professor preferences for what time slots they can and cannot teach. If the preference already exists,
+            it is updated with the inputted information. If it does not exist, it is added to the table. Request takes in a list of time slot preference objects.
+            A user can only access their own preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.DeleteTimeSlotPreferences(System.Int32)">
+            <summary>Delete all time slot preferences for a professor</summary>
+            <remarks>DELETE request that removes all time slot preferences for a professor with specified id. A user can only access their own preferences.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.ProfessorController.GetAllProfessors">
             <summary>Get all professsors</summary>
@@ -161,6 +202,10 @@
             <summary>Create new sections</summary>
             <remarks>POST request that creates multiple sections with inputted list of information.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.SectionController.DeletePlanSectionsInsertList(System.Collections.Generic.List{WebAPITest.Models.SectionInsertDTO},System.String)">
+            <summary>Delete previous sections and insert a new list based on plan id </summary>
+            <remarks>POST request that deletes sections based on plan id and creates multiple sections with inputted list of information.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.SectionController.UpdateSection(WebAPITest.Models.SectionInsertDTO,System.Int32)">
             <summary>Update sections by section id</summary>
             <remarks>PUT request that updates the section with specified section id to be set to the new inputted values.</remarks>
@@ -183,7 +228,7 @@
         </member>
         <member name="M:WebAPITest.Controllers.UsersController.CreateAdmin(WebAPITest.Models.AuthenticateRequest)">
             <summary>Create a new admin user</summary>
-            <remarks>POST request that creates a new admin user with inputted information.</remarks>
+            <remarks>POST request that creates a new admin user with inputted information. Only an existing admin can add another admin user.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.UsersController.AuthenticateAdmin(WebAPITest.Models.AuthenticateRequest)">
             <summary>Authenticate an admin user</summary>

@@ -102,7 +102,7 @@ namespace WebAPITest.Controllers
 
         /// <summary>Get sections by plan id</summary>
         /// <remarks>GET request that retrieves the sections with specified plan id.</remarks>
-        [HttpGet("sections/{plan_id}")]
+        [HttpGet("sections/plan/{plan_id}")]
         [Authorize("admin")]
         public async Task<ActionResult<List<SectionDTO>>> GetSectionsByPlanId(string plan_id)
         {
