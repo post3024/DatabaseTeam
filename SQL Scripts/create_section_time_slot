@@ -1,0 +1,11 @@
+CREATE TABLE section_time_slot(
+  section_time_slot_id INTEGER AUTO_INCREMENT,
+	start_time VARCHAR(6),
+	end_time VARCHAR(6),
+	on_monday BOOLEAN,
+  on_tuesday BOOLEAN,
+  on_wednesday BOOLEAN,
+  on_thursday BOOLEAN,
+  on_friday BOOLEAN,
+  PRIMARY KEY (section_time_slot_id)
+);
