@@ -23,6 +23,7 @@ namespace WebAPITest.Services
         Task<AuthenticateResponse> AuthenticateAdminAsync(AuthenticateRequest model);
         Task<AuthenticateResponse> AuthenticateUserAsync(AuthenticateRequest model);
         Task<CreateUserResponse> CreateAdminUserAsync(AuthenticateRequest model);
+        Task<User> ChangeUserPasswordAsync(User user, string new_password);
         Task<User> GetAdminByIdAsync(int id);
         Task<User> GetUserByIdAsync(int id);
         string GeneratePassword(int length, int numberOfNonAlphanumericCharacters);
@@ -182,6 +183,46 @@ namespace WebAPITest.Services
                     var id = await connection.QueryAsync<String>(queryId, CommandType.Text);
                     int user_id = Convert.ToInt32(id.ToList()[0]);
                     return new CreateUserResponse(user_id, model.username);
+                }
+            }
+            // catch the exceptions
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<User> ChangeUserPasswordAsync(User user, string new_password)
+        {
+            // hash new password
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    password: new_password,
+                    salt: Convert.FromBase64String(user.salt),
+                    prf: KeyDerivationPrf.HMACSHA256,
+                    iterationCount: 100000,
+                    numBytesRequested: 256 / 8));
+            try
+            {
+                // create the query string
+                string query;
+                if (user.user_role.Equals("admin"))
+                {
+                    query = @"UPDATE users
+                                 SET user_password = '" + hashed +
+                                 "' WHERE user_id = " + user.user_id + ";";
+                }
+                else
+                {
+                    query = @"UPDATE professor
+                                 SET user_password = '" + hashed +
+                                 "' WHERE professor_id = " + user.user_id + ";";
+                }
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // Execute the query
+                    var result = await connection.QueryAsync<ProfUser>(query, CommandType.Text);
+                    return user;
                 }
             }
             // catch the exceptions

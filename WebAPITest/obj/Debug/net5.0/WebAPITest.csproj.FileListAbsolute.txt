@@ -315,3 +315,4 @@ C:/Users/ricar/source/repos/post3024/DatabaseTeam/WebAPITest/obj/Debug/net5.0/re
 /Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/obj/Debug/net5.0/WebAPITest.xml
 /Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/obj/Debug/net5.0/WebAPITest.pdb
 /Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/obj/Debug/net5.0/WebAPITest.genruntimeconfig.cache
+/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/obj/Debug/net5.0/WebAPITest.csproj.AssemblyReference.cache

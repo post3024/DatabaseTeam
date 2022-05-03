@@ -56,5 +56,19 @@ namespace WebAPITest.Controllers
 
             return Ok(response);
         }
+
+        /// <summary>Change a user or admin's password</summary>
+        /// <remarks>POST request that changes the user's password. User or admin must be logged in and send a valid token to be authorized for this endpoint.</remarks>
+        [HttpPost("/change-password")]
+        [Authorize("admin", "user")]
+        public async Task<ActionResult> ChangePassword(string new_password)
+        {
+            var currentUser = (User)HttpContext.Items["User"];
+            var response = await _userService.ChangeUserPasswordAsync(currentUser, new_password);
+            if (response == null)
+                return StatusCode(500, "Error: password could not be updated");
+
+            return StatusCode(200, "Successfully updated password");
+        }
     }
 }

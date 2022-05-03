@@ -198,6 +198,14 @@
             <summary>Create a new section</summary>
             <remarks>POST request that creates a new section with inputted information.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.SectionController.InsertSections(System.Collections.Generic.List{WebAPITest.Models.SectionInsertDTO})">
+            <summary>Create new sections</summary>
+            <remarks>POST request that creates multiple sections with inputted list of information.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.SectionController.DeletePlanSectionsInsertList(System.Collections.Generic.List{WebAPITest.Models.SectionInsertDTO},System.String)">
+            <summary>Delete previous sections and insert a new list based on plan id </summary>
+            <remarks>POST request that deletes sections based on plan id and creates multiple sections with inputted list of information.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.SectionController.UpdateSection(WebAPITest.Models.SectionInsertDTO,System.Int32)">
             <summary>Update sections by section id</summary>
             <remarks>PUT request that updates the section with specified section id to be set to the new inputted values.</remarks>
@@ -229,6 +237,10 @@
         <member name="M:WebAPITest.Controllers.UsersController.AuthenticateUser(WebAPITest.Models.AuthenticateRequest)">
             <summary>Authenticate a user (professor)</summary>
             <remarks>POST request that authenticates a user with inputted information. If valid, returns a token to be used to authenticate future requests.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.UsersController.ChangePassword(System.String)">
+            <summary>Change a user or admin's password</summary>
+            <remarks>POST request that changes the user's password. User or admin must be logged in and send a valid token to be authorized for this endpoint.</remarks>
         </member>
     </members>
 </doc>
