@@ -1,0 +1,7 @@
+ALTER TABLE section
+	ADD COLUMN 
+    section_time_slot_id INT;
+ALTER TABLE section
+	ADD CONSTRAINT fk_section_time_slot_id
+    FOREIGN KEY (section_time_slot_id)
+		REFERENCES section_time_slot(section_time_slot_id);
