@@ -59,7 +59,7 @@ namespace WebAPITest.Controllers
 
         /// <summary>Change a user or admin's password</summary>
         /// <remarks>POST request that changes the user's password. User or admin must be logged in and send a valid token to be authorized for this endpoint.</remarks>
-        [HttpPost("/change-password")]
+        [HttpPost("change-password")]
         [Authorize("admin", "user")]
         public async Task<ActionResult> ChangePassword(string new_password)
         {

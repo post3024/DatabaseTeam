@@ -238,5 +238,9 @@
             <summary>Authenticate a user (professor)</summary>
             <remarks>POST request that authenticates a user with inputted information. If valid, returns a token to be used to authenticate future requests.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.UsersController.ChangePassword(System.String)">
+            <summary>Change a user or admin's password</summary>
+            <remarks>POST request that changes the user's password. User or admin must be logged in and send a valid token to be authorized for this endpoint.</remarks>
+        </member>
     </members>
 </doc>
