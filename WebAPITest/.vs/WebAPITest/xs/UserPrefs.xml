@@ -1,22 +1,24 @@
 ﻿<Properties StartupConfiguration="{F3CAD161-51E7-4CC1-9725-0AB2815A95F5}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Services/UserService.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/ProfessorController.cs">
     <Files>
-      <File FileName="Controllers/UserController.cs" Line="66" Column="63" />
-      <File FileName="Services/UserService.cs" Line="224" Column="97" />
-      <File FileName="Controllers/PreferenceController.cs" Line="40" Column="13" />
-      <File FileName="Controllers/ClassController.cs" Line="208" Column="32" />
+      <File FileName="Controllers/UserController.cs" Line="62" Column="20" />
+      <File FileName="Services/UserService.cs" />
+      <File FileName="Controllers/PreferenceController.cs" />
+      <File FileName="Controllers/ClassController.cs" />
+      <File FileName="Controllers/ProfessorController.cs" Line="176" Column="67" />
+      <File FileName="Models/CreateProfessorDTO.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WebAPITest" expanded="True">
             <Node name="WebAPITest" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="ProfessorController.cs" selected="True" />
+              </Node>
               <Node name="Helpers" expanded="True" />
               <Node name="Models" expanded="True" />
-              <Node name="Services" expanded="True">
-                <Node name="UserService.cs" selected="True" />
-              </Node>
+              <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -27,7 +29,9 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/Controllers/ProfessorController.cs" relfile="Controllers/ProfessorController.cs" line="176" column="21" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

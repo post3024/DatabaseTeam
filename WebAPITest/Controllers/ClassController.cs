@@ -173,7 +173,7 @@ namespace WebAPITest.Controllers
         /// <summary>Create a new class</summary>
         /// <remarks>POST request that creates a new class with the inputted information.</remarks>
         [HttpPost("classes/create")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult> InsertClass(ClassDTO model)
         {
             try
