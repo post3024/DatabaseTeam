@@ -165,17 +165,16 @@ namespace WebAPITest.Controllers
                 // create query string
                 string query = @"INSERT INTO professor (first_name, last_name, teach_load, user_email, user_password, salt, user_role) " +
                                 "VALUES ('" + model.first_name + "','" + model.last_name + "'," + model.teach_load + ",'" +
-                                model.user_email + "','" + hashed + "','" + saltStr + "', 'user');";
-                string queryId = @"SELECT LAST_INSERT_ID();";
+                                model.user_email + "','" + hashed + "','" + saltStr + "', 'user'); SELECT * FROM professor WHERE professor_id = LAST_INSERT_ID();";
+                //string queryId = @"SELECT * FROM professor WHERE user_email = '" + model.user_email + "';";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute the query string
-                    var result = await connection.QueryAsync(query, CommandType.Text);
-                    var id = await connection.QueryAsync<String>(queryId, CommandType.Text);
-                    int prof_id = Convert.ToInt32(id.ToList()[0]);
-                    CreateProfessorDTO prof = new(prof_id, model.first_name, model.last_name, model.teach_load, model.user_email, passwordStr);
-                    return Ok(prof);
+                    var result = await connection.QueryAsync<CreateProfessorDTO>(query, CommandType.Text);
+                    var prof = result.ToList()[0];
+                    prof.user_password = passwordStr;
+                    return Ok(result);
                 }                
             }
             //catch exception

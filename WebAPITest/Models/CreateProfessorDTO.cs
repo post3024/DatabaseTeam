@@ -13,16 +13,6 @@ namespace WebAPITest.Models
 
         public string user_email { get; set; }
 
-        public string password { get; set; }
-
-        public CreateProfessorDTO(int professor_id, string first_name, string last_name, int teach_load, string user_email, string password)
-        {
-            this.professor_id = professor_id;
-            this.first_name = first_name;
-            this.last_name = last_name;
-            this.teach_load = teach_load;
-            this.user_email = user_email;
-            this.password = password;
-        }
+        public string user_password { get; set; }
     }
 }
