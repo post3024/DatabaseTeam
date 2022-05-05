@@ -46,6 +46,10 @@
               "target": "Package",
               "version": "[2.0.123, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
             "Microsoft.AspNetCore.Cryptography.KeyDerivation": {
               "target": "Package",
               "version": "[6.0.4, )"

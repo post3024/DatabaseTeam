@@ -316,3 +316,5 @@ C:/Users/ricar/source/repos/post3024/DatabaseTeam/WebAPITest/obj/Debug/net5.0/re
 /Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/obj/Debug/net5.0/WebAPITest.pdb
 /Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/obj/Debug/net5.0/WebAPITest.genruntimeconfig.cache
 /Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/obj/Debug/net5.0/WebAPITest.csproj.AssemblyReference.cache
+/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/bin/Debug/net5.0/MailKit.dll
+/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/bin/Debug/net5.0/MimeKit.dll

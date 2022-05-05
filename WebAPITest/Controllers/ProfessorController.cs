@@ -11,6 +11,10 @@ using WebAPITest.Models;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using WebAPITest.Services;
+using MimeKit;
+using MimeKit.Text;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 
 namespace WebAPITest.Controllers
 {
@@ -162,20 +166,34 @@ namespace WebAPITest.Controllers
             
             try
             {
+                var prof = new CreateProfessorDTO();
                 // create query string
                 string query = @"INSERT INTO professor (first_name, last_name, teach_load, user_email, user_password, salt, user_role) " +
                                 "VALUES ('" + model.first_name + "','" + model.last_name + "'," + model.teach_load + ",'" +
                                 model.user_email + "','" + hashed + "','" + saltStr + "', 'user'); SELECT * FROM professor WHERE professor_id = LAST_INSERT_ID();";
-                //string queryId = @"SELECT * FROM professor WHERE user_email = '" + model.user_email + "';";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute the query string
                     var result = await connection.QueryAsync<CreateProfessorDTO>(query, CommandType.Text);
-                    var prof = result.ToList()[0];
-                    prof.user_password = passwordStr;
-                    return Ok(result);
-                }                
+                    prof = result.ToList()[0];
+                }
+                // create email message
+                var email = new MimeMessage();
+                email.From.Add(MailboxAddress.Parse("classyscheduleUST@gmail.com"));
+                email.To.Add(MailboxAddress.Parse(model.user_email));
+                email.Subject = "Login Information for ClassySchedule";
+                string messageText = "Hello " + model.first_name + " " + model.last_name + ",\n\nYour University of St. Thomas administrator has created an account for you with ClassySchedule. Please use your St. Thomas email and this temporary password to login.\n\n" + "Password = " + passwordStr + "\n\nFeel free to change this password in your account settings.\n\nThank you,\nClassySchedule";
+                email.Body = new TextPart(TextFormat.Plain) { Text = messageText };
+
+                // send email
+                using var smtp = new SmtpClient();
+                smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                smtp.Authenticate("classyscheduleUST@gmail.com", "@ryb5rgLQb7J");
+                smtp.Send(email);
+                smtp.Disconnect(true);
+
+                return Ok(prof);
             }
             //catch exception
             catch (Exception e)
