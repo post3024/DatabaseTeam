@@ -30,6 +30,80 @@ namespace WebAPITest.Controllers
             connString = $"server={host}; userid={userid};pwd={password};port={port};database={usersDataBase}";
         }
 
+        /// <summary>Get all class preferences for all professors</summary>
+        /// <remarks>GET request that retrieves all class preferences for all professors. Only accessible by an admin.</remarks>
+        [HttpGet("class-preferences")]
+        [Authorize("admin")]
+        public async Task<ActionResult<List<ProfessorClassPreferencesDTO>>> GetAllClassPreferences()
+        {
+            var professor_preferences = new List<ProfessorClassPreferencesDTO>();
+            var prof_ids = new List<int>();
+            try
+            {
+                // Create query string
+                string query = @"SELECT DISTINCT prof_id
+                                 FROM class_preference";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query
+                    var result = await connection.QueryAsync<int>(query, CommandType.Text);
+                    prof_ids = result.ToList();
+                }
+                if (prof_ids.Count > 0)
+                {
+                    foreach (int prof_id in prof_ids)
+                    {
+                        var class_preferences = await GetClassPreference(prof_id);
+                        if (class_preferences != null)
+                        {
+                            professor_preferences.Add(new ProfessorClassPreferencesDTO(prof_id, class_preferences));
+                        }
+                    }
+                    return professor_preferences;
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            // catch exception
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        // Helper method
+        private async Task<List<ClassPreferenceDTO>> GetClassPreference(int professor_id)
+        {
+            try
+            {
+                List<ClassPreferenceDTO> class_preferences;
+                // Create query string
+                string query = @"SELECT *
+                                 FROM class_preference
+                                 JOIN class
+                                 WHERE prof_id = " + professor_id +
+                                 " AND class.class_num = class_preference.class_num" +
+                                 " AND class.dept_id = class_preference.dept_id" +
+                                 " AND class.is_lab = class_preference.is_lab;";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query
+                    var result = await connection.QueryAsync<ClassPreferenceDTO>(query, CommandType.Text);
+                    class_preferences = result.ToList();
+                }
+                return class_preferences;
+            }
+            // catch exception
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         /// <summary>Get all classes and whether a professor can or cannot teach them</summary>
         /// <remarks>GET request that retrieves all classes and whether the indicated professor can or cannot teach them. A user can only access their own preferences.</remarks>
         [HttpGet("class-preferences/can-teach/{professor_id}")]

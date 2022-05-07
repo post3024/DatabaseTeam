@@ -183,7 +183,8 @@ namespace WebAPITest.Controllers
                 email.From.Add(MailboxAddress.Parse("classyscheduleUST@gmail.com"));
                 email.To.Add(MailboxAddress.Parse(model.user_email));
                 email.Subject = "Login Information for ClassySchedule";
-                string messageText = "Hello " + model.first_name + " " + model.last_name + ",\n\nYour University of St. Thomas administrator has created an account for you with ClassySchedule. Please use your St. Thomas email and this temporary password to login.\n\n" + "Password = " + passwordStr + "\n\nFeel free to change this password in your account settings.\n\nThank you,\nClassySchedule";
+                string messageText = "Hello " + model.first_name + " " + model.last_name + ",\n\nYour University of St. Thomas administrator has created an account for you with ClassySchedule. " +
+                    "Please use your St. Thomas email and this temporary password to login.\n\n" + "Password = " + passwordStr + "\n\nFeel free to change this password in your account settings.\n\nThank you,\nClassySchedule";
                 email.Body = new TextPart(TextFormat.Plain) { Text = messageText };
 
                 // send email
