@@ -140,3 +140,4 @@ C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\ref\WebAP
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.xml
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.pdb
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.genruntimeconfig.cache
+C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.csproj.AssemblyReference.cache

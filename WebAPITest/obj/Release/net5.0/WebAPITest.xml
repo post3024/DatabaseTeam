@@ -214,6 +214,22 @@
             <summary>Update sections by section id</summary>
             <remarks>PUT request that updates the section with specified section id to be set to the new inputted values.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.SectionTimeSlotController.GetAllSectionTimeSlots">
+            <summary>Get all section time slots</summary>
+            <remarks>GET request that retrieves all section time slots.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.SectionTimeSlotController.GetSectionTimeSlotById(System.Int32)">
+            <summary>Get section time slot by section_time_slot_id</summary>
+            <remarks>GET request that retrieves the section time slot with specified section time slot id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.SectionTimeSlotController.DeleteSectionTimeSlotById(System.Int32)">
+            <summary>Delete section time slot by section time slot id</summary>
+            <remarks>DELETE request that deletes the section time slot with specified section time slot id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.SectionTimeSlotController.InsertSectionTimeSlot(WebAPITest.Models.SectionTimeSlotInsertDTO)">
+            <summary>Create a new time slot</summary>
+            <remarks>POST request that creates a new time slot with the inputted information.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.TimeSlotController.GetAllTimeSlots">
             <summary>Get all time slots</summary>
             <remarks>GET request that retrieves all time slots.</remarks>

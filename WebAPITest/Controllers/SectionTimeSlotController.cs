@@ -12,13 +12,13 @@ using WebAPITest.Models;
 namespace WebAPITest.Controllers
 {
     [ApiController]
-    [Route("time_slot-management")]
-    public class TimeSlotController : ControllerBase
+    [Route("section_time_slot-management")]
+    public class SectionTimeSlotController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly string connString;
 
-        public TimeSlotController(IConfiguration configuration)
+        public SectionTimeSlotController(IConfiguration configuration)
         {
             _configuration = configuration;
             var host = _configuration["DBHOST"] ?? "capstonedb01.mysql.database.azure.com";
@@ -31,21 +31,22 @@ namespace WebAPITest.Controllers
         }
 
 
-        /// <summary>Get all time slots</summary>
-        /// <remarks>GET request that retrieves all time slots.</remarks>
-        [HttpGet("time_slots")]
+        /// <summary>Get all section time slots</summary>
+        /// <remarks>GET request that retrieves all section time slots.</remarks>
+        [HttpGet("section_time_slots")]
         [Authorize("admin", "user")]
-        public async Task<ActionResult<List<TimeSlotDTO>>> GetAllTimeSlots()
+        public async Task<ActionResult<List<SectionTimeSlotDTO>>> GetAllSectionTimeSlots()
         {
-            var slots = new List<TimeSlotDTO>();
+            var slots = new List<SectionTimeSlotDTO>();
             try
             {
                 // create query string
-                string query = @"SELECT * FROM time_slot";
+                string query = @"SELECT * " +
+                                "FROM section_time_slot";
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var result = await connection.QueryAsync<TimeSlotDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionTimeSlotDTO>(query, CommandType.Text);
                     slots = result.ToList();
                 }
                 // if there are any time slots, return the records
@@ -65,24 +66,24 @@ namespace WebAPITest.Controllers
             }
         }
 
-        /// <summary>Get time slot by time_slot_id</summary>
-        /// <remarks>GET request that retrieves the time slot with specified time slot id.</remarks>
-        [HttpGet("time_slots/{time_slot_id}")]
+        /// <summary>Get section time slot by section_time_slot_id</summary>
+        /// <remarks>GET request that retrieves the section time slot with specified section time slot id.</remarks>
+        [HttpGet("sectiontime_slots/{section_time_slot_id}")]
         [Authorize("admin", "user")]
-        public async Task<ActionResult<List<TimeSlotDTO>>> GetTimeSlotById(int time_slot_id)
+        public async Task<ActionResult<List<SectionTimeSlotDTO>>> GetSectionTimeSlotById(int section_time_slot_id)
         {
-            var slot = new List<TimeSlotDTO>();
+            var slot = new List<SectionTimeSlotDTO>();
             try
             {
                 // Create query string
                 string query = @"SELECT * 
-                                 FROM time_slot 
-                                 WHERE time_slot_id = " + time_slot_id;
+                                 FROM section_time_slot 
+                                 WHERE section_time_slot_id = " + section_time_slot_id;
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<TimeSlotDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionTimeSlotDTO>(query, CommandType.Text);
                     slot = result.ToList();
                 }
                 // If plan exists, return it
@@ -102,24 +103,24 @@ namespace WebAPITest.Controllers
             }
         }
 
-        /// <summary>Delete time slot by time slot id</summary>
-        /// <remarks>DELETE request that deletes the time slot with specified time slot id.</remarks>
-        [HttpDelete("time_slots/delete/{time_slot_id}")]
+        /// <summary>Delete section time slot by section time slot id</summary>
+        /// <remarks>DELETE request that deletes the section time slot with specified section time slot id.</remarks>
+        [HttpDelete("section_time_slots/delete/{section_time_slot_id}")]
         [Authorize("admin")]
-        public async Task<ActionResult> DeleteTimeSlotById(int time_slot_id)
+        public async Task<ActionResult> DeleteSectionTimeSlotById(int section_time_slot_id)
         {
             try
             {
                 // create query string
-                string deleteQuery = @"DELETE FROM time_slot " +
-                                      "WHERE time_slot_id = " + time_slot_id;
+                string deleteQuery = @"DELETE FROM section_time_slot " +
+                                      "WHERE section_time_slot_id = " + section_time_slot_id;
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
                     var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
                 }
-                return StatusCode(200, "Successfully deleted time_slot with id: " + time_slot_id);
+                return StatusCode(200, "Successfully deleted time_slot with id: " + section_time_slot_id);
             }
             // catch exceptions
             catch (Exception e)
@@ -130,23 +131,23 @@ namespace WebAPITest.Controllers
 
         /// <summary>Create a new time slot</summary>
         /// <remarks>POST request that creates a new time slot with the inputted information.</remarks>
-        [HttpPost("time_slots/create")]
+        [HttpPost("section_time_slots/create")]
         [Authorize("admin")]
-        public async Task<ActionResult<TimeSlotDTO>> InsertTimeSlot(TimeSlotInsertDTO model)
+        public async Task<ActionResult<SectionTimeSlotDTO>> InsertSectionTimeSlot(SectionTimeSlotInsertDTO model)
         {
             try
             {
                 // create the query string
-                string query = @"INSERT INTO time_slot (start_time, end_time) " +
-                                "VALUES ('" + model.start_time + "','" + model.end_time + "');" +
+                string query = @"INSERT INTO section_time_slot (time_slot_id, on_monday, on_tuesday, on_wednesday, on_thursday, on_friday) " +
+                                "VALUES (" + model.time_slot_id + "," + model.on_monday + "," + model.on_tuesday + "," + model.on_wednesday + "," + model.on_thursday + "," + model.on_friday + ");" +
                                 "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
                     var id = await connection.QueryAsync<int>(query, CommandType.Text);
-                    int time_slot_id = id.ToList()[0];
-                    TimeSlotDTO newTimeSlot = new(time_slot_id, model.start_time, model.end_time);
+                    int section_time_slot_id = id.ToList()[0];
+                    SectionTimeSlotDTO newTimeSlot = new(section_time_slot_id, model.time_slot_id, model.on_monday, model.on_tuesday, model.on_wednesday, model.on_thursday, model.on_friday);
                     return Ok(newTimeSlot);
                 }
             }
