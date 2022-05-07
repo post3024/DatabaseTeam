@@ -34,7 +34,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all section time slots</summary>
         /// <remarks>GET request that retrieves all section time slots.</remarks>
         [HttpGet("section_time_slots")]
-        [Authorize("admin", "user")]
+        //[Authorize("admin", "user")]
         public async Task<ActionResult<List<SectionTimeSlotDTO>>> GetAllSectionTimeSlots()
         {
             var slots = new List<SectionTimeSlotDTO>();
@@ -53,6 +53,89 @@ namespace WebAPITest.Controllers
                 if (slots.Count > 0)
                 {
                     return Ok(slots);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            // catch exception
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>Get all section time slots formatted to id, time, and partOfDay</summary>
+        /// <remarks>GET request that retrieves all section time slots and formats them to id, time, and partOfDay.</remarks>
+        [HttpGet("section_time_slots/formatted")]
+        //[Authorize("admin", "user")]
+        public async Task<ActionResult<List<FormattedSectionTimeSlot>>> GetAllFormattedSectionTimeSlots()
+        {
+            var slots = new List<TimeSlotsJoinDTO>();
+            try
+            {
+                // create query string
+                string query = @"SELECT * " +
+                                "FROM section_time_slot INNER JOIN time_slot " +
+                                    "ON section_time_slot.time_slot_id = time_slot.time_slot_id";
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query string
+                    var result = await connection.QueryAsync<TimeSlotsJoinDTO>(query, CommandType.Text);
+                    slots = result.ToList();
+                }
+                // if there are any time slots, return the records
+                if (slots.Count > 0)
+                {
+                    var resultingSlots = new List<FormattedSectionTimeSlot>();
+                    FormattedSectionTimeSlot newSlot;
+                    string time = "";
+                    string partOfDay = "";
+                    foreach(var item in slots) {
+                        time = "";
+                        partOfDay = "";
+                        if (item.on_monday) {
+                            time += "M";
+                        }
+                        if (item.on_tuesday) {
+                            time += "T";
+                        }
+                        if (item.on_wednesday) {
+                            time += "W";
+                        }
+                        if (item.on_thursday) {
+                            time += "H";
+                        }
+                        if (item.on_wednesday) {
+                            time += "F";
+                        }
+
+                        time += " " + item.start_time + "-" + item.end_time;
+
+                        int startHour = Int32.Parse(item.start_time.Split(':')[0]);
+
+                        if (startHour <= 12)
+                        {
+                            partOfDay = "morning";
+                        }
+                        else if (startHour > 12 && startHour <= 17)
+                        {
+                            partOfDay = "afternoon";
+                        }
+                        else {
+                            partOfDay = "night";
+                        }
+
+                        newSlot = new FormattedSectionTimeSlot(
+                            item.section_time_slot_id,
+                            time,
+                            partOfDay
+                        );
+                        resultingSlots.Add(newSlot);
+                    }
+
+                    return Ok(resultingSlots);
                 }
                 else
                 {
