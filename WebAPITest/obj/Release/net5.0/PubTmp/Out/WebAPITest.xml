@@ -218,6 +218,10 @@
             <summary>Get all section time slots</summary>
             <remarks>GET request that retrieves all section time slots.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.SectionTimeSlotController.GetAllFormattedSectionTimeSlots">
+            <summary>Get all section time slots formatted to id, time, and partOfDay</summary>
+            <remarks>GET request that retrieves all section time slots and formats them to id, time, and partOfDay.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.SectionTimeSlotController.GetSectionTimeSlotById(System.Int32)">
             <summary>Get section time slot by section_time_slot_id</summary>
             <remarks>GET request that retrieves the section time slot with specified section time slot id.</remarks>

@@ -34,7 +34,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all section time slots</summary>
         /// <remarks>GET request that retrieves all section time slots.</remarks>
         [HttpGet("section_time_slots")]
-        //[Authorize("admin", "user")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<SectionTimeSlotDTO>>> GetAllSectionTimeSlots()
         {
             var slots = new List<SectionTimeSlotDTO>();
@@ -69,7 +69,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all section time slots formatted to id, time, and partOfDay</summary>
         /// <remarks>GET request that retrieves all section time slots and formats them to id, time, and partOfDay.</remarks>
         [HttpGet("section_time_slots/formatted")]
-        //[Authorize("admin", "user")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<FormattedSectionTimeSlot>>> GetAllFormattedSectionTimeSlots()
         {
             var slots = new List<TimeSlotsJoinDTO>();
