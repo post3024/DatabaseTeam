@@ -134,14 +134,13 @@ namespace WebAPITest.Controllers
             {
                 // Create query string
                 string query = @"INSERT INTO department (dept_name) " +
-                                "VALUES ('" + dept_name + "');";
-                string queryId = @"SELECT LAST_INSERT_ID();";
+                                "VALUES ('" + dept_name + "');" +
+                                "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var result = await connection.QueryAsync(query, CommandType.Text);
-                    var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(query, CommandType.Text);
                     int dept_id = id.ToList()[0];
                     DepartmentDTO newDept = new(dept_id, dept_name);
                     return Ok(newDept);
