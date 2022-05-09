@@ -1,5 +1,5 @@
-create table room(
-room_id integer auto_increment PRIMARY KEY,
-capacity integer,
-room_num integer
+CREATE TABLE room(
+room_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+capacity INTEGER,
+room_num INTEGER
 )
