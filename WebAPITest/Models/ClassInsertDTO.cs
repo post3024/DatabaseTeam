@@ -1,10 +1,8 @@
-using System;
+﻿using System;
 namespace WebAPITest.Models
 {
-    public class ClassDTO
+    public class ClassInsertDTO
     {
-        public int class_id { get; set; }
-
         public int class_num { get; set; }
 
         public int dept_id { get; set; }
@@ -20,4 +18,3 @@ namespace WebAPITest.Models
         public int num_sections { get; set; }
     }
 }
-
