@@ -1,2 +1,2 @@
-grant all privileges on classyschedule.* to 'webdevteam'@'%';
-flush privileges;
+GRANT ALL PRIVILEGES ON classyschedule.* to 'webdevteam'@'%';
+FLUSH PRIVILEGES;

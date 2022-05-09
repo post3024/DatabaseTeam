@@ -1,2 +1,2 @@
-grant all privileges on classyschedule.* to 'desktopteam'@'%';
-flush privileges;
+GRANT ALL PRIVILEGES ON classyschedule.* TO 'desktopteam'@'%';
+FLUSH PRIVILEGES;

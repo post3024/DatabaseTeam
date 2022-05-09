@@ -12,6 +12,10 @@
             <summary>Get class by class number and department id</summary>
             <remarks>GET request that retrieves the class with specified class number and department id.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.ClassController.GetClassById(System.Int32)">
+            <summary>Get class by class id</summary>
+            <remarks>GET request that retrieves the classes with specified id</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.ClassController.GetClassAndDepartmentTables">
             <summary>Get classes joined with department</summary>
             <remarks>GET request that retrieves the class with department name.</remarks>
@@ -20,13 +24,21 @@
             <summary>Delete class by class number</summary>
             <remarks>DELETE request that deletes the class with specified class number and department id.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ClassController.InsertClass(WebAPITest.Models.ClassDTO)">
+        <member name="M:WebAPITest.Controllers.ClassController.DeleteClassById(System.Int32)">
+            <summary>Delete class by class id</summary>
+            <remarks>DELETE request that deletes the class with specified class id</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.ClassController.InsertClass(WebAPITest.Models.ClassInsertDTO)">
             <summary>Create a new class</summary>
             <remarks>POST request that creates a new class with the inputted information.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ClassController.UpdateClass(WebAPITest.Models.ClassDTO,System.Int32,System.Int32)">
+        <member name="M:WebAPITest.Controllers.ClassController.UpdateClass(WebAPITest.Models.ClassInsertDTO,System.Int32,System.Int32)">
             <summary>Update class by class number and department id</summary>
             <remarks>PUT request that updates the class with specified class number and department id to be set to the new inputted values.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.ClassController.UpdateClassById(WebAPITest.Models.ClassInsertDTO,System.Int32)">
+            <summary>Update class by class id</summary>
+            <remarks>PUT request that updates the class with specified class id to be set to the new inputted values.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.DepartmentController.GetAllDepartments">
             <summary>Get all departments</summary>
@@ -221,6 +233,26 @@
         <member name="M:WebAPITest.Controllers.SectionController.UpdateSection(WebAPITest.Models.SectionInsertDTO,System.Int32)">
             <summary>Update sections by section id</summary>
             <remarks>PUT request that updates the section with specified section id to be set to the new inputted values.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.SectionTimeSlotController.GetAllSectionTimeSlots">
+            <summary>Get all section time slots</summary>
+            <remarks>GET request that retrieves all section time slots.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.SectionTimeSlotController.GetAllFormattedSectionTimeSlots">
+            <summary>Get all section time slots formatted to id, time, and partOfDay</summary>
+            <remarks>GET request that retrieves all section time slots and formats them to id, time, and partOfDay.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.SectionTimeSlotController.GetSectionTimeSlotById(System.Int32)">
+            <summary>Get section time slot by section_time_slot_id</summary>
+            <remarks>GET request that retrieves the section time slot with specified section time slot id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.SectionTimeSlotController.DeleteSectionTimeSlotById(System.Int32)">
+            <summary>Delete section time slot by section time slot id</summary>
+            <remarks>DELETE request that deletes the section time slot with specified section time slot id.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.SectionTimeSlotController.InsertSectionTimeSlot(WebAPITest.Models.SectionTimeSlotInsertDTO)">
+            <summary>Create a new time slot</summary>
+            <remarks>POST request that creates a new time slot with the inputted information.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.TimeSlotController.GetAllTimeSlots">
             <summary>Get all time slots</summary>

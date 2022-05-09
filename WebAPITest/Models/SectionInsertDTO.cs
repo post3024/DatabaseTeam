@@ -12,6 +12,9 @@ namespace WebAPITest.Models
         public int room_id { get; set; }
 
         public int professor_id { get; set; }
+
         public int plan_id { get; set; }
+
+        public int section_time_slot_id {get; set;}
     }
 }
