@@ -1,9 +1,12 @@
 ﻿<Properties StartupConfiguration="{F3CAD161-51E7-4CC1-9725-0AB2815A95F5}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/PreferenceController.cs">
     <Files>
-      <File FileName="Controllers/PreferenceController.cs" Line="39" Column="59" />
-      <File FileName="Models/AllClassPreferences.cs" Line="10" Column="72" />
-      <File FileName="Models/ClassPreference.cs" Line="4" Column="36" />
+      <File FileName="Controllers/PreferenceController.cs" Line="191" Column="57" />
+      <File FileName="Models/ClassPreference.cs" Line="6" Column="42" />
+      <File FileName="Models/ClassesCanTeach.cs" Line="6" Column="42" />
+      <File FileName="Models/ClassesCanTeachInsert.cs" Line="6" Column="42" />
+      <File FileName="Models/ClassesPreferToTeach.cs" Line="6" Column="42" />
+      <File FileName="Models/ClassesPreferToTeachInsert.cs" Line="6" Column="28" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

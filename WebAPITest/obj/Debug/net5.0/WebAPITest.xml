@@ -76,9 +76,17 @@
             <summary>Get all classes and whether a professor can or cannot teach them</summary>
             <remarks>GET request that retrieves all classes and whether the indicated professor can or cannot teach them. A user can only access their own preferences.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetProfessorsForClass(System.Int32)">
+            <summary>Get what professors can teach a specified class</summary>
+            <remarks>GET request that retrieves a specified class and a list of the professors that can teach it. Only accessible by an admin.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.PreferenceController.GetClassesPreferToTeach(System.Int32)">
             <summary>Get all classes and whether a professor prefers to teach them</summary>
             <remarks>GET request that retrieves all classes and whether the indicated professor prefers to teach them. A user can only access their own preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetProfessorPreferenceForClass(System.Int32)">
+            <summary>Get what professors prefer to teach a specified class</summary>
+            <remarks>GET request that retrieves a specified class and a list of the professors that prefer to teach it. Only accessible by an admin.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.PreferenceController.SaveCanTeachPreference(System.Collections.Generic.List{WebAPITest.Models.ClassesCanTeachInsertDTO},System.Int32)">
             <summary>Save professor preferences for what classes they can and cannot teach</summary>

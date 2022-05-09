@@ -83,11 +83,7 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT *
                                  FROM class_preference
-                                 JOIN class
-                                 WHERE prof_id = " + professor_id +
-                                 " AND class.class_num = class_preference.class_num" +
-                                 " AND class.dept_id = class_preference.dept_id" +
-                                 " AND class.is_lab = class_preference.is_lab;";
+                                 WHERE prof_id = " + professor_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -119,13 +115,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT class.class_num, class.dept_id, class.is_lab, class.class_name, class_preference.can_teach
+                string query = @"SELECT *
                                  FROM class_preference
-                                 JOIN class
-                                 WHERE prof_id = " + professor_id +
-                                 " AND class.class_num = class_preference.class_num" +
-                                 " AND class.dept_id = class_preference.dept_id" +
-                                 " AND class.is_lab = class_preference.is_lab;";
+                                 WHERE prof_id = " + professor_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -137,6 +129,45 @@ namespace WebAPITest.Controllers
                 if (classes.Count > 0)
                 {
                     return Ok(classes);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            // catch exception
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>Get what professors can teach a specified class</summary>
+        /// <remarks>GET request that retrieves a specified class and a list of the professors that can teach it. Only accessible by an admin.</remarks>
+        [HttpGet("class-preferences/can-teach/by-class/{class_id}")]
+        [Authorize("admin", "user")]
+        public async Task<ActionResult<List<ProfessorDTO>>> GetProfessorsForClass(int class_id)
+        {
+            var professors = new List<ProfessorDTO>();
+            try
+            {
+                // Create query string
+                string query = @"SELECT professor.*
+                                 FROM class_preference
+                                 JOIN professor
+                                 WHERE class_preference.prof_id = professor.professor_id AND " +
+                                 "class_id = " + class_id + " AND can_teach = true;";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query
+                    var result = await connection.QueryAsync<ProfessorDTO>(query, CommandType.Text);
+                    professors = result.ToList();
+                }
+                // If a preference was returned from database, return it
+                if (professors.Count > 0)
+                {
+                    return Ok(professors);
                 }
                 else
                 {
@@ -165,13 +196,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT class.class_num, class.dept_id, class.is_lab, class.class_name, class_preference.prefer_to_teach 
+                string query = @"SELECT *
                                  FROM class_preference
-                                 JOIN class
-                                 WHERE prof_id = " + professor_id +
-                                 " AND class.class_num = class_preference.class_num" +
-                                 " AND class.dept_id = class_preference.dept_id" +
-                                 " AND class.is_lab = class_preference.is_lab;";
+                                 WHERE prof_id = " + professor_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -183,6 +210,45 @@ namespace WebAPITest.Controllers
                 if (classes.Count > 0)
                 {
                     return Ok(classes);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            // catch exception
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>Get what professors prefer to teach a specified class</summary>
+        /// <remarks>GET request that retrieves a specified class and a list of the professors that prefer to teach it. Only accessible by an admin.</remarks>
+        [HttpGet("class-preferences/prefer-to-teach/by-class/{class_id}")]
+        [Authorize("admin", "user")]
+        public async Task<ActionResult<List<ProfessorDTO>>> GetProfessorPreferenceForClass(int class_id)
+        {
+            var professors = new List<ProfessorDTO>();
+            try
+            {
+                // Create query string
+                string query = @"SELECT professor.*
+                                 FROM class_preference
+                                 JOIN professor
+                                 WHERE class_preference.prof_id = professor.professor_id AND " +
+                                 "class_id = " + class_id + " AND prefer_to_teach = true;";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query
+                    var result = await connection.QueryAsync<ProfessorDTO>(query, CommandType.Text);
+                    professors = result.ToList();
+                }
+                // If a preference was returned from database, return it
+                if (professors.Count > 0)
+                {
+                    return Ok(professors);
                 }
                 else
                 {
@@ -214,10 +280,9 @@ namespace WebAPITest.Controllers
                 try
                 {
                     // create the query string
-                    string query = @"INSERT INTO class_preference (class_num, dept_id, is_lab, prof_id, can_teach) " +
-                                    "VALUES (" + item.class_num + "," + item.dept_id + "," + item.is_lab + "," + professor_id + "," + item.can_teach +
-                                    ") ON DUPLICATE KEY UPDATE class_num = " + item.class_num + ", dept_id = " + item.dept_id +
-                                    ", is_lab = " + item.is_lab + ", prof_id = " + professor_id + ", can_teach = " + item.can_teach + ";";
+                    string query = @"INSERT INTO class_preference (class_id, prof_id, can_teach) " +
+                                    "VALUES (" + item.class_id + "," + professor_id + "," + item.can_teach +
+                                    ") ON DUPLICATE KEY UPDATE class_id = " + item.class_id + ", prof_id = " + professor_id + ", can_teach = " + item.can_teach + ";";
 
                     using (var connection = new MySqlConnection(connString))
                     {
@@ -252,10 +317,9 @@ namespace WebAPITest.Controllers
                 try
                 {
                     // create the query string
-                    string query = @"INSERT INTO class_preference (class_num, dept_id, is_lab, prof_id, prefer_to_teach) " +
-                                    "VALUES (" + item.class_num + "," + item.dept_id + "," + item.is_lab + "," + professor_id + "," + item.prefer_to_teach +
-                                    ")ON DUPLICATE KEY UPDATE class_num = " + item.class_num + ", dept_id = " + item.dept_id +
-                                    ", is_lab = " + item.is_lab + ", prof_id = " + professor_id + ", prefer_to_teach = " + item.prefer_to_teach + ";";
+                    string query = @"INSERT INTO class_preference (class_id, prof_id, prefer_to_teach) " +
+                                    "VALUES (" + item.class_id + "," + professor_id + "," + item.prefer_to_teach +
+                                    ")ON DUPLICATE KEY UPDATE class_id = " + item.class_id + ", prof_id = " + professor_id + ", prefer_to_teach = " + item.prefer_to_teach + ";";
 
                     using (var connection = new MySqlConnection(connString))
                     {

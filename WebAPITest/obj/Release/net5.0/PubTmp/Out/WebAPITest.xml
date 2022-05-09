@@ -68,6 +68,10 @@
             <summary>Update plan by plan id</summary>
             <remarks>PUT request that updates the plan with specified plan number to be set to the new inputted values.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetAllClassPreferences">
+            <summary>Get all class preferences for all professors</summary>
+            <remarks>GET request that retrieves all class preferences for all professors. Only accessible by an admin.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.PreferenceController.GetClassesCanTeach(System.Int32)">
             <summary>Get all classes and whether a professor can or cannot teach them</summary>
             <remarks>GET request that retrieves all classes and whether the indicated professor can or cannot teach them. A user can only access their own preferences.</remarks>
