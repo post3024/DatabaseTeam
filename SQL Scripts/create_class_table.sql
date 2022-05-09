@@ -7,6 +7,7 @@ CREATE TABLE class (
     capacity SMALLINT NULL,
     credits TINYINT NULL,
     is_lab BOOLEAN NOT NULL,
+    num_sections TINYINT NOT NULL,
     FOREIGN KEY (dept_id)
 	REFERENCES department(dept_id)
         ON DELETE CASCADE,
