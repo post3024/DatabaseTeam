@@ -199,8 +199,19 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"INSERT INTO section (section_num, dept_id, room_id, professor_id, class_num, plan_id, section_time_slot_id) " +
-                                "VALUES (" + model.section_num + "," + model.dept_id + "," + model.room_id + "," + model.professor_id + "," + model.class_num + "," + model.plan_id + "," + model.section_time_slot_id +");" +
+                string query = @"INSERT INTO section (
+                                    section_num, 
+                                    room_id, 
+                                    professor_id, 
+                                    plan_id, 
+                                    section_time_slot_id, 
+                                    class_id) " +
+                                "VALUES (" + model.section_num + "," + 
+                                             model.room_id + "," + 
+                                             model.professor_id + "," + 
+                                             model.plan_id + "," + 
+                                             model.section_time_slot_id + "," + 
+                                             model.class_id + ");" +
                                 "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
@@ -208,7 +219,15 @@ namespace WebAPITest.Controllers
                     // execute the query string
                     var id = await connection.QueryAsync<int>(query, CommandType.Text);
                     int section_id = id.ToList()[0];
-                    SectionDTO newSection = new(section_id, model.section_num, model.class_num, model.dept_id, model.room_id, model.professor_id, model.plan_id, model.section_time_slot_id);
+                    SectionDTO newSection = new(
+                        section_id, 
+                        model.section_num, 
+                        model.class_id, 
+                        model.room_id, 
+                        model.professor_id, 
+                        model.plan_id, 
+                        model.section_time_slot_id
+                    );
                     return Ok(newSection);
                 }
             }
@@ -230,9 +249,21 @@ namespace WebAPITest.Controllers
                 List<SectionDTO> newSections = new List<SectionDTO>();
                 foreach (var item in model)
                 {
-                    // create query string
-                    string query = @"INSERT INTO section (section_num, dept_id, room_id, professor_id, class_num, plan_id, section_time_slot_id) " +
-                                    "VALUES (" + item.section_num + "," + item.dept_id + "," + item.room_id + "," + item.professor_id + "," + item.class_num + "," + item.plan_id + "," + item.section_time_slot_id + ");" +
+                    // create query to create the each section and then get the id
+                    string query = @"INSERT INTO section (
+                                        section_num,
+                                        room_id, 
+                                        professor_id, 
+                                        plan_id, 
+                                        section_time_slot_id, 
+                                        class_id) " +
+                                    "VALUES (" + 
+                                        item.section_num + "," + 
+                                        item.room_id + "," + 
+                                        item.professor_id + "," + 
+                                        item.plan_id + "," + 
+                                        item.section_time_slot_id + "," + 
+                                        item.class_id + ");" +
                                     "SELECT LAST_INSERT_ID();";
 
                     using (var connection = new MySqlConnection(connString))
@@ -240,7 +271,18 @@ namespace WebAPITest.Controllers
                         // execute the query string
                         var result = await connection.QueryAsync<int>(query, CommandType.Text);
                         int section_id = result.ToList()[0];
-                        newSections.Add(new(section_id, item.section_num, item.class_num, item.dept_id, item.room_id, item.professor_id, item.plan_id, item.section_time_slot_id));
+
+                        // Create new section object and add it to the list
+                        SectionDTO section = new(
+                            section_id, 
+                            item.section_num, 
+                            item.class_id, 
+                            item.room_id, 
+                            item.professor_id, 
+                            item.plan_id, 
+                            item.section_time_slot_id
+                        );
+                        newSections.Add(section);
                     }
                 }
                 return Ok(newSections);
@@ -252,7 +294,7 @@ namespace WebAPITest.Controllers
             }
         }
 
-        /// <summary>Delete previous sections and insert a new list based on plan id </summary>
+        /// <summary>Delete previous sections related to inputted plan_id and insert a new list attached to plan id </summary>
         /// <remarks>POST request that deletes sections based on plan id and creates multiple sections with inputted list of information.</remarks>
         [HttpPost("sections/delete/create/multiple/{plan_id}")]
         [Authorize("admin")]
@@ -260,14 +302,31 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                await DeleteSectionByPlanId(plan_id);
+                String deleteQuery = @"DELETE FROM section " +
+                                       "WHERE plan_id = " + plan_id;
+                using (var connection = new MySqlConnection(connString))
+                {
+                    var result = await connection.QueryAsync<int>(deleteQuery, CommandType.Text);
+                }
+
 
                 List<SectionDTO> newSections = new List<SectionDTO>();
                 foreach (var item in models)
                 {
                     // create query string
-                    string query = @"INSERT INTO section (section_num, dept_id, room_id, professor_id, class_num, plan_id,section_time_slot_id) " +
-                                    "VALUES (" + item.section_num + "," + item.dept_id + "," + item.room_id + "," + item.professor_id + "," + item.class_num + "," + plan_id + "," + item.section_time_slot_id + ");" +
+                    string query = @"INSERT INTO section (
+                                        section_num, 
+                                        room_id, 
+                                        professor_id,
+                                        plan_id, 
+                                        section_time_slot_id, 
+                                        class_id) " +
+                                    "VALUES (" + item.section_num + "," + 
+                                                 item.room_id + "," + 
+                                                 item.professor_id + "," + 
+                                                 item.plan_id + "," + 
+                                                 item.section_time_slot_id + "," + 
+                                                 item.class_id + ");" +
                                     "SELECT LAST_INSERT_ID();";
 
                     using (var connection = new MySqlConnection(connString))
@@ -275,7 +334,18 @@ namespace WebAPITest.Controllers
                         // execute the query string
                         var result = await connection.QueryAsync<int>(query, CommandType.Text);
                         int section_id = result.ToList()[0];
-                        newSections.Add(new(section_id, item.section_num, item.class_num, item.dept_id, item.room_id, item.professor_id, Int32.Parse(plan_id), item.section_time_slot_id));
+
+                        // Create new SectionDTO object and add it to the list
+                        SectionDTO section = new(
+                            section_id, 
+                            item.section_num, 
+                            item.class_id, 
+                            item.room_id, 
+                            item.professor_id, 
+                            Int32.Parse(plan_id), 
+                            item.section_time_slot_id
+                        );
+                        newSections.Add(section);
                     }
                 }
                 return Ok(newSections);
@@ -297,8 +367,8 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"UPDATE section
-                                 SET section_num = " + model.section_num + ", dept_id = " + model.dept_id + ", room_id = " + model.room_id +
-                                 ", professor_id = " + model.professor_id + ", class_num = " + model.class_num + ", plan_id = " + model.plan_id + 
+                                 SET section_num = " + model.section_num + ", class_id = " + model.class_id + ", room_id = " + model.room_id +
+                                 ", professor_id = " + model.professor_id + ", plan_id = " + model.plan_id + 
                                  ", section_time_slot_id = " + model.section_time_slot_id + " " +
                                  "WHERE section_id = " + section_id + ";";
 

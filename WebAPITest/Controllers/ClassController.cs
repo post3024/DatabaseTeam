@@ -257,14 +257,28 @@ namespace WebAPITest.Controllers
                                            + model.capacity + ","
                                            + model.credits + ","
                                            + model.is_lab + ","
-                                           + model.num_sections + ");";
+                                           + model.num_sections + ");" +
+                                 "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<int>(query, CommandType.Text);
+                    int class_id = result.ToList()[0];
+
+                    // Create new ClassDTO object and return it
+                    ClassDTO newClass = new(
+                        class_id,
+                        model.class_num,
+                        model.dept_id,
+                        model.class_name,
+                        model.capacity,
+                        model.credits,
+                        model.is_lab,
+                        model.num_sections
+                    );
+                    return Ok(newClass);
                 }
-                return StatusCode(200, "Successfully created class " + model.class_num);
             }
             // catch the exceptions
             catch (Exception e)
@@ -283,9 +297,14 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"UPDATE class
-                                 SET class_num = " + model.class_num + ", dept_id = " + model.dept_id + ", class_name = '" + model.class_name +
-                                 "', capacity = " + model.capacity + ", credits = " + model.credits + ", is_lab = " + model.is_lab +
-                                 " WHERE class_num = " + class_num + " AND dept_id = " + dept_id + ";";
+                                 SET class_num = " + model.class_num + 
+                                 ", dept_id = " + model.dept_id + 
+                                 ", class_name = '" + model.class_name +
+                                 "', capacity = " + model.capacity + 
+                                 ", credits = " + model.credits + 
+                                 ", is_lab = " + model.is_lab +
+                                 " WHERE class_num = " + class_num + 
+                                    " AND dept_id = " + dept_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -311,8 +330,12 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"UPDATE class
-                                 SET class_num = " + model.class_num + ", dept_id = " + model.dept_id + ", class_name = '" + model.class_name +
-                                 "', capacity = " + model.capacity + ", credits = " + model.credits + ", is_lab = " + model.is_lab +
+                                 SET class_num = " + model.class_num + 
+                                 ", dept_id = " + model.dept_id + 
+                                 ", class_name = '" + model.class_name +
+                                 "', capacity = " + model.capacity + 
+                                 ", credits = " + model.credits + 
+                                 ", is_lab = " + model.is_lab +
                                  " WHERE class_id = " + class_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
