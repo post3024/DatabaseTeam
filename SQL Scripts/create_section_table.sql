@@ -1,6 +1,6 @@
 CREATE TABLE section(
-  schedule_id INTEGER AUTO_INCREMENT PRIMARY KEY,
-  section_number INTEGER,
+  section_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  section_num INTEGER,
   room_id INTEGER,
   plan_id INTEGER,
   class_id INTEGER,
