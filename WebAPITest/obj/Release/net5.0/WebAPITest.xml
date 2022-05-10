@@ -12,6 +12,10 @@
             <summary>Get class by class number and department id</summary>
             <remarks>GET request that retrieves the class with specified class number and department id.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.ClassController.GetClassById(System.Int32)">
+            <summary>Get class by class id</summary>
+            <remarks>GET request that retrieves the classes with specified id</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.ClassController.GetClassAndDepartmentTables">
             <summary>Get classes joined with department</summary>
             <remarks>GET request that retrieves the class with department name.</remarks>
@@ -20,13 +24,21 @@
             <summary>Delete class by class number</summary>
             <remarks>DELETE request that deletes the class with specified class number and department id.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ClassController.InsertClass(WebAPITest.Models.ClassDTO)">
+        <member name="M:WebAPITest.Controllers.ClassController.DeleteClassById(System.Int32)">
+            <summary>Delete class by class id</summary>
+            <remarks>DELETE request that deletes the class with specified class id</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.ClassController.InsertClass(WebAPITest.Models.ClassInsertDTO)">
             <summary>Create a new class</summary>
             <remarks>POST request that creates a new class with the inputted information.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ClassController.UpdateClass(WebAPITest.Models.ClassDTO,System.Int32,System.Int32)">
+        <member name="M:WebAPITest.Controllers.ClassController.UpdateClass(WebAPITest.Models.ClassInsertDTO,System.Int32,System.Int32)">
             <summary>Update class by class number and department id</summary>
             <remarks>PUT request that updates the class with specified class number and department id to be set to the new inputted values.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.ClassController.UpdateClassById(WebAPITest.Models.ClassInsertDTO,System.Int32)">
+            <summary>Update class by class id</summary>
+            <remarks>PUT request that updates the class with specified class id to be set to the new inputted values.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.DepartmentController.GetAllDepartments">
             <summary>Get all departments</summary>
@@ -76,9 +88,17 @@
             <summary>Get all classes and whether a professor can or cannot teach them</summary>
             <remarks>GET request that retrieves all classes and whether the indicated professor can or cannot teach them. A user can only access their own preferences.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetProfessorsForClass(System.Int32)">
+            <summary>Get what professors can teach a specified class</summary>
+            <remarks>GET request that retrieves a specified class and a list of the professors that can teach it. Only accessible by an admin.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.PreferenceController.GetClassesPreferToTeach(System.Int32)">
             <summary>Get all classes and whether a professor prefers to teach them</summary>
             <remarks>GET request that retrieves all classes and whether the indicated professor prefers to teach them. A user can only access their own preferences.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.PreferenceController.GetProfessorPreferenceForClass(System.Int32)">
+            <summary>Get what professors prefer to teach a specified class</summary>
+            <remarks>GET request that retrieves a specified class and a list of the professors that prefer to teach it. Only accessible by an admin.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.PreferenceController.SaveCanTeachPreference(System.Collections.Generic.List{WebAPITest.Models.ClassesCanTeachInsertDTO},System.Int32)">
             <summary>Save professor preferences for what classes they can and cannot teach</summary>

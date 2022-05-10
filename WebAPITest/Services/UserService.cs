@@ -22,8 +22,10 @@ namespace WebAPITest.Services
     {
         Task<AuthenticateResponse> AuthenticateAdminAsync(AuthenticateRequest model);
         Task<AuthenticateResponse> AuthenticateUserAsync(AuthenticateRequest model);
-        Task<CreateUserResponse> CreateAdminUserAsync(AuthenticateRequest model);
+        Task<CreateUserResponse> CreateAdminUserAsync(CreateAdminDTO model);
         Task<User> ChangeUserPasswordAsync(User user, string new_password);
+        Task<User> GetAdminUserByEmail(string user_email);
+        Task<User> GetProfUserByEmail(string user_email);
         Task<User> GetAdminByIdAsync(int id);
         Task<User> GetUserByIdAsync(int id);
         string GeneratePassword(int length, int numberOfNonAlphanumericCharacters);
@@ -109,7 +111,7 @@ namespace WebAPITest.Services
             {
                 User user = new();
                 // create query string
-                string query = @"SELECT professor_id, user_email, user_password, salt, user_role
+                string query = @"SELECT *
                                  FROM professor
                                  WHERE user_email = '" + model.username + "';";
                 using (var connection = new MySqlConnection(connString))
@@ -154,7 +156,7 @@ namespace WebAPITest.Services
             return null;
         }
 
-        public async Task<CreateUserResponse> CreateAdminUserAsync(AuthenticateRequest model)
+        public async Task<CreateUserResponse> CreateAdminUserAsync(CreateAdminDTO model)
         {
             // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
             byte[] salt = new byte[128 / 8];
@@ -232,6 +234,74 @@ namespace WebAPITest.Services
             }
         }
 
+        public async Task<User> GetAdminUserByEmail(string user_email)
+        {
+            //grab user by username from users table
+            var users = new List<User>();
+            try
+            {
+                User user = new();
+                // create query string
+                string query = @"SELECT * 
+                                 FROM users
+                                 WHERE user_email = '" + user_email + "';";
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query string
+                    var result = await connection.QueryAsync<User>(query, CommandType.Text);
+                    users = result.ToList();
+                }
+                // if the classes exist, return the records
+                if (users.Count > 0)
+                {
+                    user = users[0];
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<User> GetProfUserByEmail(string user_email)
+        {
+            //grab user by username from users table
+            var users = new List<ProfUser>();
+            try
+            {
+                User user = new();
+                // create query string
+                string query = @"SELECT * 
+                                 FROM professor
+                                 WHERE user_email = '" + user_email + "';";
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query string
+                    var result = await connection.QueryAsync<ProfUser>(query, CommandType.Text);
+                    users = result.ToList();
+                }
+                // if the classes exist, return the records
+                if (users.Count > 0)
+                {
+                    user = new User(users[0]);
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public async Task<User> GetAdminByIdAsync(int id)
         {
             var users = new List<User>();
@@ -271,7 +341,7 @@ namespace WebAPITest.Services
             try
             {
                 // Create query string
-                string query = @"SELECT professor_id, user_email, user_password, salt, user_role
+                string query = @"SELECT *
                                  FROM professor 
                                  WHERE professor_id = " + id + ";";
 

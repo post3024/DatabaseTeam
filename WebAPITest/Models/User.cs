@@ -6,20 +6,29 @@ namespace WebAPITest.Models
     public class User
     {
         public int user_id { get; set; }
+        
         public string user_email { get; set; }
+
+        public string first_name { get; set; }
+
+        public string last_name { get; set; }
+
         public string salt { get; set; }
+
         public string user_role { get; set; }
 
         [JsonIgnore]
         public string user_password { get; set; }
 
-        public User(ProfUser user)
+        public User(ProfUser prof)
         {
-            this.user_id = user.professor_id;
-            this.user_email = user.user_email;
-            this.salt = user.salt;
-            this.user_password = user.user_password;
-            this.user_role = user.user_role;
+            user_id = prof.professor_id;
+            user_email = prof.user_email;
+            first_name = prof.first_name;
+            last_name = prof.last_name;
+            salt = prof.salt;
+            user_role = prof.user_role;
+            user_password = prof.user_password;
         }
 
         public User()
