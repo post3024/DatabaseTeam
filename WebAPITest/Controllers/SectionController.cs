@@ -142,9 +142,9 @@ namespace WebAPITest.Controllers
         /// <remarks>GET request that retrieves the sections with specified professor id.</remarks>
         [HttpGet("sections/professor/{professor_id}")]
         [Authorize("admin","user")]
-        public async Task<ActionResult<List<SectionDTO>>> GetSectionsByLoggedInUser(int professor_id)
+        public async Task<ActionResult<List<ProfessorScheduleInfoDTO>>> GetSectionsByProfessorId(int professor_id)
         {
-            var sections = new List<SectionDTO>();
+            var sections = new List<ProfessorScheduleInfoDTO>();
             try
             {
                 // user can only access their own records
@@ -155,13 +155,20 @@ namespace WebAPITest.Controllers
 
                 // Create the query string
                 string query = @"SELECT * 
-                                 FROM section 
-                                 WHERE professor_id = " + professor_id + ";";
+                                 FROM (((section INNER JOIN class
+                                            ON section.class_id = class.class_id)
+                                        INNER JOIN department
+                                            ON department.dept_id = class.dept_id)
+                                        INNER JOIN section_time_slot
+                                            ON section.section_time_slot_id = section_time_slot.section_time_slot_id)
+                                        INNER JOIN time_slot
+                                            ON section_time_slot.time_slot_id = time_slot.time_slot_id
+                                 WHERE section.professor_id = " + professor_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ProfessorScheduleInfoDTO>(query, CommandType.Text);
                     sections = result.ToList();
                 }
                 // If the prof exists, return the record
