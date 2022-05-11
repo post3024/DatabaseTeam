@@ -7,5 +7,5 @@ CREATE TABLE day_of_week_preference (
     prefer_thursday BOOLEAN,
     prefer_friday BOOLEAN,
     PRIMARY KEY (prof_id),
-    FOREIGN KEY (prof_id) REFERENCES professor(professor_id)
+    FOREIGN KEY (prof_id) REFERENCES professor(professor_id) ON DELETE CASCADE
 );

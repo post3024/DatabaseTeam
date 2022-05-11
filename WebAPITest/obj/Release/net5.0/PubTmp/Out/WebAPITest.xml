@@ -227,7 +227,7 @@
             <remarks>POST request that creates multiple sections with inputted list of information.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.SectionController.DeletePlanSectionsInsertList(System.Collections.Generic.List{WebAPITest.Models.SectionInsertDTO},System.String)">
-            <summary>Delete previous sections and insert a new list based on plan id </summary>
+            <summary>Delete previous sections related to inputted plan_id and insert a new list attached to plan id </summary>
             <remarks>POST request that deletes sections based on plan id and creates multiple sections with inputted list of information.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.SectionController.UpdateSection(WebAPITest.Models.SectionInsertDTO,System.Int32)">
@@ -270,7 +270,7 @@
             <summary>Create a new time slot</summary>
             <remarks>POST request that creates a new time slot with the inputted information.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.UsersController.CreateAdmin(WebAPITest.Models.AuthenticateRequest)">
+        <member name="M:WebAPITest.Controllers.UsersController.CreateAdmin(WebAPITest.Models.CreateAdminDTO)">
             <summary>Create a new admin user</summary>
             <remarks>POST request that creates a new admin user with inputted information. Only an existing admin can add another admin user.</remarks>
         </member>
@@ -285,6 +285,10 @@
         <member name="M:WebAPITest.Controllers.UsersController.ChangePassword(System.String)">
             <summary>Change a user or admin's password</summary>
             <remarks>POST request that changes the user's password. User or admin must be logged in and send a valid token to be authorized for this endpoint.</remarks>
+        </member>
+        <member name="M:WebAPITest.Controllers.UsersController.ForgotPassword(System.String)">
+            <summary>Admin or user forgot their password</summary>
+            <remarks>POST request that changes the user's password to a new temporary string. User or admin sends in their email and if they exist as a current user, a new password will be generated and sent via email to the user.</remarks>
         </member>
     </members>
 </doc>

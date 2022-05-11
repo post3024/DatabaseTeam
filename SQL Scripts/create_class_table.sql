@@ -8,8 +8,6 @@ CREATE TABLE class (
     credits TINYINT NULL,
     is_lab BOOLEAN NOT NULL,
     num_sections TINYINT NOT NULL,
-    FOREIGN KEY (dept_id)
-	REFERENCES department(dept_id)
-        ON DELETE CASCADE,
-	PRIMARY KEY (class_id)
+    PRIMARY KEY (class_id),
+    FOREIGN KEY (dept_id) REFERENCES department(dept_id) ON DELETE CASCADE
 );
