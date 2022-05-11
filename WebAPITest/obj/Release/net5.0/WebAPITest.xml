@@ -210,6 +210,10 @@
             <summary>Get sections by plan id</summary>
             <remarks>GET request that retrieves the sections with specified plan id.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.SectionController.GetSectionsByProfessorId(System.String)">
+            <summary>Get sections by professor id</summary>
+            <remarks>GET request that retrieves the sections with specified professor id.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.SectionController.DeleteSectionById(System.String)">
             <summary>Delete sections by section id</summary>
             <remarks>DELETE request that deletes the section with specified section id.</remarks>

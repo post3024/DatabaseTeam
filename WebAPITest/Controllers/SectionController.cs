@@ -142,11 +142,17 @@ namespace WebAPITest.Controllers
         /// <remarks>GET request that retrieves the sections with specified professor id.</remarks>
         [HttpGet("sections/professor/{professor_id}")]
         [Authorize("admin","user")]
-        public async Task<ActionResult<List<SectionDTO>>> GetSectionsByProfessorId(string professor_id)
+        public async Task<ActionResult<List<SectionDTO>>> GetSectionsByLoggedInUser(int professor_id)
         {
             var sections = new List<SectionDTO>();
             try
             {
+                // user can only access their own records
+                var currentUser = (User)HttpContext.Items["User"];
+                if (professor_id != currentUser.user_id && currentUser.user_role != "admin") { 
+                    return Unauthorized(new { message = "Unauthorized" });
+                }
+
                 // Create the query string
                 string query = @"SELECT * 
                                  FROM section 
