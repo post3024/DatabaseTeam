@@ -154,7 +154,17 @@ namespace WebAPITest.Controllers
                 }
 
                 // Create the query string
-                string query = @"SELECT * 
+                string query = @"SELECT section.professor_id,
+                                    class.class_num,
+                                    department.dept_name,
+                                    class.class_name,
+                                    time_slot.start_time,
+                                    time_slot.end_time,
+                                    section_time_slot.on_monday,
+                                    section_time_slot.on_tuesday,
+                                    section_time_slot.on_wednesday,
+                                    section_time_slot.on_thursday,
+                                    section_time_slot.on_friday
                                  FROM (((section INNER JOIN class
                                             ON section.class_id = class.class_id)
                                         INNER JOIN department
