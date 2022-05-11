@@ -1,6 +1,6 @@
 USE classyschedule;
 CREATE TABLE time_slot_preference (
-	time_slot_id INT NOT NULL,
+    time_slot_id INT NOT NULL,
     prof_id INT NOT NULL,
     can_teach BOOLEAN,
     PRIMARY KEY (time_slot_id, prof_id),
