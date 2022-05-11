@@ -210,6 +210,10 @@
             <summary>Get sections by plan id</summary>
             <remarks>GET request that retrieves the sections with specified plan id.</remarks>
         </member>
+        <member name="M:WebAPITest.Controllers.SectionController.GetSectionsByProfessorId(System.String)">
+            <summary>Get sections by professor id</summary>
+            <remarks>GET request that retrieves the sections with specified professor id.</remarks>
+        </member>
         <member name="M:WebAPITest.Controllers.SectionController.DeleteSectionById(System.String)">
             <summary>Delete sections by section id</summary>
             <remarks>DELETE request that deletes the section with specified section id.</remarks>
@@ -227,7 +231,7 @@
             <remarks>POST request that creates multiple sections with inputted list of information.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.SectionController.DeletePlanSectionsInsertList(System.Collections.Generic.List{WebAPITest.Models.SectionInsertDTO},System.String)">
-            <summary>Delete previous sections and insert a new list based on plan id </summary>
+            <summary>Delete previous sections related to inputted plan_id and insert a new list attached to plan id </summary>
             <remarks>POST request that deletes sections based on plan id and creates multiple sections with inputted list of information.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.SectionController.UpdateSection(WebAPITest.Models.SectionInsertDTO,System.Int32)">

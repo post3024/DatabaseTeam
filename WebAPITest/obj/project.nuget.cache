@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "J3Vx2jxA+Mr2Ue+8ZURffzCnE7Fo24cdVur7zQ1xKta0lB0daCfuXJdg7WRHw7bJoiNttTgup7UGX2pdHmjxIA==",
+  "dgSpecHash": "y0WomDL+o62h2tpGfPqUuLuU+gH4i3kYo8Nr3cscypEWA4fMj9DENc4Mc81ll+m1kdTMVdolEG3BTk3WHoDFSA==",
   "success": true,
   "projectFilePath": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
   "expectedPackageFiles": [
@@ -42,8 +42,7 @@
     "C:\\Users\\btbor\\.nuget\\packages\\system.security.permissions\\4.7.0\\system.security.permissions.4.7.0.nupkg.sha512",
     "C:\\Users\\btbor\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\btbor\\.nuget\\packages\\system.text.encoding.codepages\\4.4.0\\system.text.encoding.codepages.4.4.0.nupkg.sha512",
-    "C:\\Users\\btbor\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
-    "C:\\Users\\btbor\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.15\\microsoft.netcore.app.host.win-x64.5.0.15.nupkg.sha512"
+    "C:\\Users\\btbor\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }
