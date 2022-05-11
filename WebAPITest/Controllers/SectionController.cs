@@ -138,6 +138,50 @@ namespace WebAPITest.Controllers
             }
         }
 
+        /// <summary>Get sections by professor id</summary>
+        /// <remarks>GET request that retrieves the sections with specified professor id.</remarks>
+        [HttpGet("sections/professor/{professor_id}")]
+        [Authorize("admin","user")]
+        public async Task<ActionResult<List<SectionDTO>>> GetSectionsByLoggedInUser(int professor_id)
+        {
+            var sections = new List<SectionDTO>();
+            try
+            {
+                // user can only access their own records
+                var currentUser = (User)HttpContext.Items["User"];
+                if (professor_id != currentUser.user_id && currentUser.user_role != "admin") { 
+                    return Unauthorized(new { message = "Unauthorized" });
+                }
+
+                // Create the query string
+                string query = @"SELECT * 
+                                 FROM section 
+                                 WHERE professor_id = " + professor_id + ";";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // Execute the query string
+                    var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                    sections = result.ToList();
+                }
+                // If the prof exists, return the record
+                if (sections.Count > 0)
+                {
+                    return Ok(sections);
+                }
+                // else, send error
+                else
+                {
+                    return NotFound();
+                }
+            }
+            // Catch any exceptions
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
         /// <summary>Delete sections by section id</summary>
         /// <remarks>DELETE request that deletes the section with specified section id.</remarks>
         [HttpDelete("sections/delete/{section_id}")]
