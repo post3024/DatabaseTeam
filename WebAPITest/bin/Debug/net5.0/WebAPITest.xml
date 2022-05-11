@@ -210,7 +210,7 @@
             <summary>Get sections by plan id</summary>
             <remarks>GET request that retrieves the sections with specified plan id.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.SectionController.GetSectionsByLoggedInUser(System.Int32)">
+        <member name="M:WebAPITest.Controllers.SectionController.GetSectionsByProfessorId(System.Int32)">
             <summary>Get sections by professor id</summary>
             <remarks>GET request that retrieves the sections with specified professor id.</remarks>
         </member>
