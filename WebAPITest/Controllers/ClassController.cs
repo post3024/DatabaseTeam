@@ -303,6 +303,7 @@ namespace WebAPITest.Controllers
                                  "', capacity = " + model.capacity + 
                                  ", credits = " + model.credits + 
                                  ", is_lab = " + model.is_lab +
+                                 ", num_sections = " + model.num_sections +
                                  " WHERE class_num = " + class_num + 
                                     " AND dept_id = " + dept_id + ";";
 
@@ -336,6 +337,7 @@ namespace WebAPITest.Controllers
                                  "', capacity = " + model.capacity + 
                                  ", credits = " + model.credits + 
                                  ", is_lab = " + model.is_lab +
+                                 ", num_sections = " + model.num_sections +
                                  " WHERE class_id = " + class_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
