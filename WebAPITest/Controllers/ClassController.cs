@@ -78,13 +78,13 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT * 
                                  FROM class 
-                                 WHERE class_num = " + class_num + " " +
-                                    "AND dept_id = " + dept_id + ";";
+                                 WHERE class_num = @class_num 
+                                 AND dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ClassDTO>(query, new { class_num=class_num, dept_id =dept_id});
                     classes = result.ToList();
                 }
                 // If classes were returned from database, return them
@@ -116,12 +116,12 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT * 
                                  FROM class 
-                                 WHERE class_id = " + class_id + ";";
+                                 WHERE class_id = @class_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ClassDTO>(query, new { class_id= class_id});
                     classes = result.ToList();
                 }
                 // If classes were returned from database, return them
@@ -191,13 +191,13 @@ namespace WebAPITest.Controllers
             {
                 // create query string
                 string deleteQuery = @"DELETE FROM class " +
-                                      "WHERE class_num = " + class_num + " " +
-                                        "AND dept_id = " + dept_id + ";";
+                                      "WHERE class_num = @class_num " +
+                                      "AND dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync(deleteQuery, new { class_num = class_num, dept_id = dept_id });
                 }
                 return StatusCode(200, "Successfully deleted class " + class_num);
             }
@@ -218,12 +218,12 @@ namespace WebAPITest.Controllers
             {
                 // create query string
                 string deleteQuery = @"DELETE FROM class " +
-                                      "WHERE class_id = " + class_id + ";";
+                                      "WHERE class_id = @class_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync(deleteQuery, new {class_id=class_id});
                 }
                 return StatusCode(200, "Successfully deleted class with id: " + class_id);
             }
@@ -251,19 +251,22 @@ namespace WebAPITest.Controllers
                                     "credits," +
                                     "is_lab," +
                                     "num_sections) " +
-                                "VALUES (" + model.class_num + ","
-                                           + model.dept_id + ",'"
-                                           + model.class_name + "',"
-                                           + model.capacity + ","
-                                           + model.credits + ","
-                                           + model.is_lab + ","
-                                           + model.num_sections + ");" +
+                                "VALUES (@class_num, @dept_id, @class_name, @capacity, @credits, @is_lab, @num_sections);" +
                                  "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync<int>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<int>(query, new
+                    {
+                        class_num = model.class_num,
+                        dept_id = model.dept_id,
+                        class_name = model.class_name,
+                        capacity = model.capacity,
+                        credits = model.credits,
+                        is_lab = model.is_lab,
+                        num_sections = model.num_sections
+                    });
                     int class_id = result.ToList()[0];
 
                     // Create new ClassDTO object and return it
@@ -297,19 +300,27 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"UPDATE class
-                                 SET class_num = " + model.class_num + 
-                                 ", dept_id = " + model.dept_id + 
-                                 ", class_name = '" + model.class_name +
-                                 "', capacity = " + model.capacity + 
-                                 ", credits = " + model.credits + 
-                                 ", is_lab = " + model.is_lab +
-                                 " WHERE class_num = " + class_num + 
-                                    " AND dept_id = " + dept_id + ";";
+                                 SET class_num = @class_num" +
+                                 ", dept_id = @dept_id " +
+                                 ", class_name = @class_name" +
+                                 ", capacity = @capacity" +
+                                 ", credits = @credits" +
+                                 ", is_lab = @is_lab" +
+                                 " WHERE class_num = @class_num" +
+                                 "AND dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ClassDTO>(query, new
+                    {
+                        class_num = model.class_num,
+                        dept_id = model.dept_id,
+                        class_name = model.class_name,
+                        capacity = model.capacity,
+                        credits = model.credits,
+                        is_lab = model.is_lab
+                    }); ;
                 }
                 return StatusCode(200, "Successfully updated class");
             }
@@ -330,18 +341,24 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"UPDATE class
-                                 SET class_num = " + model.class_num + 
-                                 ", dept_id = " + model.dept_id + 
-                                 ", class_name = '" + model.class_name +
-                                 "', capacity = " + model.capacity + 
-                                 ", credits = " + model.credits + 
-                                 ", is_lab = " + model.is_lab +
-                                 " WHERE class_id = " + class_id + ";";
+                                 SET class_num = @class_num" + 
+                                 ", dept_id = @dept_id "+ 
+                                 ", class_name = @class_name" +
+                                 ", capacity = @capacity" + 
+                                 ", credits = @credits" + 
+                                 ", is_lab = @is_lab" +
+                                 " WHERE class_id = @class_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ClassDTO>(query, new { class_num=model.class_num,
+                        dept_id = model.dept_id, 
+                        class_name = model.class_name,
+                        capacity = model.capacity,
+                        credits = model.credits,
+                        is_lab = model.is_lab,
+                        class_id = class_id});
                 }
                 return StatusCode(200, "Successfully updated class");
             }

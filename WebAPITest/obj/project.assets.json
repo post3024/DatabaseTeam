@@ -1660,19 +1660,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\btbor\\.nuget\\packages\\": {}
+    "C:\\Users\\ricar\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
+      "projectUniqueName": "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
       "projectName": "WebAPITest",
-      "projectPath": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
-      "packagesPath": "C:\\Users\\btbor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\obj\\",
+      "projectPath": "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
+      "packagesPath": "C:\\Users\\ricar\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\btbor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ricar\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1749,7 +1749,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
