@@ -33,7 +33,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all departments</summary>
         /// <remarks>GET request that retrieves all departments.</remarks>
         [HttpGet("departments")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<DepartmentDTO>>> GetAllDepartments()
         {
             var depts = new List<DepartmentDTO>();
@@ -67,7 +67,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get department by department id</summary>
         /// <remarks>GET request that retrieves the department with specified department id.</remarks>
         [HttpGet("departments/{dept_id}")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<DepartmentDTO>>> GetDepartmentByName(int dept_id) {
             var depts = new List<DepartmentDTO>();
             try
@@ -134,14 +134,13 @@ namespace WebAPITest.Controllers
             {
                 // Create query string
                 string query = @"INSERT INTO department (dept_name) " +
-                                "VALUES ('" + dept_name + "');";
-                string queryId = @"SELECT LAST_INSERT_ID();";
+                                "VALUES ('" + dept_name + "');" +
+                                "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var result = await connection.QueryAsync(query, CommandType.Text);
-                    var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(query, CommandType.Text);
                     int dept_id = id.ToList()[0];
                     DepartmentDTO newDept = new(dept_id, dept_name);
                     return Ok(newDept);

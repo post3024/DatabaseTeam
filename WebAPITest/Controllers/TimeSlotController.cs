@@ -137,17 +137,16 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"INSERT INTO time_slot (start_time, end_time, day_of_week) " +
-                                "VALUES ('" + model.start_time.ToString() + "','" + model.end_time.ToString() + "','" + model.day_of_week + "');";
-                string queryId = @"SELECT LAST_INSERT_ID();";
+                string query = @"INSERT INTO time_slot (start_time, end_time) " +
+                                "VALUES ('" + model.start_time + "','" + model.end_time + "');" +
+                                "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync<TimeSlotDTO>(query, CommandType.Text);
-                    var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(query, CommandType.Text);
                     int time_slot_id = id.ToList()[0];
-                    TimeSlotDTO newTimeSlot = new(time_slot_id, TimeSpan.Parse(model.start_time), TimeSpan.Parse(model.end_time), model.day_of_week);
+                    TimeSlotDTO newTimeSlot = new(time_slot_id, model.start_time, model.end_time);
                     return Ok(newTimeSlot);
                 }
             }

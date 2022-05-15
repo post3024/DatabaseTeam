@@ -22,7 +22,10 @@ namespace WebAPITest.Services
     {
         Task<AuthenticateResponse> AuthenticateAdminAsync(AuthenticateRequest model);
         Task<AuthenticateResponse> AuthenticateUserAsync(AuthenticateRequest model);
-        Task<CreateUserResponse> CreateAdminUserAsync(AuthenticateRequest model);
+        Task<CreateUserResponse> CreateAdminUserAsync(CreateAdminDTO model);
+        Task<User> ChangeUserPasswordAsync(User user, string new_password);
+        Task<User> GetAdminUserByEmail(string user_email);
+        Task<User> GetProfUserByEmail(string user_email);
         Task<User> GetAdminByIdAsync(int id);
         Task<User> GetUserByIdAsync(int id);
         string GeneratePassword(int length, int numberOfNonAlphanumericCharacters);
@@ -108,7 +111,7 @@ namespace WebAPITest.Services
             {
                 User user = new();
                 // create query string
-                string query = @"SELECT professor_id, user_email, user_password, salt, user_role
+                string query = @"SELECT *
                                  FROM professor
                                  WHERE user_email = '" + model.username + "';";
                 using (var connection = new MySqlConnection(connString))
@@ -153,7 +156,7 @@ namespace WebAPITest.Services
             return null;
         }
 
-        public async Task<CreateUserResponse> CreateAdminUserAsync(AuthenticateRequest model)
+        public async Task<CreateUserResponse> CreateAdminUserAsync(CreateAdminDTO model)
         {
             // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
             byte[] salt = new byte[128 / 8];
@@ -185,6 +188,114 @@ namespace WebAPITest.Services
                 }
             }
             // catch the exceptions
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<User> ChangeUserPasswordAsync(User user, string new_password)
+        {
+            // hash new password
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    password: new_password,
+                    salt: Convert.FromBase64String(user.salt),
+                    prf: KeyDerivationPrf.HMACSHA256,
+                    iterationCount: 100000,
+                    numBytesRequested: 256 / 8));
+            try
+            {
+                // create the query string
+                string query;
+                if (user.user_role.Equals("admin"))
+                {
+                    query = @"UPDATE users
+                                 SET user_password = '" + hashed +
+                                 "' WHERE user_id = " + user.user_id + ";";
+                }
+                else
+                {
+                    query = @"UPDATE professor
+                                 SET user_password = '" + hashed +
+                                 "' WHERE professor_id = " + user.user_id + ";";
+                }
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // Execute the query
+                    var result = await connection.QueryAsync<ProfUser>(query, CommandType.Text);
+                    return user;
+                }
+            }
+            // catch the exceptions
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<User> GetAdminUserByEmail(string user_email)
+        {
+            //grab user by username from users table
+            var users = new List<User>();
+            try
+            {
+                User user = new();
+                // create query string
+                string query = @"SELECT * 
+                                 FROM users
+                                 WHERE user_email = '" + user_email + "';";
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query string
+                    var result = await connection.QueryAsync<User>(query, CommandType.Text);
+                    users = result.ToList();
+                }
+                // if the classes exist, return the records
+                if (users.Count > 0)
+                {
+                    user = users[0];
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<User> GetProfUserByEmail(string user_email)
+        {
+            //grab user by username from users table
+            var users = new List<ProfUser>();
+            try
+            {
+                User user = new();
+                // create query string
+                string query = @"SELECT * 
+                                 FROM professor
+                                 WHERE user_email = '" + user_email + "';";
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query string
+                    var result = await connection.QueryAsync<ProfUser>(query, CommandType.Text);
+                    users = result.ToList();
+                }
+                // if the classes exist, return the records
+                if (users.Count > 0)
+                {
+                    user = new User(users[0]);
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+            }
             catch (Exception)
             {
                 return null;
@@ -230,7 +341,7 @@ namespace WebAPITest.Services
             try
             {
                 // Create query string
-                string query = @"SELECT professor_id, user_email, user_password, salt, user_role
+                string query = @"SELECT *
                                  FROM professor 
                                  WHERE professor_id = " + id + ";";
 

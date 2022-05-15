@@ -34,7 +34,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get all classes</summary>
         /// <remarks>GET request that retrieves all classes.</remarks>
         [HttpGet("classes")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<ClassDTO>>> GetAllClasses()
         {
             var classes = new List<ClassDTO>();
@@ -69,7 +69,7 @@ namespace WebAPITest.Controllers
         /// <summary>Get class by class number and department id</summary>
         /// <remarks>GET request that retrieves the class with specified class number and department id.</remarks>
         [HttpGet("classes/{class_num}/{dept_id}")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<ClassDTO>>> GetClassByDeptAndNumber (int class_num, int dept_id)
         {
             var classes = new List<ClassDTO>();
@@ -104,10 +104,48 @@ namespace WebAPITest.Controllers
             }
         }
 
+        /// <summary>Get class by class id</summary>
+        /// <remarks>GET request that retrieves the classes with specified id</remarks>
+        [HttpGet("classes/{class_id}")]
+        [Authorize("admin", "user")]
+        public async Task<ActionResult<List<ClassDTO>>> GetClassById(int class_id)
+        {
+            var classes = new List<ClassDTO>();
+            try
+            {
+                // Create query string
+                string query = @"SELECT * 
+                                 FROM class 
+                                 WHERE class_id = " + class_id + ";";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query
+                    var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
+                    classes = result.ToList();
+                }
+                // If classes were returned from database, return them
+                if (classes.Count > 0)
+                {
+                    return Ok(classes);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            //catch exception
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+
         /// <summary>Get classes joined with department</summary>
         /// <remarks>GET request that retrieves the class with department name.</remarks>
         [HttpGet("classes/department")]
-        [Authorize("admin")]
+        [Authorize("admin", "user")]
         public async Task<ActionResult<List<DepartmentClassDTO>>> GetClassAndDepartmentTables()
         {
             var classes = new List<DepartmentClassDTO>();
@@ -170,24 +208,77 @@ namespace WebAPITest.Controllers
             }
         }
 
+        /// <summary>Delete class by class id</summary>
+        /// <remarks>DELETE request that deletes the class with specified class id</remarks>
+        [HttpDelete("classes/delete/{class_id}")]
+        [Authorize("admin")]
+        public async Task<ActionResult> DeleteClassById(int class_id)
+        {
+            try
+            {
+                // create query string
+                string deleteQuery = @"DELETE FROM class " +
+                                      "WHERE class_id = " + class_id + ";";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // execute query string
+                    var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
+                }
+                return StatusCode(200, "Successfully deleted class with id: " + class_id);
+            }
+            // catch exceptions
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
         /// <summary>Create a new class</summary>
         /// <remarks>POST request that creates a new class with the inputted information.</remarks>
         [HttpPost("classes/create")]
-        [Authorize("admin")]
-        public async Task<ActionResult> InsertClass(ClassDTO model)
+        [Authorize("admin", "user")]
+        public async Task<ActionResult> InsertClass(ClassInsertDTO model)
         {
             try
             {
                 // create the query string
-                string query = @"INSERT INTO class (class_num, dept_id, class_name, capacity, credits, is_lab) " +
-                                "VALUES (" + model.class_num + "," + model.dept_id + ",'" + model.class_name + "'," + model.capacity + "," + model.credits + "," + model.is_lab + ");";
+                string query = @"INSERT INTO class (" +
+                                    "class_num," +
+                                    "dept_id," +
+                                    "class_name," +
+                                    "capacity," +
+                                    "credits," +
+                                    "is_lab," +
+                                    "num_sections) " +
+                                "VALUES (" + model.class_num + ","
+                                           + model.dept_id + ",'"
+                                           + model.class_name + "',"
+                                           + model.capacity + ","
+                                           + model.credits + ","
+                                           + model.is_lab + ","
+                                           + model.num_sections + ");" +
+                                 "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<int>(query, CommandType.Text);
+                    int class_id = result.ToList()[0];
+
+                    // Create new ClassDTO object and return it
+                    ClassDTO newClass = new(
+                        class_id,
+                        model.class_num,
+                        model.dept_id,
+                        model.class_name,
+                        model.capacity,
+                        model.credits,
+                        model.is_lab,
+                        model.num_sections
+                    );
+                    return Ok(newClass);
                 }
-                return StatusCode(200, "Successfully created class " + model.class_num);
             }
             // catch the exceptions
             catch (Exception e)
@@ -200,15 +291,52 @@ namespace WebAPITest.Controllers
         /// <remarks>PUT request that updates the class with specified class number and department id to be set to the new inputted values.</remarks>
         [HttpPut("classes/update/{class_num}/{dept_id}")]
         [Authorize("admin")]
-        public async Task<ActionResult> UpdateClass(ClassDTO model, int class_num, int dept_id)
+        public async Task<ActionResult> UpdateClass(ClassInsertDTO model, int class_num, int dept_id)
         {
             try
             {
                 // create the query string
                 string query = @"UPDATE class
-                                 SET class_num = " + model.class_num + ", dept_id = " + model.dept_id + ", class_name = '" + model.class_name +
-                                 "', capacity = " + model.capacity + ", credits = " + model.credits + ", is_lab = " + model.is_lab +
-                                 " WHERE class_num = " + class_num + " AND dept_id = " + dept_id + ";";
+                                 SET class_num = " + model.class_num + 
+                                 ", dept_id = " + model.dept_id + 
+                                 ", class_name = '" + model.class_name +
+                                 "', capacity = " + model.capacity + 
+                                 ", credits = " + model.credits + 
+                                 ", is_lab = " + model.is_lab +
+                                 " WHERE class_num = " + class_num + 
+                                    " AND dept_id = " + dept_id + ";";
+
+                using (var connection = new MySqlConnection(connString))
+                {
+                    // Execute the query
+                    var result = await connection.QueryAsync<ClassDTO>(query, CommandType.Text);
+                }
+                return StatusCode(200, "Successfully updated class");
+            }
+            // catch the exceptions
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        /// <summary>Update class by class id</summary>
+        /// <remarks>PUT request that updates the class with specified class id to be set to the new inputted values.</remarks>
+        [HttpPut("classes/update/{class_id}")]
+        [Authorize("admin")]
+        public async Task<ActionResult> UpdateClassById(ClassInsertDTO model, int class_id)
+        {
+            try
+            {
+                // create the query string
+                string query = @"UPDATE class
+                                 SET class_num = " + model.class_num + 
+                                 ", dept_id = " + model.dept_id + 
+                                 ", class_name = '" + model.class_name +
+                                 "', capacity = " + model.capacity + 
+                                 ", credits = " + model.credits + 
+                                 ", is_lab = " + model.is_lab +
+                                 " WHERE class_id = " + class_id + ";";
 
                 using (var connection = new MySqlConnection(connString))
                 {

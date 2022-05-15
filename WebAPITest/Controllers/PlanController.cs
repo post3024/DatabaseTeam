@@ -138,14 +138,13 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"INSERT INTO plan (plan_name, plan_description, semester_year, semester_num) " +
-                                "VALUES ('" + model.plan_name + "','" + model.plan_description + "'," + model.semester_year + "," + model.semester_num + ");";
-                string queryId = @"SELECT LAST_INSERT_ID();";
+                                "VALUES ('" + model.plan_name + "','" + model.plan_description + "'," + model.semester_year + "," + model.semester_num + ");" +
+                                "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync<PlanDTO>(query, CommandType.Text);
-                    var id = await connection.QueryAsync<int>(queryId, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(query, CommandType.Text);
                     int plan_id = id.ToList()[0];
                     PlanDTO newPlan = new(plan_id, model.plan_name, model.plan_description, model.semester_year, model.semester_num);
                     return Ok(newPlan);

@@ -1,2 +1,2 @@
-grant all privileges on classyschedule.* to 'androidteam'@'%';
-flush privileges;
+GRANT ALL PRIVILAGES ON classyschedule.* TO 'androidteam'@'%';
+FLUSH PRIVILEGES;
