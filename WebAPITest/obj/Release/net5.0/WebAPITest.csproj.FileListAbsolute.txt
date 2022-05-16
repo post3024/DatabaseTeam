@@ -140,7 +140,6 @@ C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITes
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.pdb
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.genruntimeconfig.cache
 C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.csproj.AssemblyReference.cache
-C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\obj\Release\net5.0\refint\WebAPITest.dll
 C:\Users\ricar\source\repos\post3024\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.csproj.AssemblyReference.cache
 C:\Users\ricar\source\repos\post3024\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\ricar\source\repos\post3024\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.AssemblyInfoInputs.cache
@@ -152,3 +151,4 @@ C:\Users\ricar\source\repos\post3024\DatabaseTeam\WebAPITest\obj\Release\net5.0\
 C:\Users\ricar\source\repos\post3024\DatabaseTeam\WebAPITest\obj\Release\net5.0\refint\WebAPITest.dll
 C:\Users\ricar\source\repos\post3024\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.xml
 C:\Users\ricar\source\repos\post3024\DatabaseTeam\WebAPITest\obj\Release\net5.0\WebAPITest.pdb
+C:\Users\btbor\Source\Repos\DatabaseTeam\WebAPITest\bin\Release\net5.0\ref\WebAPITest.dll
