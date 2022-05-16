@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj": {}
+    "C:\\Users\\ricar\\source\\repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj": {
+    "C:\\Users\\ricar\\source\\repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
+        "projectUniqueName": "C:\\Users\\ricar\\source\\repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
         "projectName": "WebAPITest",
-        "projectPath": "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
+        "projectPath": "C:\\Users\\ricar\\source\\repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
         "packagesPath": "C:\\Users\\ricar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\obj\\",
+        "outputPath": "C:\\Users\\ricar\\source\\repos\\post3024\\DatabaseTeam\\WebAPITest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ricar\\AppData\\Roaming\\NuGet\\NuGet.Config",

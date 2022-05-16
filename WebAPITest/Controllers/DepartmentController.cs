@@ -73,12 +73,12 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"SELECT * FROM department WHERE dept_id = " + dept_id + ";";
+                string query = @"SELECT * FROM department WHERE dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var result = await connection.QueryAsync<DepartmentDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<DepartmentDTO>(query, new { dept_id=dept_id});
                     depts = result.ToList();
                 }
                 // if departments exist, return them
@@ -108,12 +108,12 @@ namespace WebAPITest.Controllers
             {
                 // create query string
                 string deleteQuery = @"DELETE FROM department
-                                 WHERE dept_id = " + dept_id + ";";
+                                 WHERE dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync(deleteQuery, new { dept_id = dept_id });
                 }
                 return StatusCode(200, "Successfully deleted department " + dept_id);
             }
@@ -134,13 +134,13 @@ namespace WebAPITest.Controllers
             {
                 // Create query string
                 string query = @"INSERT INTO department (dept_name) " +
-                                "VALUES ('" + dept_name + "');" +
+                                "VALUES (@dept_name);" +
                                 "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var id = await connection.QueryAsync<int>(query, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(query, new { dept_name = dept_name});
                     int dept_id = id.ToList()[0];
                     DepartmentDTO newDept = new(dept_id, dept_name);
                     return Ok(newDept);
@@ -163,13 +163,13 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"UPDATE department
-                                 SET dept_id = " + model.dept_id + ", dept_name = '" + model.dept_name +
-                                 "' WHERE dept_id = " + dept_id + ";";
+                                 SET dept_id = @new_dept_id, dept_name = @dept_name "+
+                                 "WHERE dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync(query, CommandType.Text);
+                    var result = await connection.QueryAsync(query, new { new_dept_id = dept_id, dept_id = model.dept_id, dept_name = model.dept_name });
                 }
                 return StatusCode(200, "Successfully updated department");
             }

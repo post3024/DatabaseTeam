@@ -74,12 +74,12 @@ namespace WebAPITest.Controllers
                 // Create the query string
                 string query = @"SELECT * 
                                  FROM section 
-                                 WHERE section_id = '" + section_id + "'";
+                                 WHERE section_id = @section_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionDTO>(query, new { section_id = section_id});
                     sections = result.ToList();
                 }
                 // If the prof exists, return the record
@@ -112,12 +112,12 @@ namespace WebAPITest.Controllers
                 // Create the query string
                 string query = @"SELECT * 
                                  FROM section 
-                                 WHERE plan_id = " + plan_id + ";";
+                                 WHERE plan_id = @plan_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionDTO>(query, new { plan_id = plan_id});
                     sections = result.ToList();
                 }
                 // If the prof exists, return the record
@@ -173,12 +173,12 @@ namespace WebAPITest.Controllers
                                             ON section.section_time_slot_id = section_time_slot.section_time_slot_id)
                                         INNER JOIN time_slot
                                             ON section_time_slot.time_slot_id = time_slot.time_slot_id
-                                 WHERE section.professor_id = " + professor_id + ";";
+                                 WHERE section.professor_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<ProfessorScheduleInfoDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ProfessorScheduleInfoDTO>(query, new { professor_id = professor_id});
                     sections = result.ToList();
                 }
                 // If the prof exists, return the record
@@ -209,12 +209,12 @@ namespace WebAPITest.Controllers
             {
                 // Create the query string
                 string deleteQuery = @"DELETE FROM section " +
-                                      "WHERE section_id = '" + section_id + "'";
+                                      "WHERE section_id = @section_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<SectionDTO>(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionDTO>(deleteQuery, new { section_id = section_id});
                 }
                 return StatusCode(200, "Successfully deleted schedule with id: " + section_id);
             }
@@ -235,12 +235,12 @@ namespace WebAPITest.Controllers
             {
                 // Create the query string
                 string deleteQuery = @"DELETE FROM section " +
-                                      "WHERE plan_id = '" + plan_id + "'";
+                                      "WHERE plan_id = @plan_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<SectionDTO>(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionDTO>(deleteQuery, new { plan_id = plan_id });
                 }
                 return StatusCode(200, "Successfully deleted schedule with plan id: " + plan_id);
             }
@@ -267,18 +267,18 @@ namespace WebAPITest.Controllers
                                     plan_id, 
                                     section_time_slot_id, 
                                     class_id) " +
-                                "VALUES (" + model.section_num + "," + 
-                                             model.room_id + "," + 
-                                             model.professor_id + "," + 
-                                             model.plan_id + "," + 
-                                             model.section_time_slot_id + "," + 
-                                             model.class_id + ");" +
+                                "VALUES (@section_num, @room_id, @professor_id, @plan_id, @section_time_slot_id, @class_id);" +
                                 "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute the query string
-                    var id = await connection.QueryAsync<int>(query, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(query, new { section_num = model.section_num, 
+                        room_id = model.room_id, 
+                        professor_id = model.professor_id, 
+                        plan_id = model.plan_id, 
+                        section_time_slot_id = model.section_time_slot_id, 
+                        class_id =model.class_id });
                     int section_id = id.ToList()[0];
                     SectionDTO newSection = new(
                         section_id, 
@@ -318,19 +318,21 @@ namespace WebAPITest.Controllers
                                         plan_id, 
                                         section_time_slot_id, 
                                         class_id) " +
-                                    "VALUES (" + 
-                                        item.section_num + "," + 
-                                        item.room_id + "," + 
-                                        item.professor_id + "," + 
-                                        item.plan_id + "," + 
-                                        item.section_time_slot_id + "," + 
-                                        item.class_id + ");" +
+                                    "VALUES (@section_num, @room_id, @professor_id, @plan_id, @section_time_slot_id, @class_id);" +
                                     "SELECT LAST_INSERT_ID();";
 
                     using (var connection = new MySqlConnection(connString))
                     {
                         // execute the query string
-                        var result = await connection.QueryAsync<int>(query, CommandType.Text);
+                        var result = await connection.QueryAsync<int>(query, new
+                        {
+                            section_num = item.section_num,
+                            room_id = item.room_id,
+                            professor_id = item.professor_id,
+                            plan_id = item.plan_id,
+                            section_time_slot_id = item.section_time_slot_id,
+                            class_id = item.class_id
+                        });
                         int section_id = result.ToList()[0];
 
                         // Create new section object and add it to the list
@@ -364,10 +366,10 @@ namespace WebAPITest.Controllers
             try
             {
                 String deleteQuery = @"DELETE FROM section " +
-                                       "WHERE plan_id = " + plan_id;
+                                       "WHERE plan_id = @plan_id";
                 using (var connection = new MySqlConnection(connString))
                 {
-                    var result = await connection.QueryAsync<int>(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync<int>(deleteQuery, new { plan_id = plan_id });
                 }
 
 
@@ -382,18 +384,21 @@ namespace WebAPITest.Controllers
                                         plan_id, 
                                         section_time_slot_id, 
                                         class_id) " +
-                                    "VALUES (" + item.section_num + "," + 
-                                                 item.room_id + "," + 
-                                                 item.professor_id + "," + 
-                                                 item.plan_id + "," + 
-                                                 item.section_time_slot_id + "," + 
-                                                 item.class_id + ");" +
+                                    "VALUES (@section_num, @room_id, @professor_id, @plan_id, @section_time_slot_id, @class_id);" +
                                     "SELECT LAST_INSERT_ID();";
 
                     using (var connection = new MySqlConnection(connString))
                     {
                         // execute the query string
-                        var result = await connection.QueryAsync<int>(query, CommandType.Text);
+                        var result = await connection.QueryAsync<int>(query, new
+                        {
+                            section_num = item.section_num,
+                            room_id = item.room_id,
+                            professor_id = item.professor_id,
+                            plan_id = item.plan_id,
+                            section_time_slot_id = item.section_time_slot_id,
+                            class_id = item.class_id
+                        });
                         int section_id = result.ToList()[0];
 
                         // Create new SectionDTO object and add it to the list
@@ -428,15 +433,22 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"UPDATE section
-                                 SET section_num = " + model.section_num + ", class_id = " + model.class_id + ", room_id = " + model.room_id +
-                                 ", professor_id = " + model.professor_id + ", plan_id = " + model.plan_id + 
-                                 ", section_time_slot_id = " + model.section_time_slot_id + " " +
-                                 "WHERE section_id = " + section_id + ";";
+                                 SET section_num = @section_num, class_id = @class_id, room_id = @room_id, professor_id = @professor_id, plan_id = @plan_id, section_time_slot_id = @section_time_slot_id " +
+                                 "WHERE section_id = @section_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionDTO>(query, new
+                    {
+                        section_num = model.section_num,
+                        room_id = model.room_id,
+                        professor_id = model.professor_id,
+                        plan_id = model.plan_id,
+                        section_time_slot_id = model.section_time_slot_id,
+                        class_id = model.class_id
+                        section_id = section_id
+                    });
                 }
                 return StatusCode(200, "Successfully updated section");
             }

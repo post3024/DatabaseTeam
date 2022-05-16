@@ -78,12 +78,12 @@ namespace WebAPITest.Controllers
                 //Create the query string
                 string query = @"SELECT * 
                                  FROM room 
-                                 WHERE room_id = '" + room_id + "'";
+                                 WHERE room_id = @room_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     //Execute the the query
-                    var result = await connection.QueryAsync<RoomDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<RoomDTO>(query, new { room_id = room_id });
                     rooms = result.ToList();
                 }
 
@@ -115,12 +115,12 @@ namespace WebAPITest.Controllers
             {
                 //Create query string
                 string deleteQuery = @"DELETE FROM room " +
-                                      "WHERE room_id = '" + room_id + "'";
+                                      "WHERE room_id = @room_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     //Execute the query string
-                    var result = await connection.QueryAsync<ProfessorDTO>(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync<ProfessorDTO>(deleteQuery, new { room_id = room_id});
                 }
                 return StatusCode(200, "Successfully deleted room " + room_id);
             }
@@ -140,13 +140,13 @@ namespace WebAPITest.Controllers
             {
                 //Create the query string
                 string query = @"INSERT INTO room (capacity, room_num, building_name) " +
-                                "VALUES (" + model.capacity + "," + model.room_num + ",'" + model.building_name + "');" +
+                                "VALUES (@capacity, @room_num, @building_name);" +
                                 "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     //Execute the query string
-                    var id = await connection.QueryAsync<int>(query, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(query, new { capacity = model.capacity, room_num = model.room_num, building_name = model.building_name});
                     int room_id = id.ToList()[0];
                     RoomDTO newRoom = new(room_id, model.room_num, model.capacity, model.building_name);
                     return Ok(newRoom);
@@ -169,14 +169,14 @@ namespace WebAPITest.Controllers
             {
                 //create the query string
                 string query = @"UPDATE room
-                                 SET room_id = " + model.room_id + ", " +
-                                 "capacity = " + model.capacity + ", room_num = " + model.room_num + ", building_name = '" + model.building_name + "'" +
-                                 " WHERE room_id = " + room_id + ";";
+                                 SET room_id = @new_room_id, " +
+                                 "capacity = @capacity, room_num = @room_num, building_name = @building_name  " +
+                                 "WHERE room_id = @room_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     //Execute the query
-                    var result = await connection.QueryAsync(query, CommandType.Text);
+                    var result = await connection.QueryAsync(query, new { new_room_id = model.room_id, capacity = model.capacity, room_num = model.room_num, building_name = model.building_name, room_id = room_id});
                 }
                 return StatusCode(200, "Successfully updated room");
             }

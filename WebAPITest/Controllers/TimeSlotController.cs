@@ -77,12 +77,12 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT * 
                                  FROM time_slot 
-                                 WHERE time_slot_id = " + time_slot_id;
+                                 WHERE time_slot_id = @time_slot_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<TimeSlotDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<TimeSlotDTO>(query, new { time_slot_id = time_slot_id});
                     slot = result.ToList();
                 }
                 // If plan exists, return it
@@ -112,12 +112,12 @@ namespace WebAPITest.Controllers
             {
                 // create query string
                 string deleteQuery = @"DELETE FROM time_slot " +
-                                      "WHERE time_slot_id = " + time_slot_id;
+                                      "WHERE time_slot_id = @time_slot_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync(deleteQuery, new { time_slot_id =time_slot_id});
                 }
                 return StatusCode(200, "Successfully deleted time_slot with id: " + time_slot_id);
             }
@@ -138,13 +138,13 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"INSERT INTO time_slot (start_time, end_time) " +
-                                "VALUES ('" + model.start_time + "','" + model.end_time + "');" +
+                                "VALUES (@start_time, @end_time);" +
                                 "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var id = await connection.QueryAsync<int>(query, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(query, new { start_time = model.start_time, end_time = model.end_time });
                     int time_slot_id = id.ToList()[0];
                     TimeSlotDTO newTimeSlot = new(time_slot_id, model.start_time, model.end_time);
                     return Ok(newTimeSlot);
