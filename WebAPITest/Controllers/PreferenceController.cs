@@ -318,7 +318,7 @@ namespace WebAPITest.Controllers
                 {
                     // create the query string
                     string query = @"INSERT INTO class_preference (class_id, prof_id, prefer_to_teach) " +
-                                    "VALUES (@class_id, @professor_id, @item.prefer_to_teach)" +
+                                    "VALUES (@class_id, @professor_id, @prefer_to_teach)" +
                                     "ON DUPLICATE KEY UPDATE class_id = @class_id, prof_id = @professor_id, prefer_to_teach = @prefer_to_teach;";
 
                     using (var connection = new MySqlConnection(connString))
@@ -538,7 +538,7 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"INSERT INTO time_of_day_preference (prof_id, prefer_morning, prefer_afternoon, prefer_evening) " +
                                     "VALUES (@professor_id, @prefer_morning, @prefer_afternoon, @prefer_evening)" +
-                                    "ON DUPLICATE KEY UPDATE prof_id = @professor_id, prefer_morning = @model.prefer_morning, " +
+                                    "ON DUPLICATE KEY UPDATE prof_id = @professor_id, prefer_morning = @prefer_morning, " +
                                     "prefer_afternoon = @prefer_afternoon, prefer_evening = @prefer_evening;";
 
                 using (var connection = new MySqlConnection(connString))

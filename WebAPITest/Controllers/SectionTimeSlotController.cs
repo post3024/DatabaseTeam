@@ -32,7 +32,7 @@ namespace WebAPITest.Controllers
 
 
         /// <summary>Get all section time slots</summary>
-        /// <remarks>GET request that retrieves all section time slots.</remarks>
+        /// <remarks>GET request that retrieves all section time slots. Ordered by start time.</remarks>
         [HttpGet("section_time_slots")]
         [Authorize("admin", "user")]
         public async Task<ActionResult<List<SectionTimeSlotDTO>>> GetAllSectionTimeSlots()
@@ -42,7 +42,8 @@ namespace WebAPITest.Controllers
             {
                 // create query string
                 string query = @"SELECT * " +
-                                "FROM section_time_slot";
+                                "FROM section_time_slot " +
+                                "ORDER BY time_slot_id";
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
@@ -67,7 +68,7 @@ namespace WebAPITest.Controllers
         }
 
         /// <summary>Get all section time slots formatted to id, time, and partOfDay</summary>
-        /// <remarks>GET request that retrieves all section time slots and formats them to id, time, and partOfDay.</remarks>
+        /// <remarks>GET request that retrieves all section time slots and formats them to id, time, and partOfDay. Ordered by start time.</remarks>
         [HttpGet("section_time_slots/formatted")]
         [Authorize("admin", "user")]
         public async Task<ActionResult<List<FormattedSectionTimeSlot>>> GetAllFormattedSectionTimeSlots()
@@ -78,7 +79,8 @@ namespace WebAPITest.Controllers
                 // create query string
                 string query = @"SELECT * " +
                                 "FROM section_time_slot INNER JOIN time_slot " +
-                                    "ON section_time_slot.time_slot_id = time_slot.time_slot_id";
+                                    "ON section_time_slot.time_slot_id = time_slot.time_slot_id " +
+                                    "ORDER BY section_time_slot.time_slot_id";
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string

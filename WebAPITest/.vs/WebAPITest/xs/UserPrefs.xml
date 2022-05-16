@@ -1,30 +1,26 @@
 ﻿<Properties StartupConfiguration="{F3CAD161-51E7-4CC1-9725-0AB2815A95F5}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Class.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/UserController.cs">
     <Files>
-      <File FileName="Services/UserService.cs" Line="240" Column="1" />
-      <File FileName="Controllers/UserController.cs" />
-      <File FileName="Controllers/ProfessorController.cs" Line="56" Column="61" />
-      <File FileName="Models/User.cs" />
-      <File FileName="Models/AuthenticateRequest.cs" />
-      <File FileName="Models/AuthenticateResponse.cs" />
-      <File FileName="Models/ProfUser.cs" />
-      <File FileName="Models/CreateAdminDTO.cs" />
-      <File FileName="Controllers/ClassController.cs" Line="1" Column="1" />
-      <File FileName="Models/Class.cs" Line="1" Column="1" />
+      <File FileName="Controllers/TimeSlotController.cs" Line="103" Column="10" />
+      <File FileName="Controllers/SectionTimeSlotController.cs" Line="35" Column="95" />
+      <File FileName="Controllers/PreferenceController.cs" Line="543" Column="1" />
+      <File FileName="Controllers/ClassController.cs" Line="254" Column="98" />
+      <File FileName="Controllers/DepartmentController.cs" Line="43" Column="32" />
+      <File FileName="Controllers/PlanController.cs" Line="44" Column="32" />
+      <File FileName="Controllers/ProfessorController.cs" Line="52" Column="32" />
+      <File FileName="Controllers/RoomController.cs" Line="44" Column="32" />
+      <File FileName="Controllers/SectionController.cs" Line="43" Column="32" />
+      <File FileName="Controllers/UserController.cs" Line="111" Column="75" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WebAPITest" expanded="True">
             <Node name="WebAPITest" expanded="True">
-              <Node name="Dependencies" expanded="True" />
-              <Node name="Controllers" expanded="True" />
-              <Node name="Helpers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="Class.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="UserController.cs" selected="True" />
               </Node>
               <Node name="Services" expanded="True" />
-              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
