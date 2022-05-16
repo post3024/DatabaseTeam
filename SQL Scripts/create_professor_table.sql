@@ -7,5 +7,5 @@ CREATE TABLE professor (
     user_email VARCHAR(50) NOT NULL UNIQUE,
     user_password VARCHAR(256) NOT NULL,
     salt VARCHAR(128) NOT NULL,
-    user_role VARCHAR(20)
+    user_role VARCHAR(20) NOT NULL
 );
