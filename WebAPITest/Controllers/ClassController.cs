@@ -306,6 +306,7 @@ namespace WebAPITest.Controllers
                                  ", capacity = @capacity" +
                                  ", credits = @credits" +
                                  ", is_lab = @is_lab" +
+                                 ", num_sections = @num_sections" +
                                  " WHERE class_num = @class_num" +
                                  "AND dept_id = @dept_id;";
 
@@ -319,8 +320,9 @@ namespace WebAPITest.Controllers
                         class_name = model.class_name,
                         capacity = model.capacity,
                         credits = model.credits,
-                        is_lab = model.is_lab
-                    }); ;
+                        is_lab = model.is_lab,
+                        num_sections = model.num_sections
+                    });
                 }
                 return StatusCode(200, "Successfully updated class");
             }
@@ -347,6 +349,7 @@ namespace WebAPITest.Controllers
                                  ", capacity = @capacity" + 
                                  ", credits = @credits" + 
                                  ", is_lab = @is_lab" +
+                                 ", num_sections = @num_sections" +
                                  " WHERE class_id = @class_id;";
 
                 using (var connection = new MySqlConnection(connString))
@@ -358,7 +361,8 @@ namespace WebAPITest.Controllers
                         capacity = model.capacity,
                         credits = model.credits,
                         is_lab = model.is_lab,
-                        class_id = class_id});
+                        class_id = class_id,
+                        num_sections = model.num_sections});
                 }
                 return StatusCode(200, "Successfully updated class");
             }
