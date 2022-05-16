@@ -210,19 +210,19 @@ namespace WebAPITest.Controllers
         /// <remarks>PUT request that updates the professor with specified professor id to be set to the new inputted values.</remarks>
         [HttpPut("professors/update/{prof_id}")]
         [Authorize("admin")]
-        public async Task<ActionResult> UpdateProfessor(ProfessorDTO model, int prof_id)
+        public async Task<ActionResult> UpdateProfessor(ProfessorInsertDTO model, int prof_id)
         {
             try
             {
                 // create the query string
                 string query = @"UPDATE professor
                                  SET first_name = @first_name, last_name = @last_name, teach_load = @teach_load" +
-                                 ", user_email = @user_email, user_role = @user_role WHERE professor_id = @prof_id;";
+                                 ", user_email = @user_email WHERE professor_id = @prof_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync(query, new { first_name = model.first_name, last_name = model.last_name, teach_load = model.teach_load, user_email = model.user_email, user_role = model.user_role, prof_id = prof_id});
+                    var result = await connection.QueryAsync(query, new { first_name = model.first_name, last_name = model.last_name, teach_load = model.teach_load, user_email = model.user_email, prof_id = prof_id});
                 }
                 return StatusCode(200, "Successfully updated professor");
             }

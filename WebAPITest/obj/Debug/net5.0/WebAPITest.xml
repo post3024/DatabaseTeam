@@ -174,7 +174,7 @@
             <remarks>POST request that creates a new professor with inputted information. Returns all fields for the newly created professor
             including the auto-generated professor id and randomly created password for the new user.</remarks>
         </member>
-        <member name="M:WebAPITest.Controllers.ProfessorController.UpdateProfessor(WebAPITest.Models.ProfessorDTO,System.Int32)">
+        <member name="M:WebAPITest.Controllers.ProfessorController.UpdateProfessor(WebAPITest.Models.ProfessorInsertDTO,System.Int32)">
             <summary>Update professor by professor id</summary>
             <remarks>PUT request that updates the professor with specified professor id to be set to the new inputted values.</remarks>
         </member>

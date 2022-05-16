@@ -1660,26 +1660,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ricar\\.nuget\\packages\\": {}
+    "/Users/laurapost/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
+      "projectUniqueName": "/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/WebAPITest.csproj",
       "projectName": "WebAPITest",
-      "projectPath": "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
-      "packagesPath": "C:\\Users\\ricar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\obj\\",
+      "projectPath": "/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/WebAPITest.csproj",
+      "packagesPath": "/Users/laurapost/.nuget/packages/",
+      "outputPath": "/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ricar\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/laurapost/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1749,16 +1747,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.407/RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\ricar\\Source\\Repos\\post3024\\DatabaseTeam\\WebAPITest\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
