@@ -446,7 +446,7 @@ namespace WebAPITest.Controllers
                         professor_id = model.professor_id,
                         plan_id = model.plan_id,
                         section_time_slot_id = model.section_time_slot_id,
-                        class_id = model.class_id
+                        class_id = model.class_id,
                         section_id = section_id
                     });
                 }
