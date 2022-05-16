@@ -86,12 +86,12 @@ namespace WebAPITest.Controllers
                 // Create the query string
                 string query = @"SELECT * 
                                  FROM professor 
-                                 WHERE professor_id = '" + prof_id + "'";
+                                 WHERE professor_id = @prof_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<ProfessorDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ProfessorDTO>(query, new {prof_id = prof_id});
                     profs = result.ToList();
                 }
                 // If the prof exists, return the record
@@ -122,12 +122,15 @@ namespace WebAPITest.Controllers
             {
                 // Create the query string
                 string deleteQuery = @"DELETE FROM professor " +
-                                      "WHERE professor_id = '" + prof_id + "'";
+                                      "WHERE professor_id = @prof_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query string
-                    var result = await connection.QueryAsync<ProfessorDTO>(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync<ProfessorDTO>(deleteQuery, new
+                    {
+                        prof_id = prof_id
+                    });
                 }
                 return StatusCode(200, "Successfully deleted " + prof_id);
             }
@@ -169,13 +172,13 @@ namespace WebAPITest.Controllers
                 var prof = new CreateProfessorDTO();
                 // create query string
                 string query = @"INSERT INTO professor (first_name, last_name, teach_load, user_email, user_password, salt, user_role) " +
-                                "VALUES ('" + model.first_name + "','" + model.last_name + "'," + model.teach_load + ",'" +
-                                model.user_email + "','" + hashed + "','" + saltStr + "', 'user'); SELECT * FROM professor WHERE professor_id = LAST_INSERT_ID();";
+                                "VALUES (@first_name, @last_name, @teach_load, @user_email,'" + hashed + "','" + saltStr + "', 'user'); " +
+                                "SELECT * FROM professor WHERE professor_id = LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute the query string
-                    var result = await connection.QueryAsync<CreateProfessorDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<CreateProfessorDTO>(query, new { first_name = model.first_name, last_name = model.last_name, teach_load = model.teach_load, user_email = model.user_email});
                     prof = result.ToList()[0];
                 }
                 // create email message
@@ -213,13 +216,13 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"UPDATE professor
-                                 SET first_name = '" + model.first_name + "', last_name = '" + model.last_name + "', teach_load = " + model.teach_load +
-                                 ", user_email = '" + model.user_email + "', user_role = '" + model.user_role + "' WHERE professor_id = " + prof_id + ";";
+                                 SET first_name = @first_name, last_name = @last_name, teach_load = @teach_load" +
+                                 ", user_email = @user_email, user_role = @user_role WHERE professor_id = @prof_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync(query, CommandType.Text);
+                    var result = await connection.QueryAsync(query, new { first_name = model.first_name, last_name = model.last_name, teach_load = model.teach_load, user_email = model.user_email, user_role = model.user_role, prof_id = prof_id});
                 }
                 return StatusCode(200, "Successfully updated professor");
             }

@@ -161,12 +161,12 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT * 
                                  FROM section_time_slot 
-                                 WHERE section_time_slot_id = " + section_time_slot_id;
+                                 WHERE section_time_slot_id = @section_time_slot_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<SectionTimeSlotDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<SectionTimeSlotDTO>(query, new {section_time_slot_id = section_time_slot_id});
                     slot = result.ToList();
                 }
                 // If plan exists, return it
@@ -196,12 +196,12 @@ namespace WebAPITest.Controllers
             {
                 // create query string
                 string deleteQuery = @"DELETE FROM section_time_slot " +
-                                      "WHERE section_time_slot_id = " + section_time_slot_id;
+                                      "WHERE section_time_slot_id = @section_time_slot_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync(deleteQuery, new { section_time_slot_id = section_time_slot_id});
                 }
                 return StatusCode(200, "Successfully deleted time_slot with id: " + section_time_slot_id);
             }
@@ -222,13 +222,13 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"INSERT INTO section_time_slot (time_slot_id, on_monday, on_tuesday, on_wednesday, on_thursday, on_friday) " +
-                                "VALUES (" + model.time_slot_id + "," + model.on_monday + "," + model.on_tuesday + "," + model.on_wednesday + "," + model.on_thursday + "," + model.on_friday + ");" +
+                                "VALUES (@time_slot_id, @on_monday, @on_tuesday, @on_wednesday, @on_thursday, @on_friday);" +
                                 "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var id = await connection.QueryAsync<int>(query, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(query, new { time_slot_id = model.time_slot_id, on_monday = model.on_monday, on_tuesday = model.on_tuesday, on_wednesday = model.on_wednesday, on_thursday = model.on_thursday, on_friday = model.on_friday });
                     int section_time_slot_id = id.ToList()[0];
                     SectionTimeSlotDTO newTimeSlot = new(section_time_slot_id, model.time_slot_id, model.on_monday, model.on_tuesday, model.on_wednesday, model.on_thursday, model.on_friday);
                     return Ok(newTimeSlot);

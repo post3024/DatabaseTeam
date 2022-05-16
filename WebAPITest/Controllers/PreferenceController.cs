@@ -83,12 +83,12 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT *
                                  FROM class_preference
-                                 WHERE prof_id = " + professor_id + ";";
+                                 WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<ClassPreferenceDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ClassPreferenceDTO>(query, new {professor_id = professor_id });
                     class_preferences = result.ToList();
                 }
                 return class_preferences;
@@ -117,12 +117,12 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT *
                                  FROM class_preference
-                                 WHERE prof_id = " + professor_id + ";";
+                                 WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<ClassesCanTeachDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ClassesCanTeachDTO>(query, new { professor_id = professor_id });
                     classes = result.ToList();
                 }
                 // If a preference was returned from database, return it
@@ -156,12 +156,12 @@ namespace WebAPITest.Controllers
                                  FROM class_preference
                                  JOIN professor
                                  WHERE class_preference.prof_id = professor.professor_id AND " +
-                                 "class_id = " + class_id + " AND can_teach = true;";
+                                 "class_id = @class_id AND can_teach = true;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<ProfessorDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ProfessorDTO>(query, new { class_id = class_id });
                     professors = result.ToList();
                 }
                 // If a preference was returned from database, return it
@@ -198,12 +198,12 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT *
                                  FROM class_preference
-                                 WHERE prof_id = " + professor_id + ";";
+                                 WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<ClassesPreferToTeachDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ClassesPreferToTeachDTO>(query, new { professor_id = professor_id });
                     classes = result.ToList();
                 }
                 // If a preference was returned from database, return it
@@ -237,12 +237,12 @@ namespace WebAPITest.Controllers
                                  FROM class_preference
                                  JOIN professor
                                  WHERE class_preference.prof_id = professor.professor_id AND " +
-                                 "class_id = " + class_id + " AND prefer_to_teach = true;";
+                                 "class_id = @class_id AND prefer_to_teach = true;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<ProfessorDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<ProfessorDTO>(query, new { class_id = class_id});
                     professors = result.ToList();
                 }
                 // If a preference was returned from database, return it
@@ -281,13 +281,13 @@ namespace WebAPITest.Controllers
                 {
                     // create the query string
                     string query = @"INSERT INTO class_preference (class_id, prof_id, can_teach) " +
-                                    "VALUES (" + item.class_id + "," + professor_id + "," + item.can_teach +
-                                    ") ON DUPLICATE KEY UPDATE class_id = " + item.class_id + ", prof_id = " + professor_id + ", can_teach = " + item.can_teach + ";";
+                                    "VALUES (@class_id, @professor_id, @can_teach) " +
+                                    "ON DUPLICATE KEY UPDATE class_id = @class_id, prof_id = @professor_id, can_teach = @can_teach;";
 
                     using (var connection = new MySqlConnection(connString))
                     {
                         // Execute the query
-                        var result = await connection.QueryAsync(query, CommandType.Text);
+                        var result = await connection.QueryAsync(query, new { class_id = item.class_id, professor_id = professor_id, can_teach = item.can_teach });
                     }
                 }
                 // catch the exceptions
@@ -318,13 +318,13 @@ namespace WebAPITest.Controllers
                 {
                     // create the query string
                     string query = @"INSERT INTO class_preference (class_id, prof_id, prefer_to_teach) " +
-                                    "VALUES (" + item.class_id + "," + professor_id + "," + item.prefer_to_teach +
-                                    ")ON DUPLICATE KEY UPDATE class_id = " + item.class_id + ", prof_id = " + professor_id + ", prefer_to_teach = " + item.prefer_to_teach + ";";
+                                    "VALUES (@class_id, @professor_id, @item.prefer_to_teach)" +
+                                    "ON DUPLICATE KEY UPDATE class_id = @class_id, prof_id = @professor_id, prefer_to_teach = @prefer_to_teach;";
 
                     using (var connection = new MySqlConnection(connString))
                     {
                         // Execute the query
-                        var result = await connection.QueryAsync(query, CommandType.Text);
+                        var result = await connection.QueryAsync(query, new { class_id = item.class_id, professor_id = professor_id, prefer_to_teach = item.prefer_to_teach });
                     }
                 }
                 // catch the exceptions
@@ -351,12 +351,12 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"DELETE FROM class_preference " +
-                                "WHERE prof_id = " + professor_id + ";";
+                                "WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync(query, CommandType.Text);
+                    var result = await connection.QueryAsync(query, new {professor_id = professor_id});
                 }
                 return StatusCode(200, "Successfully deleted preferences");
             }
@@ -385,12 +385,12 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT *
                                  FROM day_of_week_preference
-                                 WHERE prof_id = " + professor_id + ";";
+                                 WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<DayOfWeekPreferenceDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<DayOfWeekPreferenceDTO>(query, new { professor_id = professor_id });
                     results = result.ToList();
                 }
                 // If a preference was returned from database, return it
@@ -426,16 +426,18 @@ namespace WebAPITest.Controllers
             {
                 // Create query string
                 string query = @"INSERT INTO day_of_week_preference (prof_id, prefer_monday, prefer_tuesday, prefer_wednesday, prefer_thursday, prefer_friday) " +
-                                    "VALUES (" + professor_id + "," + model.prefer_monday + "," + model.prefer_tuesday + "," +
-                                    model.prefer_wednesday + "," + model.prefer_thursday + "," + model.prefer_friday +
-                                    ")ON DUPLICATE KEY UPDATE prof_id = " + professor_id + ", prefer_monday = " + model.prefer_monday +
-                                    ", prefer_tuesday = " + model.prefer_tuesday + ", prefer_wednesday = " + model.prefer_wednesday +
-                                    ", prefer_thursday = " + model.prefer_thursday + ", prefer_friday = " + model.prefer_friday + ";";
+                                    "VALUES (@professor_id, @prefer_monday, @prefer_tuesday, @prefer_wednesday, @prefer_thursday, @prefer_friday) " +
+                                    "ON DUPLICATE KEY UPDATE prof_id = @professor_id, prefer_monday = @prefer_monday, prefer_tuesday = @prefer_tuesday, prefer_wednesday = @prefer_wednesday, prefer_thursday = @prefer_thursday, prefer_friday = @prefer_friday;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<DayOfWeekPreferenceDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<DayOfWeekPreferenceDTO>(query, new { professor_id = professor_id, 
+                        prefer_monday = model.prefer_monday,
+                        prefer_tuesday = model.prefer_tuesday, 
+                        prefer_wednesday = model.prefer_wednesday, 
+                        prefer_thursday = model.prefer_thursday, 
+                        prefer_friday = model.prefer_friday });
                 }
                 return StatusCode(200, "Successfully updated preferences");
             }
@@ -461,12 +463,12 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"DELETE FROM day_of_week_preference " +
-                                "WHERE prof_id = " + professor_id + ";";
+                                "WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync(query, CommandType.Text);
+                    var result = await connection.QueryAsync(query, new { professor_id = professor_id});
                 }
                 return StatusCode(200, "Successfully deleted preferences");
             }
@@ -494,12 +496,12 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT *
                                  FROM time_of_day_preference
-                                 WHERE prof_id = " + professor_id + ";";
+                                 WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<TimeOfDayPreferenceDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<TimeOfDayPreferenceDTO>(query, new { professor_id = professor_id });
                     results = result.ToList();
                 }
                 // If a preference was returned from database, return it
@@ -535,14 +537,17 @@ namespace WebAPITest.Controllers
             {
                 // Create query string
                 string query = @"INSERT INTO time_of_day_preference (prof_id, prefer_morning, prefer_afternoon, prefer_evening) " +
-                                    "VALUES (" + professor_id + "," + model.prefer_morning + "," + model.prefer_afternoon + "," + model.prefer_evening +
-                                    ")ON DUPLICATE KEY UPDATE prof_id = " + professor_id + ", prefer_morning = " + model.prefer_morning +
-                                    ", prefer_afternoon = " + model.prefer_afternoon + ", prefer_evening = " + model.prefer_evening + ";";
+                                    "VALUES (@professor_id, @prefer_morning, @prefer_afternoon, @prefer_evening)" +
+                                    "ON DUPLICATE KEY UPDATE prof_id = @professor_id, prefer_morning = @model.prefer_morning, " +
+                                    "prefer_afternoon = @prefer_afternoon, prefer_evening = @prefer_evening;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<TimeOfDayPreferenceDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<TimeOfDayPreferenceDTO>(query, new { professor_id = professor_id, 
+                        prefer_morning = model.prefer_morning, 
+                        prefer_afternoon = model.prefer_afternoon, 
+                        prefer_evening = model.prefer_evening });
                 }
                 return StatusCode(200, "Successfully updated preferences");
             }
@@ -568,12 +573,12 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"DELETE FROM time_of_day_preference " +
-                                "WHERE prof_id = " + professor_id + ";";
+                                "WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync(query, CommandType.Text);
+                    var result = await connection.QueryAsync(query, new { professor_id = professor_id });
                 }
                 return StatusCode(200, "Successfully deleted preferences");
             }
@@ -602,13 +607,12 @@ namespace WebAPITest.Controllers
                 string query = @"SELECT t.time_slot_id, t.start_time, t.end_time, p.can_teach
                                  FROM time_slot_preference p
                                  JOIN time_slot t
-                                 WHERE p.prof_id = " + professor_id +
-                                 " AND p.time_slot_id = t.time_slot_id;";
+                                 WHERE p.prof_id = @professor_id AND p.time_slot_id = t.time_slot_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<TimeSlotPreference>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<TimeSlotPreference>(query, new { professor_id = professor_id });
                     results = result.ToList();
                 }
                 // If a preference was returned from database, return it
@@ -647,14 +651,13 @@ namespace WebAPITest.Controllers
                 {
                     // create the query string
                     string query = @"INSERT INTO time_slot_preference (time_slot_id, prof_id, can_teach) " +
-                                    "VALUES (" + item.time_slot_id + "," + professor_id + "," + item.can_teach +
-                                    ") ON DUPLICATE KEY UPDATE time_slot_id = " + item.time_slot_id + ", prof_id = " +
-                                    professor_id + ", can_teach = " + item.can_teach + ";";
+                                    "VALUES (@time_slot_id, @professor_id, @can_teach)" +
+                                    " ON DUPLICATE KEY UPDATE time_slot_id = @time_slot_id, prof_id = @professor_id, can_teach = @can_teach;";
 
                     using (var connection = new MySqlConnection(connString))
                     {
                         // Execute the query
-                        var result = await connection.QueryAsync(query, CommandType.Text);
+                        var result = await connection.QueryAsync(query, new { time_slot_id = item.time_slot_id, professor_id = professor_id, can_teach = item.can_teach });
                     }
                 }
                 // catch the exceptions
@@ -681,12 +684,12 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"DELETE FROM time_slot_preference " +
-                                "WHERE prof_id = " + professor_id + ";";
+                                "WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync(query, CommandType.Text);
+                    var result = await connection.QueryAsync(query, new { professor_id = professor_id });
                 }
                 return StatusCode(200, "Successfully deleted preferences");
             }

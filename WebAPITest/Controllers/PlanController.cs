@@ -77,12 +77,12 @@ namespace WebAPITest.Controllers
                 // Create query string
                 string query = @"SELECT * 
                                  FROM plan 
-                                 WHERE plan_id = " + plan_id;
+                                 WHERE plan_id = @plan_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query
-                    var result = await connection.QueryAsync<PlanDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<PlanDTO>(query, new { plan_id=plan_id});
                     plan = result.ToList();
                 }
                 // If plan exists, return it
@@ -112,12 +112,12 @@ namespace WebAPITest.Controllers
             {
                 // create query string
                 string deleteQuery = @"DELETE FROM plan " +
-                                      "WHERE plan_id = " + plan_id;
+                                      "WHERE plan_id = @plan_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
-                    var result = await connection.QueryAsync(deleteQuery, CommandType.Text);
+                    var result = await connection.QueryAsync(deleteQuery, new { plan_id = plan_id });
                 }
                 return StatusCode(200, "Successfully deleted plan with id: " + plan_id);
             }
@@ -138,13 +138,13 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"INSERT INTO plan (plan_name, plan_description, semester_year, semester_num) " +
-                                "VALUES ('" + model.plan_name + "','" + model.plan_description + "'," + model.semester_year + "," + model.semester_num + ");" +
+                                "VALUES (@plan_name, @plan_description, @semester_year, @semester_num);" +
                                 "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var id = await connection.QueryAsync<int>(query, CommandType.Text);
+                    var id = await connection.QueryAsync<int>(query, new { plan_name = model.plan_name, plan_description = model.plan_description, semester_year = model.semester_year, semester_num = model.semester_num});
                     int plan_id = id.ToList()[0];
                     PlanDTO newPlan = new(plan_id, model.plan_name, model.plan_description, model.semester_year, model.semester_num);
                     return Ok(newPlan);
@@ -167,14 +167,14 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"UPDATE plan
-                                 SET plan_id = " + model.plan_id + ", plan_name = '" + model.plan_name + "', plan_description = '" + model.plan_description +
-                                 "', semester_year = " + model.semester_year + ", semester_num = " + model.semester_num +
-                                 " WHERE plan_id = " + plan_id + ";";
+                                 SET plan_id = @new_plan_id, plan_name = @plan_name, plan_description = @plan_description,
+                                 semester_year = @semester_year, semester_num = @semester_num
+                                 WHERE plan_id = @plan_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync<PlanDTO>(query, CommandType.Text);
+                    var result = await connection.QueryAsync<PlanDTO>(query, new { new_plan_id = model.plan_id, plan_name = model.plan_name, plan_description = model.plan_description, semester_year = model.semester_year, semester_num = model.semester_num, plan_id = plan_id });
                 }
                 return StatusCode(200, "Successfully updated plan");
             }
