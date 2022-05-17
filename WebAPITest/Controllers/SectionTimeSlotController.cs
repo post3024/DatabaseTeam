@@ -109,7 +109,7 @@ namespace WebAPITest.Controllers
                         if (item.on_thursday) {
                             time += "H";
                         }
-                        if (item.on_wednesday) {
+                        if (item.on_friday) {
                             time += "F";
                         }
 
