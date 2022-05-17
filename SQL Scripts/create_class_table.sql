@@ -8,5 +8,5 @@ CREATE TABLE section_time_slot(
     time_slot_id INTEGER NOT NULL,
     PRIMARY KEY (section_time_slot_id),
     FOREIGN KEY (time_slot_id) REFERENCES time_slot(time_slot_id) ON DELETE CASCADE,
-	UNIQUE (on_monday, on_tuesday, on_wednesday, on_thursday, on_friday, time_slot_id)
+    UNIQUE (on_monday, on_tuesday, on_wednesday, on_thursday, on_friday, time_slot_id)
 );
