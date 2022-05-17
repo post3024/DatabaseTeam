@@ -41,9 +41,10 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"SELECT * " +
-                                "FROM section_time_slot " +
-                                "ORDER BY time_slot_id";
+                var query = @"SELECT * " +
+                             "FROM section_time_slot " +
+                             "ORDER BY time_slot_id";
+                             
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
@@ -80,7 +81,7 @@ namespace WebAPITest.Controllers
                 string query = @"SELECT * " +
                                 "FROM section_time_slot INNER JOIN time_slot " +
                                     "ON section_time_slot.time_slot_id = time_slot.time_slot_id " +
-                                    "ORDER BY section_time_slot.time_slot_id";
+                                "ORDER BY section_time_slot.time_slot_id";
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
@@ -94,7 +95,10 @@ namespace WebAPITest.Controllers
                     FormattedSectionTimeSlot newSlot;
                     string time = "";
                     string partOfDay = "";
+                    
+                    // for each section_time_slot, format it into time and part of day
                     foreach(var item in slots) {
+                        // format the days
                         time = "";
                         partOfDay = "";
                         if (item.on_monday) {
@@ -113,10 +117,11 @@ namespace WebAPITest.Controllers
                             time += "F";
                         }
 
+                        // add the times
                         time += " " + item.start_time + "-" + item.end_time;
 
+                        // add the part of day attribute
                         int startHour = Int32.Parse(item.start_time.Split(':')[0]);
-
                         if (startHour <= 12)
                         {
                             partOfDay = "morning";
@@ -129,6 +134,7 @@ namespace WebAPITest.Controllers
                             partOfDay = "night";
                         }
 
+                        // add the formatted time slot to the list
                         newSlot = new FormattedSectionTimeSlot(
                             item.section_time_slot_id,
                             time,
@@ -137,6 +143,7 @@ namespace WebAPITest.Controllers
                         resultingSlots.Add(newSlot);
                     }
 
+                    // return list
                     return Ok(resultingSlots);
                 }
                 else
@@ -161,9 +168,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT * 
-                                 FROM section_time_slot 
-                                 WHERE section_time_slot_id = @section_time_slot_id";
+                var query = @"SELECT * 
+                              FROM section_time_slot 
+                              WHERE section_time_slot_id = @section_time_slot_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -197,8 +204,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string deleteQuery = @"DELETE FROM section_time_slot " +
-                                      "WHERE section_time_slot_id = @section_time_slot_id";
+                var deleteQuery = @"DELETE FROM section_time_slot " +
+                                   "WHERE section_time_slot_id = @section_time_slot_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -223,9 +230,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"INSERT INTO section_time_slot (time_slot_id, on_monday, on_tuesday, on_wednesday, on_thursday, on_friday) " +
+                var query = @"INSERT INTO section_time_slot (time_slot_id, on_monday, on_tuesday, on_wednesday, on_thursday, on_friday) " +
                                 "VALUES (@time_slot_id, @on_monday, @on_tuesday, @on_wednesday, @on_thursday, @on_friday);" +
-                                "SELECT LAST_INSERT_ID();";
+                             "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
