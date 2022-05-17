@@ -3,6 +3,7 @@
 // Some code taken from https://github.com/cornflourblue/dotnet-5-jwt-authentication-api
 namespace WebAPITest.Models
 {
+    // this class handles the schema of the user table in the database
     public class User
     {
         public int user_id { get; set; }
@@ -19,7 +20,8 @@ namespace WebAPITest.Models
 
         [JsonIgnore]
         public string user_password { get; set; }
-
+        
+        // constructor
         public User(ProfUser prof)
         {
             user_id = prof.professor_id;
