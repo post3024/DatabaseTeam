@@ -1,6 +1,8 @@
 ﻿using System;
+
 namespace WebAPITest.Models
 {
+    // this class handles the schema for a user's response for authentication
     public class CreateUserResponse
     {
         public int user_id { get; set; }
