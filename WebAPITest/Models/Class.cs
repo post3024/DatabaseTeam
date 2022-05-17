@@ -1,4 +1,5 @@
 using System;
+// This model handles a class object of all fields from the class table
 namespace WebAPITest.Models
 {
     public class ClassDTO
@@ -19,6 +20,7 @@ namespace WebAPITest.Models
 
         public int num_sections { get; set; }
 
+        // constructor
         public ClassDTO(int class_id, int class_num, int dept_id, string class_name, int capacity, int credits, bool is_lab, int num_sections)
         {
             this.class_id = class_id;
