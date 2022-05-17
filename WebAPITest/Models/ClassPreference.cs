@@ -1,4 +1,5 @@
 ﻿using System;
+// This model handles a professors class preference to be inserted
 namespace WebAPITest.Models
 {
     public class ClassPreferenceDTO

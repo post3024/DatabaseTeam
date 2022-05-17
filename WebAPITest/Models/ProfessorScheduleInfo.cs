@@ -1,4 +1,6 @@
 ﻿using System;
+
+// this class handles the schema for all fields relating to a professor and their schedule from the database
 namespace WebAPITest.Models
 {
     public class ProfessorScheduleInfoDTO

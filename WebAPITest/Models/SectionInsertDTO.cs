@@ -1,4 +1,6 @@
 using System;
+
+// this class holds the schema for a section to be inserted into the database
 namespace WebAPITest.Models
 {
     public class SectionInsertDTO

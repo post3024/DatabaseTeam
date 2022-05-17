@@ -1,4 +1,6 @@
 using System;
+
+// this class handles the schema for a plan object to be inserted into the database
 namespace WebAPITest.Models
 {
     public class PlanInsertDTO

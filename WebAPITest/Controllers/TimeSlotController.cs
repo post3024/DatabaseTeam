@@ -41,7 +41,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"SELECT * FROM time_slot";
+                var query = @"SELECT *
+                              FROM time_slot";
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
@@ -75,9 +76,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT * 
-                                 FROM time_slot 
-                                 WHERE time_slot_id = @time_slot_id";
+                var query = @"SELECT * 
+                              FROM time_slot 
+                              WHERE time_slot_id = @time_slot_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {

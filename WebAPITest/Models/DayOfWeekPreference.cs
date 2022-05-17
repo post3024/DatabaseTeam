@@ -1,4 +1,5 @@
 ﻿using System;
+// this class handles the preferences for a professor in the database
 namespace WebAPITest.Models
 {
     public class DayOfWeekPreferenceDTO

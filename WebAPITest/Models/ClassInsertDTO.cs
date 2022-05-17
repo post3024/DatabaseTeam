@@ -1,4 +1,5 @@
 ﻿using System;
+// This model handles a class object that is to be inserted into the database
 namespace WebAPITest.Models
 {
     public class ClassInsertDTO

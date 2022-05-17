@@ -1,4 +1,5 @@
 ﻿using System;
+// this model handles a professor can teach a class insert
 namespace WebAPITest.Models
 {
     public class ClassesCanTeachInsertDTO

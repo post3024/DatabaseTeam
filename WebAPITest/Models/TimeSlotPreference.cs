@@ -1,4 +1,5 @@
 ﻿using System;
+// this class handles the schema for a professors time slot preference
 namespace WebAPITest.Models
 {
     public class TimeSlotPreference

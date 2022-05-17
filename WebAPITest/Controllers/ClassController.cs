@@ -41,8 +41,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"SELECT * 
+                var query = @"SELECT * 
                                  FROM class";
+                                 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
@@ -76,7 +77,7 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT * 
+                var query = @"SELECT * 
                                  FROM class 
                                  WHERE class_num = @class_num 
                                  AND dept_id = @dept_id;";
@@ -97,7 +98,7 @@ namespace WebAPITest.Controllers
                     return NotFound();
                 }
             }
-            //catch exception
+            // catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -114,7 +115,7 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT * 
+                var query = @"SELECT * 
                                  FROM class 
                                  WHERE class_id = @class_id;";
 
@@ -134,7 +135,7 @@ namespace WebAPITest.Controllers
                     return NotFound();
                 }
             }
-            //catch exception
+            // catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -152,9 +153,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT * 
-                                 FROM department INNER JOIN class
-                                    ON department.dept_id = class.dept_id;";
+                var query = @"SELECT * 
+                              FROM department INNER JOIN class
+                                ON department.dept_id = class.dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -172,7 +173,7 @@ namespace WebAPITest.Controllers
                     return NotFound();
                 }
             }
-            //catch exception
+            // catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -190,9 +191,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string deleteQuery = @"DELETE FROM class " +
-                                      "WHERE class_num = @class_num " +
-                                      "AND dept_id = @dept_id;";
+                var deleteQuery = @"DELETE FROM class " +
+                                   "WHERE class_num = @class_num " +
+                                     "AND dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -217,8 +218,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string deleteQuery = @"DELETE FROM class " +
-                                      "WHERE class_id = @class_id;";
+                var deleteQuery = @"DELETE FROM class " +
+                                   "WHERE class_id = @class_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -243,7 +244,7 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"INSERT INTO class (" +
+                var query = @"INSERT INTO class (" +
                                     "class_num," +
                                     "dept_id," +
                                     "class_name," +
@@ -251,8 +252,8 @@ namespace WebAPITest.Controllers
                                     "credits," +
                                     "is_lab," +
                                     "num_sections) " +
-                                "VALUES (@class_num, @dept_id, @class_name, @capacity, @credits, @is_lab, @num_sections);" +
-                                 "SELECT LAST_INSERT_ID();";
+                             "VALUES (@class_num, @dept_id, @class_name, @capacity, @credits, @is_lab, @num_sections);" +
+                             "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -299,7 +300,7 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"UPDATE class
+                var query = @"UPDATE class
                                  SET class_num = @class_num" +
                                  ", dept_id = @dept_id " +
                                  ", class_name = @class_name" +
@@ -307,7 +308,7 @@ namespace WebAPITest.Controllers
                                  ", credits = @credits" +
                                  ", is_lab = @is_lab" +
                                  ", num_sections = @num_sections" +
-                                 " WHERE class_num = @class_num" +
+                            " WHERE class_num = @class_num" +
                                  "AND dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
@@ -342,7 +343,7 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"UPDATE class
+                var query = @"UPDATE class
                                  SET class_num = @class_num" + 
                                  ", dept_id = @dept_id "+ 
                                  ", class_name = @class_name" +
@@ -350,7 +351,7 @@ namespace WebAPITest.Controllers
                                  ", credits = @credits" + 
                                  ", is_lab = @is_lab" +
                                  ", num_sections = @num_sections" +
-                                 " WHERE class_id = @class_id;";
+                            " WHERE class_id = @class_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {

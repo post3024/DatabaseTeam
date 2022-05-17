@@ -1,4 +1,5 @@
 ﻿using System;
+// This class handles a professor model to be inserted into the database
 namespace WebAPITest.Models
 {
     public class CreateProfessorDTO

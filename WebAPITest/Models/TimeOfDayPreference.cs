@@ -1,4 +1,5 @@
 ﻿using System;
+// this class handles the schema to update a professors time of day preference
 namespace WebAPITest.Models
 {
     public class TimeOfDayPreferenceDTO

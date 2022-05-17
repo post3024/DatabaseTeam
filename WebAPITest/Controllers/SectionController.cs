@@ -15,7 +15,6 @@ namespace WebAPITest.Controllers
     [Route("sections-management")]
     public class SectionController : ControllerBase
     {
-        //code here
         private readonly IConfiguration _configuration;
         private readonly string connString;
 
@@ -40,22 +39,28 @@ namespace WebAPITest.Controllers
             var sections = new List<SectionDTO>();
             try
             {
-                string query = @"SELECT * FROM section";
+                var query = @"SELECT *
+                              FROM section";
+                              
+                // connect and execute query string
                 using (var connection = new MySqlConnection(connString))
                 {
-
                     var result = await connection.QueryAsync<SectionDTO>(query, CommandType.Text);
                     sections = result.ToList();
                 }
+                
+                // if any sections exist, return them
                 if (sections.Count > 0)
                 {
                     return Ok(sections);
                 }
+                // else, return 404 error
                 else
                 {
                     return NotFound();
                 }
             }
+            // catch the exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -72,9 +77,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create the query string
-                string query = @"SELECT * 
-                                 FROM section 
-                                 WHERE section_id = @section_id";
+                var query = @"SELECT * 
+                              FROM section 
+                              WHERE section_id = @section_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -82,6 +87,7 @@ namespace WebAPITest.Controllers
                     var result = await connection.QueryAsync<SectionDTO>(query, new { section_id = section_id});
                     sections = result.ToList();
                 }
+                
                 // If the prof exists, return the record
                 if (sections.Count > 0)
                 {
@@ -110,9 +116,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create the query string
-                string query = @"SELECT * 
-                                 FROM section 
-                                 WHERE plan_id = @plan_id;";
+                var query = @"SELECT * 
+                              FROM section 
+                              WHERE plan_id = @plan_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -154,26 +160,26 @@ namespace WebAPITest.Controllers
                 }
 
                 // Create the query string
-                string query = @"SELECT section.professor_id,
-                                    class.class_num,
-                                    department.dept_name,
-                                    class.class_name,
-                                    time_slot.start_time,
-                                    time_slot.end_time,
-                                    section_time_slot.on_monday,
-                                    section_time_slot.on_tuesday,
-                                    section_time_slot.on_wednesday,
-                                    section_time_slot.on_thursday,
-                                    section_time_slot.on_friday
-                                 FROM (((section INNER JOIN class
-                                            ON section.class_id = class.class_id)
-                                        INNER JOIN department
-                                            ON department.dept_id = class.dept_id)
-                                        INNER JOIN section_time_slot
-                                            ON section.section_time_slot_id = section_time_slot.section_time_slot_id)
-                                        INNER JOIN time_slot
-                                            ON section_time_slot.time_slot_id = time_slot.time_slot_id
-                                 WHERE section.professor_id = @professor_id;";
+                var query = @"SELECT section.professor_id,
+                                class.class_num,
+                                department.dept_name,
+                                class.class_name,
+                                time_slot.start_time,
+                                time_slot.end_time,
+                                section_time_slot.on_monday,
+                                section_time_slot.on_tuesday,
+                                section_time_slot.on_wednesday,
+                                section_time_slot.on_thursday,
+                                section_time_slot.on_friday
+                             FROM (((section INNER JOIN class
+                                        ON section.class_id = class.class_id)
+                                    INNER JOIN department
+                                        ON department.dept_id = class.dept_id)
+                                    INNER JOIN section_time_slot
+                                        ON section.section_time_slot_id = section_time_slot.section_time_slot_id)
+                                    INNER JOIN time_slot
+                                        ON section_time_slot.time_slot_id = time_slot.time_slot_id
+                             WHERE section.professor_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -208,8 +214,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create the query string
-                string deleteQuery = @"DELETE FROM section " +
-                                      "WHERE section_id = @section_id";
+                var deleteQuery = @"DELETE FROM section " +
+                                   "WHERE section_id = @section_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -234,8 +240,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create the query string
-                string deleteQuery = @"DELETE FROM section " +
-                                      "WHERE plan_id = @plan_id";
+                var deleteQuery = @"DELETE FROM section " +
+                                   "WHERE plan_id = @plan_id";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -260,15 +266,15 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"INSERT INTO section (
-                                    section_num, 
-                                    room_id, 
-                                    professor_id, 
-                                    plan_id, 
-                                    section_time_slot_id, 
-                                    class_id) " +
-                                "VALUES (@section_num, @room_id, @professor_id, @plan_id, @section_time_slot_id, @class_id);" +
-                                "SELECT LAST_INSERT_ID();";
+                var query = @"INSERT INTO section (
+                                section_num, 
+                                room_id, 
+                                professor_id, 
+                                plan_id, 
+                                section_time_slot_id, 
+                                class_id) " +
+                             "VALUES (@section_num, @room_id, @professor_id, @plan_id, @section_time_slot_id, @class_id);" +
+                             "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -279,6 +285,8 @@ namespace WebAPITest.Controllers
                         plan_id = model.plan_id, 
                         section_time_slot_id = model.section_time_slot_id, 
                         class_id =model.class_id });
+                    
+                    // create new sectionDTO object from the returned id and model
                     int section_id = id.ToList()[0];
                     SectionDTO newSection = new(
                         section_id, 
@@ -292,7 +300,7 @@ namespace WebAPITest.Controllers
                     return Ok(newSection);
                 }
             }
-            //catch exception
+            // catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -350,7 +358,7 @@ namespace WebAPITest.Controllers
                 }
                 return Ok(newSections);
             }
-            //catch exception
+            // catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -366,7 +374,7 @@ namespace WebAPITest.Controllers
             try
             {
                 String deleteQuery = @"DELETE FROM section " +
-                                       "WHERE plan_id = @plan_id";
+                                      "WHERE plan_id = @plan_id";
                 using (var connection = new MySqlConnection(connString))
                 {
                     var result = await connection.QueryAsync<int>(deleteQuery, new { plan_id = plan_id });
@@ -377,15 +385,15 @@ namespace WebAPITest.Controllers
                 foreach (var item in models)
                 {
                     // create query string
-                    string query = @"INSERT INTO section (
-                                        section_num, 
-                                        room_id, 
-                                        professor_id,
-                                        plan_id, 
-                                        section_time_slot_id, 
-                                        class_id) " +
-                                    "VALUES (@section_num, @room_id, @professor_id, @plan_id, @section_time_slot_id, @class_id);" +
-                                    "SELECT LAST_INSERT_ID();";
+                    var query = @"INSERT INTO section (
+                                    section_num, 
+                                    room_id, 
+                                    professor_id,
+                                    plan_id, 
+                                    section_time_slot_id, 
+                                    class_id) " +
+                                 "VALUES (@section_num, @room_id, @professor_id, @plan_id, @section_time_slot_id, @class_id);" +
+                                 "SELECT LAST_INSERT_ID();";
 
                     using (var connection = new MySqlConnection(connString))
                     {
@@ -416,7 +424,7 @@ namespace WebAPITest.Controllers
                 }
                 return Ok(newSections);
             }
-            //catch exception
+            // catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -433,8 +441,13 @@ namespace WebAPITest.Controllers
             {
                 // create the query string
                 string query = @"UPDATE section
-                                 SET section_num = @section_num, class_id = @class_id, room_id = @room_id, professor_id = @professor_id, plan_id = @plan_id, section_time_slot_id = @section_time_slot_id " +
-                                 "WHERE section_id = @section_id;";
+                                 SET section_num = @section_num,
+                                     class_id = @class_id,
+                                     room_id = @room_id,
+                                     professor_id = @professor_id,
+                                     plan_id = @plan_id,
+                                     section_time_slot_id = @section_time_slot_id " +
+                                "WHERE section_id = @section_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {

@@ -1,4 +1,5 @@
 ﻿using System;
+// this class handles a professor prefers to teach a class into the database
 namespace WebAPITest.Models
 {
     public class ClassesPreferToTeachDTO

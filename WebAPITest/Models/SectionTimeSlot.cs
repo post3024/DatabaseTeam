@@ -1,4 +1,6 @@
 using System;
+
+// this class handles the schema for a section_time_slot data object
 namespace WebAPITest.Models
 {
     public class SectionTimeSlotDTO
@@ -17,6 +19,7 @@ namespace WebAPITest.Models
 
         public bool on_friday { get; set; }
 
+        // constructor
         public SectionTimeSlotDTO(int section_time_slot_id, int time_slot_id, bool on_monday, bool on_tuesday, bool on_wednesday, bool on_thursday, bool on_friday)
         {
             this.section_time_slot_id = section_time_slot_id;

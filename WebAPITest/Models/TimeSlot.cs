@@ -1,4 +1,5 @@
 using System;
+// this class handles the schema for a time slot
 namespace WebAPITest.Models
 {
     public class TimeSlotDTO
@@ -9,6 +10,7 @@ namespace WebAPITest.Models
 
         public string end_time { get; set; }
 
+        // constructor
         public TimeSlotDTO(int time_slot_id, string start_time, string end_time)
         {
             this.time_slot_id = time_slot_id;

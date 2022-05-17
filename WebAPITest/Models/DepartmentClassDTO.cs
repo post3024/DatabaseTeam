@@ -1,4 +1,6 @@
-﻿namespace WebAPITest.Models
+// This class handles the schema for an inner join between the class and department table﻿
+
+namespace WebAPITest.Models
 {
     public class DepartmentClassDTO
     {

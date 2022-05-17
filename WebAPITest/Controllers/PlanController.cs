@@ -41,7 +41,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"SELECT * FROM plan";
+                var query = @"SELECT * 
+                              FROM plan";
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
@@ -75,9 +76,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT * 
-                                 FROM plan 
-                                 WHERE plan_id = @plan_id;";
+                var query = @"SELECT * 
+                              FROM plan 
+                              WHERE plan_id = @plan_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -111,7 +112,7 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string deleteQuery = @"DELETE FROM plan " +
+                var deleteQuery = @"DELETE FROM plan " +
                                       "WHERE plan_id = @plan_id;";
 
                 using (var connection = new MySqlConnection(connString))
@@ -137,7 +138,7 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"INSERT INTO plan (plan_name, plan_description, semester_year, semester_num) " +
+                var query = @"INSERT INTO plan (plan_name, plan_description, semester_year, semester_num) " +
                                 "VALUES (@plan_name, @plan_description, @semester_year, @semester_num);" +
                                 "SELECT LAST_INSERT_ID();";
 
@@ -166,9 +167,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"UPDATE plan
+                var query = @"UPDATE plan
                                  SET plan_id = @new_plan_id, plan_name = @plan_name, plan_description = @plan_description,
-                                 semester_year = @semester_year, semester_num = @semester_num
+                                    semester_year = @semester_year, semester_num = @semester_num
                                  WHERE plan_id = @plan_id;";
 
                 using (var connection = new MySqlConnection(connString))
