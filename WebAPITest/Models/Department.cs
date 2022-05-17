@@ -1,4 +1,6 @@
 ﻿using System;
+
+// this class handles the schema for the department table
 namespace WebAPITest.Models
 {
     public class DepartmentDTO
