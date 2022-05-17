@@ -1,4 +1,5 @@
 using System;
+// this class handles the schema for a section time slot to be inserted into the database
 namespace WebAPITest.Models
 {
     public class SectionTimeSlotInsertDTO
@@ -16,6 +17,7 @@ namespace WebAPITest.Models
 
         public bool on_friday { get; set; }
 
+        // constructor
         public SectionTimeSlotInsertDTO(int time_slot_id, bool on_monday, bool on_tuesday, bool on_wednesday, bool on_thursday, bool on_friday)
         {
             this.time_slot_id = time_slot_id;
