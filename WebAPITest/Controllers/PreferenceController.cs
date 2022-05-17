@@ -41,8 +41,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT DISTINCT prof_id
-                                 FROM class_preference";
+                var query = @"SELECT DISTINCT prof_id
+                              FROM class_preference";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -81,9 +81,9 @@ namespace WebAPITest.Controllers
             {
                 List<ClassPreferenceDTO> class_preferences;
                 // Create query string
-                string query = @"SELECT *
-                                 FROM class_preference
-                                 WHERE prof_id = @professor_id;";
+                var query = @"SELECT *
+                              FROM class_preference
+                              WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -115,9 +115,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT *
-                                 FROM class_preference
-                                 WHERE prof_id = @professor_id;";
+                var query = @"SELECT *
+                              FROM class_preference
+                              WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -152,10 +152,10 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT professor.*
-                                 FROM class_preference
-                                 JOIN professor
-                                 WHERE class_preference.prof_id = professor.professor_id AND " +
+                var query = @"SELECT professor.*
+                              FROM class_preference
+                                JOIN professor
+                              WHERE class_preference.prof_id = professor.professor_id AND " +
                                  "class_id = @class_id AND can_teach = true;";
 
                 using (var connection = new MySqlConnection(connString))
@@ -196,9 +196,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT *
-                                 FROM class_preference
-                                 WHERE prof_id = @professor_id;";
+                var query = @"SELECT *
+                              FROM class_preference
+                              WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -233,10 +233,10 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT professor.*
-                                 FROM class_preference
-                                 JOIN professor
-                                 WHERE class_preference.prof_id = professor.professor_id AND " +
+                var query = @"SELECT professor.*
+                              FROM class_preference
+                              JOIN professor
+                              WHERE class_preference.prof_id = professor.professor_id AND " +
                                  "class_id = @class_id AND prefer_to_teach = true;";
 
                 using (var connection = new MySqlConnection(connString))
@@ -280,9 +280,9 @@ namespace WebAPITest.Controllers
                 try
                 {
                     // create the query string
-                    string query = @"INSERT INTO class_preference (class_id, prof_id, can_teach) " +
+                    var query = @"INSERT INTO class_preference (class_id, prof_id, can_teach) " +
                                     "VALUES (@class_id, @professor_id, @can_teach) " +
-                                    "ON DUPLICATE KEY UPDATE class_id = @class_id, prof_id = @professor_id, can_teach = @can_teach;";
+                                        "ON DUPLICATE KEY UPDATE class_id = @class_id, prof_id = @professor_id, can_teach = @can_teach;";
 
                     using (var connection = new MySqlConnection(connString))
                     {
@@ -317,9 +317,9 @@ namespace WebAPITest.Controllers
                 try
                 {
                     // create the query string
-                    string query = @"INSERT INTO class_preference (class_id, prof_id, prefer_to_teach) " +
+                    var query = @"INSERT INTO class_preference (class_id, prof_id, prefer_to_teach) " +
                                     "VALUES (@class_id, @professor_id, @prefer_to_teach)" +
-                                    "ON DUPLICATE KEY UPDATE class_id = @class_id, prof_id = @professor_id, prefer_to_teach = @prefer_to_teach;";
+                                        "ON DUPLICATE KEY UPDATE class_id = @class_id, prof_id = @professor_id, prefer_to_teach = @prefer_to_teach;";
 
                     using (var connection = new MySqlConnection(connString))
                     {
@@ -350,8 +350,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"DELETE FROM class_preference " +
-                                "WHERE prof_id = @professor_id;";
+                var query = @"DELETE FROM class_preference " +
+                             "WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -383,9 +383,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT *
-                                 FROM day_of_week_preference
-                                 WHERE prof_id = @professor_id;";
+                var query = @"SELECT *
+                              FROM day_of_week_preference
+                              WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -425,8 +425,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"INSERT INTO day_of_week_preference (prof_id, prefer_monday, prefer_tuesday, prefer_wednesday, prefer_thursday, prefer_friday) " +
-                                    "VALUES (@professor_id, @prefer_monday, @prefer_tuesday, @prefer_wednesday, @prefer_thursday, @prefer_friday) " +
+                var query = @"INSERT INTO day_of_week_preference (prof_id, prefer_monday, prefer_tuesday, prefer_wednesday, prefer_thursday, prefer_friday) " +
+                                "VALUES (@professor_id, @prefer_monday, @prefer_tuesday, @prefer_wednesday, @prefer_thursday, @prefer_friday) " +
                                     "ON DUPLICATE KEY UPDATE prof_id = @professor_id, prefer_monday = @prefer_monday, prefer_tuesday = @prefer_tuesday, prefer_wednesday = @prefer_wednesday, prefer_thursday = @prefer_thursday, prefer_friday = @prefer_friday;";
 
                 using (var connection = new MySqlConnection(connString))
@@ -462,8 +462,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"DELETE FROM day_of_week_preference " +
-                                "WHERE prof_id = @professor_id;";
+                var query = @"DELETE FROM day_of_week_preference " +
+                             "WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -494,9 +494,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT *
-                                 FROM time_of_day_preference
-                                 WHERE prof_id = @professor_id;";
+                var query = @"SELECT *
+                              FROM time_of_day_preference
+                              WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -536,8 +536,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"INSERT INTO time_of_day_preference (prof_id, prefer_morning, prefer_afternoon, prefer_evening) " +
-                                    "VALUES (@professor_id, @prefer_morning, @prefer_afternoon, @prefer_evening)" +
+                var query = @"INSERT INTO time_of_day_preference (prof_id, prefer_morning, prefer_afternoon, prefer_evening) " +
+                                "VALUES (@professor_id, @prefer_morning, @prefer_afternoon, @prefer_evening)" +
                                     "ON DUPLICATE KEY UPDATE prof_id = @professor_id, prefer_morning = @prefer_morning, " +
                                     "prefer_afternoon = @prefer_afternoon, prefer_evening = @prefer_evening;";
 
@@ -572,8 +572,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"DELETE FROM time_of_day_preference " +
-                                "WHERE prof_id = @professor_id;";
+                var query = @"DELETE FROM time_of_day_preference " +
+                             "WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -604,10 +604,10 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"SELECT t.time_slot_id, t.start_time, t.end_time, p.can_teach
-                                 FROM time_slot_preference p
-                                 JOIN time_slot t
-                                 WHERE p.prof_id = @professor_id AND p.time_slot_id = t.time_slot_id;";
+                var query = @"SELECT t.time_slot_id, t.start_time, t.end_time, p.can_teach
+                              FROM time_slot_preference p
+                              JOIN time_slot t
+                              WHERE p.prof_id = @professor_id AND p.time_slot_id = t.time_slot_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -650,9 +650,9 @@ namespace WebAPITest.Controllers
                 try
                 {
                     // create the query string
-                    string query = @"INSERT INTO time_slot_preference (time_slot_id, prof_id, can_teach) " +
-                                    "VALUES (@time_slot_id, @professor_id, @can_teach)" +
-                                    " ON DUPLICATE KEY UPDATE time_slot_id = @time_slot_id, prof_id = @professor_id, can_teach = @can_teach;";
+                    var query = @"INSERT INTO time_slot_preference (time_slot_id, prof_id, can_teach) " +
+                                 "VALUES (@time_slot_id, @professor_id, @can_teach) " +
+                                 "ON DUPLICATE KEY UPDATE time_slot_id = @time_slot_id, prof_id = @professor_id, can_teach = @can_teach;";
 
                     using (var connection = new MySqlConnection(connString))
                     {
@@ -683,8 +683,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"DELETE FROM time_slot_preference " +
-                                "WHERE prof_id = @professor_id;";
+                var query = @"DELETE FROM time_slot_preference " +
+                             "WHERE prof_id = @professor_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
