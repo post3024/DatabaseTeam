@@ -40,16 +40,18 @@ namespace WebAPITest.Controllers
             var rooms = new List<RoomDTO>();
             try
             {
-                //Create the query string
-                string query = @"SELECT * FROM room";
+                // Create the query string
+                var query = @"SELECT *
+                              FROM room";
+                              
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query
+                    // Execute the query
                     var result = await connection.QueryAsync<RoomDTO>(query, CommandType.Text);
                     rooms = result.ToList();
                 }
 
-                //If there are room records, return them
+                // If there are room records, return them
                 if (rooms.Count > 0)
                 {
                     return Ok(rooms);
@@ -59,7 +61,7 @@ namespace WebAPITest.Controllers
                     return NotFound();
                 }
             }
-            //Catch an excpetion and return an error status code
+            // Catch an excpetion and return an error status code
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -75,30 +77,30 @@ namespace WebAPITest.Controllers
             var rooms = new List<RoomDTO>();
             try
             {
-                //Create the query string
-                string query = @"SELECT * 
-                                 FROM room 
-                                 WHERE room_id = @room_id;";
+                // Create the query string
+                var query = @"SELECT * 
+                              FROM room 
+                              WHERE room_id = @room_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the the query
+                    // Execute the the query
                     var result = await connection.QueryAsync<RoomDTO>(query, new { room_id = room_id });
                     rooms = result.ToList();
                 }
 
-                //Return room records if they were found
+                // Return room records if they were found
                 if (rooms.Count > 0)
                 {
                     return Ok(rooms);
                 }
                 else
                 {
-                    //Return 404 not found otherwise
+                    // Return 404 not found otherwise
                     return NotFound();
                 }
             }
-            //Catch exceptions
+            // Catch exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -113,17 +115,18 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //Create query string
-                string deleteQuery = @"DELETE FROM room " +
-                                      "WHERE room_id = @room_id;";
+                // Create query string
+                var deleteQuery = @"DELETE FROM room " +
+                                   "WHERE room_id = @room_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query string
+                    // Execute the query string
                     var result = await connection.QueryAsync<ProfessorDTO>(deleteQuery, new { room_id = room_id});
                 }
                 return StatusCode(200, "Successfully deleted room " + room_id);
             }
+            // catch exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -138,21 +141,21 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //Create the query string
-                string query = @"INSERT INTO room (capacity, room_num, building_name) " +
+                // Create the query string
+                var query = @"INSERT INTO room (capacity, room_num, building_name) " +
                                 "VALUES (@capacity, @room_num, @building_name);" +
-                                "SELECT LAST_INSERT_ID();";
+                             "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query string
+                    // Execute the query string
                     var id = await connection.QueryAsync<int>(query, new { capacity = model.capacity, room_num = model.room_num, building_name = model.building_name});
                     int room_id = id.ToList()[0];
                     RoomDTO newRoom = new(room_id, model.room_num, model.capacity, model.building_name);
                     return Ok(newRoom);
                 }
             }
-            //Catch exception
+            // Catch exception
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
@@ -167,20 +170,20 @@ namespace WebAPITest.Controllers
         {
             try
             {
-                //create the query string
-                string query = @"UPDATE room
-                                 SET room_id = @new_room_id, " +
+                // create the query string
+                var query = @"UPDATE room
+                              SET room_id = @new_room_id, " +
                                  "capacity = @capacity, room_num = @room_num, building_name = @building_name  " +
-                                 "WHERE room_id = @room_id;";
+                             "WHERE room_id = @room_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
-                    //Execute the query
+                    // Execute the query
                     var result = await connection.QueryAsync(query, new { new_room_id = model.room_id, capacity = model.capacity, room_num = model.room_num, building_name = model.building_name, room_id = room_id});
                 }
                 return StatusCode(200, "Successfully updated room");
             }
-            //catch the exceptions
+            // catch the exceptions
             catch (Exception e)
             {
                 return StatusCode(500, e.Message);
