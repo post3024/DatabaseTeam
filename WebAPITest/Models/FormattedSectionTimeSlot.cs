@@ -1,4 +1,6 @@
 using System;
+
+// this class handles the schema for a formatted version of the section time slots table
 namespace WebAPITest.Models
 {
     public class FormattedSectionTimeSlot
