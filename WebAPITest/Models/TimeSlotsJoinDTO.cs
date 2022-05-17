@@ -1,4 +1,5 @@
 using System;
+// this class handles the schema of a join of the section_time_slot table and the time_slot table
 namespace WebAPITest.Models
 {
     public class TimeSlotsJoinDTO
