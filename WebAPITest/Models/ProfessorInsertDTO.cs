@@ -1,4 +1,6 @@
 ﻿using System;
+
+// this class handles the schema of a professor to be inserted into the database
 namespace WebAPITest.Models
 {
     public class ProfessorInsertDTO
