@@ -40,7 +40,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"SELECT * FROM department";
+                var query = @"SELECT *
+                              FROM department";
+                              
                 using (var connection = new MySqlConnection(connString))
                 {
                     // execute query string
@@ -73,7 +75,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string query = @"SELECT * FROM department WHERE dept_id = @dept_id;";
+                var query = @"SELECT *
+                                 FROM department
+                                 WHERE dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -107,8 +111,8 @@ namespace WebAPITest.Controllers
             try
             {
                 // create query string
-                string deleteQuery = @"DELETE FROM department
-                                 WHERE dept_id = @dept_id;";
+                var deleteQuery = @"DELETE FROM department
+                                    WHERE dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -133,9 +137,9 @@ namespace WebAPITest.Controllers
             try
             {
                 // Create query string
-                string query = @"INSERT INTO department (dept_name) " +
+                var query = @"INSERT INTO department (dept_name) " +
                                 "VALUES (@dept_name);" +
-                                "SELECT LAST_INSERT_ID();";
+                             "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
@@ -162,9 +166,10 @@ namespace WebAPITest.Controllers
             try
             {
                 // create the query string
-                string query = @"UPDATE department
-                                 SET dept_id = @new_dept_id, dept_name = @dept_name "+
-                                 "WHERE dept_id = @dept_id;";
+                var query = @"UPDATE department
+                                 SET dept_id = @new_dept_id, " +
+                                    "dept_name = @dept_name "+
+                              "WHERE dept_id = @dept_id;";
 
                 using (var connection = new MySqlConnection(connString))
                 {
