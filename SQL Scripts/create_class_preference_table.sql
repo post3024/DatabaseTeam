@@ -1,4 +1,5 @@
 USE classyschedule;
+-- This script will create the class_preference table
 CREATE TABLE class_preference (
     class_id INT NOT NULL,
     prof_id INT NOT NULL,
