@@ -1,3 +1,4 @@
+-- Create the time slot table 
 CREATE TABLE time_slot(
     time_slot_id INTEGER AUTO_INCREMENT,
     start_time VARCHAR(6),
@@ -5,6 +6,7 @@ CREATE TABLE time_slot(
     PRIMARY KEY(time_slot_id)
 );
 
+-- Insert the standard times
 INSERT INTO time_slot (start_time, end_time)
     VALUES ("08:00", "09:40"),
            ("08:15", "09:20"),
