@@ -143,8 +143,8 @@ namespace WebAPITest.Controllers
         }
 
         /// <summary>Create a new professor</summary>
-        /// <remarks>POST request that creates a new professor with inputted information. Returns all fields for the newly created professor
-        /// including the auto-generated professor id and randomly created password for the new user.</remarks>
+        /// <remarks>POST request that creates a new professor with inputted information. Creates a new user account for the
+        /// professor and sends a email to the supplied address with the randomly generated password for login.</remarks>
         [HttpPost("professors/create")]
         [Authorize("admin")]
         public async Task<ActionResult<CreateProfessorDTO>> InsertProfessor(ProfessorInsertDTO model)

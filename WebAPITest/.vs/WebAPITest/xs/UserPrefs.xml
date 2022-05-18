@@ -1,16 +1,17 @@
 ﻿<Properties StartupConfiguration="{F3CAD161-51E7-4CC1-9725-0AB2815A95F5}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/UserController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/ProfessorController.cs">
     <Files>
-      <File FileName="Controllers/TimeSlotController.cs" Line="103" Column="10" />
-      <File FileName="Controllers/SectionTimeSlotController.cs" Line="35" Column="95" />
-      <File FileName="Controllers/PreferenceController.cs" Line="543" Column="1" />
-      <File FileName="Controllers/ClassController.cs" Line="254" Column="98" />
-      <File FileName="Controllers/DepartmentController.cs" Line="43" Column="32" />
-      <File FileName="Controllers/PlanController.cs" Line="44" Column="32" />
-      <File FileName="Controllers/ProfessorController.cs" Line="52" Column="32" />
-      <File FileName="Controllers/RoomController.cs" Line="44" Column="32" />
-      <File FileName="Controllers/SectionController.cs" Line="43" Column="32" />
+      <File FileName="Controllers/TimeSlotController.cs" Line="104" Column="10" />
+      <File FileName="Controllers/SectionTimeSlotController.cs" Line="117" Column="1" />
+      <File FileName="Controllers/PreferenceController.cs" />
+      <File FileName="Controllers/ClassController.cs" />
+      <File FileName="Controllers/DepartmentController.cs" />
+      <File FileName="Controllers/PlanController.cs" />
+      <File FileName="Controllers/ProfessorController.cs" Line="147" Column="64" />
+      <File FileName="Controllers/RoomController.cs" Line="147" Column="56" />
+      <File FileName="Controllers/SectionController.cs" />
       <File FileName="Controllers/UserController.cs" Line="111" Column="75" />
+      <File FileName="Services/UserService.cs" Line="94" Column="45" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,8 +19,10 @@
           <Node name="WebAPITest" expanded="True">
             <Node name="WebAPITest" expanded="True">
               <Node name="Controllers" expanded="True">
-                <Node name="UserController.cs" selected="True" />
+                <Node name="ProfessorController.cs" selected="True" />
               </Node>
+              <Node name="Helpers" expanded="True" />
+              <Node name="Properties" expanded="True" />
               <Node name="Services" expanded="True" />
             </Node>
           </Node>

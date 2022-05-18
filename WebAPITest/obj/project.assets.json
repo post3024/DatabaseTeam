@@ -1660,26 +1660,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\btbor\\.nuget\\packages\\": {}
+    "/Users/laurapost/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
+      "projectUniqueName": "/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/WebAPITest.csproj",
       "projectName": "WebAPITest",
-      "projectPath": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\WebAPITest.csproj",
-      "packagesPath": "C:\\Users\\btbor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\btbor\\Source\\Repos\\DatabaseTeam\\WebAPITest\\obj\\",
+      "projectPath": "/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/WebAPITest.csproj",
+      "packagesPath": "/Users/laurapost/.nuget/packages/",
+      "outputPath": "/Users/laurapost/Documents/GitHub/DatabaseTeam/WebAPITest/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\btbor\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/laurapost/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1741,12 +1739,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.15, 5.0.15]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -1755,7 +1747,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.407/RuntimeIdentifierGraph.json"
       }
     }
   }

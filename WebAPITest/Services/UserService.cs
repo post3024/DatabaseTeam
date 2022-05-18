@@ -174,16 +174,15 @@ namespace WebAPITest.Services
             try
             {
                 // create the query string
-                string query = @"INSERT INTO users (user_email, user_password, salt, user_role) " +
-                                "VALUES ('" + model.username + "','" + hashed + "','" + saltStr + "','admin');";
-                string queryId = @"SELECT LAST_INSERT_ID();";
+                string query = @"INSERT INTO users (user_email, first_name, last_name, user_password, salt, user_role) " +
+                                "VALUES ('" + model.username + "','" + model.first_name + "','" + model.last_name + "','" + hashed + "','" + saltStr + "','admin'); " +
+                                "SELECT LAST_INSERT_ID();";
 
                 using (var connection = new MySqlConnection(connString))
                 {
                     // Execute the query
-                    var result = await connection.QueryAsync<ProfUser>(query, CommandType.Text);
-                    var id = await connection.QueryAsync<String>(queryId, CommandType.Text);
-                    int user_id = Convert.ToInt32(id.ToList()[0]);
+                    var result = await connection.QueryAsync<int>(query, CommandType.Text);
+                    int user_id = result.ToList()[0];
                     return new CreateUserResponse(user_id, model.username);
                 }
             }

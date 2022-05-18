@@ -14,6 +14,8 @@ namespace WebAPITest.Models
         public AuthenticateResponse(User user, string token)
         {
             username = user.user_email;
+            first_name = user.first_name;
+            last_name = user.last_name;
             user_id = user.user_id;
             this.token = token;
             user_role = user.user_role;
@@ -22,6 +24,8 @@ namespace WebAPITest.Models
         public AuthenticateResponse(ProfUser user, string token)
         {
             username = user.user_email;
+            first_name = user.first_name;
+            last_name = user.last_name;
             user_id = user.professor_id;
             this.token = token;
             user_role = user.user_role;

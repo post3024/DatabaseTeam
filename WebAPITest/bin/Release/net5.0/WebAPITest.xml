@@ -240,11 +240,11 @@
         </member>
         <member name="M:WebAPITest.Controllers.SectionTimeSlotController.GetAllSectionTimeSlots">
             <summary>Get all section time slots</summary>
-            <remarks>GET request that retrieves all section time slots.</remarks>
+            <remarks>GET request that retrieves all section time slots. Ordered by start time.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.SectionTimeSlotController.GetAllFormattedSectionTimeSlots">
             <summary>Get all section time slots formatted to id, time, and partOfDay</summary>
-            <remarks>GET request that retrieves all section time slots and formats them to id, time, and partOfDay.</remarks>
+            <remarks>GET request that retrieves all section time slots and formats them to id, time, and partOfDay. Ordered by start time.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.SectionTimeSlotController.GetSectionTimeSlotById(System.Int32)">
             <summary>Get section time slot by section_time_slot_id</summary>
@@ -265,14 +265,6 @@
         <member name="M:WebAPITest.Controllers.TimeSlotController.GetTimeSlotById(System.Int32)">
             <summary>Get time slot by time_slot_id</summary>
             <remarks>GET request that retrieves the time slot with specified time slot id.</remarks>
-        </member>
-        <member name="M:WebAPITest.Controllers.TimeSlotController.DeleteTimeSlotById(System.Int32)">
-            <summary>Delete time slot by time slot id</summary>
-            <remarks>DELETE request that deletes the time slot with specified time slot id.</remarks>
-        </member>
-        <member name="M:WebAPITest.Controllers.TimeSlotController.InsertTimeSlot(WebAPITest.Models.TimeSlotInsertDTO)">
-            <summary>Create a new time slot</summary>
-            <remarks>POST request that creates a new time slot with the inputted information.</remarks>
         </member>
         <member name="M:WebAPITest.Controllers.UsersController.CreateAdmin(WebAPITest.Models.CreateAdminDTO)">
             <summary>Create a new admin user</summary>

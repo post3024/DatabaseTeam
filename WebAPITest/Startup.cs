@@ -38,7 +38,7 @@ namespace WebAPITest
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
                     Title ="Classy Schedule API",
-                    Description = "An ASP.NET Core Web API for creating class schedules",
+                    Description = "A .NET 5.0 Web API for creating class schedules",
                     Version = "v1"
                 });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
