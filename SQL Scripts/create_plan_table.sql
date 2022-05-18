@@ -1,4 +1,5 @@
 USE classyschedule;
+-- This script will create the plan table
 CREATE TABLE plan (
     plan_id INTEGER AUTO_INCREMENT PRIMARY KEY,
     plan_name VARCHAR(40),
