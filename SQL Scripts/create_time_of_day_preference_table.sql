@@ -1,4 +1,5 @@
 USE classyschedule;
+-- This script will create the time of day preference table for the professor
 CREATE TABLE time_of_day_preference (
     prof_id INT NOT NULL,
     prefer_morning BOOLEAN,
