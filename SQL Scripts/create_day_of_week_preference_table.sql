@@ -1,4 +1,5 @@
 USE classyschedule;
+-- This script will create the day of week preference table for professors
 CREATE TABLE day_of_week_preference (
     prof_id INT NOT NULL,
     prefer_monday BOOLEAN,
