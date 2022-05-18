@@ -1,4 +1,5 @@
 USE classyschedule;
+-- This script will create the section table
 CREATE TABLE section(
     section_id INTEGER AUTO_INCREMENT,
     section_num INTEGER,
