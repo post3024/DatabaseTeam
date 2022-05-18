@@ -1,4 +1,5 @@
 USE classyschedule;
+-- This script will create the section time slot table
 CREATE TABLE section_time_slot(
     section_time_slot_id INTEGER AUTO_INCREMENT,
     start_time VARCHAR(6),
