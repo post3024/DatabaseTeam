@@ -1,4 +1,6 @@
 USE classyschedule;
+-- This script will create the time slot preference table,
+-- this is a relationship between the professor and time slot tables
 CREATE TABLE time_slot_preference (
     time_slot_id INT NOT NULL,
     prof_id INT NOT NULL,
