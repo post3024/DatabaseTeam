@@ -1,4 +1,4 @@
--- This script will create the time section slot table
+-- This script will create the section time slot table
 CREATE TABLE section_time_slot(
     section_time_slot_id INTEGER AUTO_INCREMENT,
     on_monday BOOLEAN DEFAULT false,
